@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ReportDeport.Models.TemplateViewModel>
+
+@{
+    ViewBag.Title = "Templates";
+}
+
+<center><h2>Tempaltes</h2></center>
+
+<hr>
+
+@*@if (User.IsInRole("Admin"))*@
+
+    <center>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    </center>
+
+
+<hr>
+
+
+<table class="table">
+
+    @{
+        int count = 0;
+        var rows = (double) Model.ToList().Count / (double)3;
+        int numRows = Convert.ToInt32(Math.Ceiling(Double.Parse(rows.ToString())));
+
+        for (int i = 0; i < numRows; i++)
+        {
+            <tr>
+                @for (int j = 0; j < 3; j++)
+                {
+                    if (count < Model.ToList().Count)
+                    {
+
+                        string imgPath = "";
+
+                        <td>
+                            <button class="btn btn-primary">
+                                <center><p>@Html.DisplayFor(modelItem => Model.ElementAt(count).name)<p></center>
+                                <p></p>
+                                <center> <img src=@Url.Content(imgPath) style="width:130px; border-radius:10px;"> </center>
+                                <p></p>
+                                <center><p>@Html.DisplayFor(modelItem => Model.ElementAt(count).description)</p></center>
+                                @*<center><p>R @Html.DisplayFor(modelItem => Model.ElementAt(count).price)</p></center>*@
+                            </button>
+
+                            <center>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    @Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(count).Id }) }
+
+                                |@Html.ActionLink("Details", "Details", new { id = Model.ElementAt(count).Id }) |
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    @Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(count).Id })
+                                }
+
+                                @if (User.IsInRole("Customer") && !User.IsInRole("Admin"))
+                                {
+                                    @Html.ActionLink("Add to Cart", "addToCart", new { id = Model.ElementAt(count).Id })
+                                }
+                            </center>
+                        </td>
+
+
+                        count++;
+                    }
+
+                }
+            </tr>
+        }
+    }
+</table>

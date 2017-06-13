@@ -29,5 +29,7 @@ namespace ReportDeport.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<ReportDeport.Models.TemplateViewModel> TemplateViewModels { get; set; }
     }
 }
