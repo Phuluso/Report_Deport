@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ReportDeport.Models
 {
-   public class TemplateViewModel
+   public class Template
     {
         [Key]
         public int Id { get; set; }
@@ -15,17 +15,25 @@ namespace ReportDeport.Models
         public List<string> topFields { get; set; }
     }
 
-
-    public class ContactInfo
+    public class ContactForm
     {
+
         [Key]
-        public int Id { get; set; }
+        public int ContactFormId { get; set; }
+
         public string name { get; set; }
+        //email used for who to contact regarding complaint
+        public string emailAddress { get; set; }
+        public DateTime date { get; set; }
         public string position { get; set; }
         public string department { get; set; }
-        public string email { get; set; }
-        public string subject { get; set; }
         public string message { get; set; }
+        public string subject { get; set; }
+        //email to track id of signed in user
+        public string conpanyEmail { get; set; }
+
+        //may need to add a foreign key tag
     }
+
 
 }

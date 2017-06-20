@@ -30,8 +30,8 @@ namespace ReportDeport.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ReportDeport.Models.TemplateViewModel> TemplateViewModels { get; set; }
+        public System.Data.Entity.DbSet<ReportDeport.Models.Template> Template { get; set; }
 
-        public System.Data.Entity.DbSet<ReportDeport.Models.ContactInfo> ContactInfoes { get; set; }
+        public System.Data.Entity.DbSet<ReportDeport.Models.ContactForm> ContactForms { get; set; }
     }
 }

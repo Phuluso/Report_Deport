@@ -1,0 +1,1810 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ReportDepotModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contactForm">
+          <Key>
+            <PropertyRef Name="contactFormId" />
+          </Key>
+          <Property Name="contactFormId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" />
+          <Property Name="emailAddress" Type="nvarchar" MaxLength="256" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="position" Type="nchar" MaxLength="10" />
+          <Property Name="department" Type="nchar" MaxLength="10" />
+          <Property Name="message" Type="nchar" MaxLength="10" />
+          <Property Name="subject" Type="nchar" MaxLength="10" />
+          <Property Name="aspUserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="courseId" />
+          </Key>
+          <Property Name="courseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="shortname" Type="varchar" MaxLength="100" />
+          <Property Name="idnumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="startdate" Type="datetime" Nullable="false" />
+          <Property Name="visible" Type="bit" Nullable="false" />
+          <Property Name="timecreated" Type="datetime" Nullable="false" />
+          <Property Name="timemodified" Type="datetime" Nullable="false" />
+          <Property Name="enablecompletion" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="course_categories">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="idnumber" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="coursecount" Type="int" Nullable="false" />
+          <Property Name="visible" Type="bit" Nullable="false" />
+          <Property Name="timemodified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="course_completions">
+          <Key>
+            <PropertyRef Name="course_completionsId" />
+          </Key>
+          <Property Name="course_completionsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="courseId" Type="int" />
+          <Property Name="timeenrolled" Type="datetime" />
+          <Property Name="timestarted" Type="datetime" />
+          <Property Name="timecompleted" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="enrol">
+          <Key>
+            <PropertyRef Name="enrolId" />
+          </Key>
+          <Property Name="enrolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enrol" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="courseId" Type="int" Nullable="false" />
+          <Property Name="enrolstartdate" Type="datetime" Nullable="false" />
+          <Property Name="enrolenddate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ReportDepot.dbo.Magwinya' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Magwinya">
+          <Property Name="magIndex" Type="int" />
+          <Property Name="questions" Type="nvarchar(max)" />
+        </EntityType>-->
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="questionId" />
+          </Key>
+          <Property Name="questionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryId" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="questiontext" Type="varchar(max)" />
+          <Property Name="defaultmark" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="timecreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="question_answers">
+          <Key>
+            <PropertyRef Name="question_answersId" />
+          </Key>
+          <Property Name="question_answersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionId" Type="int" Nullable="false" />
+          <Property Name="answer" Type="varchar(max)" />
+          <Property Name="fraction" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="feedback" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="question_attempt_steps">
+          <Key>
+            <PropertyRef Name="question_attempt_stepsId" />
+          </Key>
+          <Property Name="question_attempt_stepsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_attemptsId" Type="int" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="20" />
+          <Property Name="fraction" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="timecreated" Type="datetime" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="question_attempts">
+          <Key>
+            <PropertyRef Name="question_attemptsId" />
+          </Key>
+          <Property Name="question_attemptsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionId" Type="int" Nullable="false" />
+          <Property Name="maxmark" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="minfraction" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="maxfraction" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="questionssummary" Type="varchar(max)" />
+          <Property Name="rightanswer" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="question_categories">
+          <Key>
+            <PropertyRef Name="question_categoriesId" />
+          </Key>
+          <Property Name="question_categoriesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="info" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="quiz">
+          <Key>
+            <PropertyRef Name="quizId" />
+          </Key>
+          <Property Name="quizId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="courseId" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="attempts" Type="int" />
+          <Property Name="sumgrades" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="grade" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="timecreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="quiz_attempts">
+          <Key>
+            <PropertyRef Name="quiz_attempts" />
+          </Key>
+          <Property Name="quiz_attempts" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quizId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="attempt" Type="int" />
+          <Property Name="state" Type="nchar" MaxLength="20" />
+          <Property Name="timestart" Type="datetime" />
+          <Property Name="timefinish" Type="datetime" />
+          <Property Name="sumgrades" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="quiz_grades">
+          <Key>
+            <PropertyRef Name="quiz_gradesId" />
+          </Key>
+          <Property Name="quiz_gradesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quizId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="grade" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="quiz_slots">
+          <Key>
+            <PropertyRef Name="quiz_gradesId" />
+          </Key>
+          <Property Name="quiz_gradesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quizId" Type="int" Nullable="false" />
+          <Property Name="questionId" Type="int" Nullable="false" />
+          <Property Name="maxmark" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="shortname" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="role_assignments">
+          <Key>
+            <PropertyRef Name="role_assignmentsId" />
+          </Key>
+          <Property Name="role_assignmentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+          <Property Name="shortname" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deleted" Type="bit" />
+          <Property Name="username" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="100" />
+          <Property Name="country" Type="varchar" MaxLength="100" />
+          <Property Name="firstaccess" Type="datetime" />
+          <Property Name="lastaccess" Type="datetime" />
+          <Property Name="timecreated" Type="datetime" />
+          <Property Name="timemodified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="user_enrolments">
+          <Key>
+            <PropertyRef Name="user_enrolmentsId" />
+          </Key>
+          <Property Name="user_enrolmentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="timestart" Type="datetime" />
+          <Property Name="timeend" Type="datetime" />
+          <Property Name="timecreated" Type="datetime" />
+          <Property Name="timemodified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="user_info_data">
+          <Key>
+            <PropertyRef Name="user_info_dataId" />
+          </Key>
+          <Property Name="user_info_dataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="user_info_fieldId" Type="int" Nullable="false" />
+          <Property Name="data" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="user_info_field">
+          <Key>
+            <PropertyRef Name="user_info_fieldId" />
+          </Key>
+          <Property Name="user_info_fieldId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="shortname" Type="varchar" MaxLength="100" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="datatype" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="required" Type="bit" />
+          <Property Name="visible" Type="bit" />
+          <Property Name="defaultdata" Type="varchar" MaxLength="100" />
+          <Property Name="param1" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_contactForm_contactForm">
+          <End Role="contactForm" Type="Self.contactForm" Multiplicity="1" />
+          <End Role="contactForm1" Type="Self.contactForm" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="contactForm">
+              <PropertyRef Name="contactFormId" />
+            </Principal>
+            <Dependent Role="contactForm1">
+              <PropertyRef Name="contactFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_course_completions_courseId">
+          <End Role="course" Type="Self.course" Multiplicity="0..1" />
+          <End Role="course_completions" Type="Self.course_completions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="course_completions">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_course_completions_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="course_completions" Type="Self.course_completions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="course_completions">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enrol_courseId">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="enrol" Type="Self.enrol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="enrol">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_answers_question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="question_answers" Type="Self.question_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="question_answers">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_attempt_steps_question_attempts">
+          <End Role="question_attempts" Type="Self.question_attempts" Multiplicity="1" />
+          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question_attempts">
+              <PropertyRef Name="question_attemptsId" />
+            </Principal>
+            <Dependent Role="question_attempt_steps">
+              <PropertyRef Name="question_attemptsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_attempt_steps_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="question_attempt_steps">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_attempts_question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="question_attempts" Type="Self.question_attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="question_attempts">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_course_categoryId">
+          <End Role="course_categories" Type="Self.course_categories" Multiplicity="1" />
+          <End Role="question" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course_categories">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="question">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_attempts_quiz">
+          <End Role="quiz" Type="Self.quiz" Multiplicity="1" />
+          <End Role="quiz_attempts" Type="Self.quiz_attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="quiz_attempts">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_attempts_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="quiz_attempts" Type="Self.quiz_attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="quiz_attempts">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_course">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="quiz" Type="Self.quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="quiz">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_grades_quiz">
+          <End Role="quiz" Type="Self.quiz" Multiplicity="1" />
+          <End Role="quiz_grades" Type="Self.quiz_grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="quiz_grades">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_grades_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="quiz_grades" Type="Self.quiz_grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="quiz_grades">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_slots_question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="quiz_slots" Type="Self.quiz_slots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="quiz_slots">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_slots_quiz">
+          <End Role="quiz" Type="Self.quiz" Multiplicity="1" />
+          <End Role="quiz_slots" Type="Self.quiz_slots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="quiz_slots">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_role_assignments_role_assignments">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="role_assignments" Type="Self.role_assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="role_assignments">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_enrolments_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_enrolments" Type="Self.user_enrolments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="user_enrolments">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_info_data_user_info_field">
+          <End Role="user_info_field" Type="Self.user_info_field" Multiplicity="1" />
+          <End Role="user_info_data" Type="Self.user_info_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info_field">
+              <PropertyRef Name="user_info_fieldId" />
+            </Principal>
+            <Dependent Role="user_info_data">
+              <PropertyRef Name="user_info_fieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_info_data_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_info_data" Type="Self.user_info_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="user_info_data">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReportDepotModel1StoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contactForm" EntityType="Self.contactForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course" EntityType="Self.course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course_categories" EntityType="Self.course_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course_completions" EntityType="Self.course_completions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="enrol" EntityType="Self.enrol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="question" EntityType="Self.question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="question_answers" EntityType="Self.question_answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="question_attempt_steps" EntityType="Self.question_attempt_steps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="question_attempts" EntityType="Self.question_attempts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="question_categories" EntityType="Self.question_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quiz" EntityType="Self.quiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quiz_attempts" EntityType="Self.quiz_attempts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quiz_grades" EntityType="Self.quiz_grades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quiz_slots" EntityType="Self.quiz_slots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role_assignments" EntityType="Self.role_assignments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_enrolments" EntityType="Self.user_enrolments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_info_data" EntityType="Self.user_info_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_info_field" EntityType="Self.user_info_field" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_contactForm_contactForm" Association="Self.FK_contactForm_contactForm">
+            <End Role="contactForm" EntitySet="contactForm" />
+            <End Role="contactForm1" EntitySet="contactForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_course_completions_courseId" Association="Self.FK_course_completions_courseId">
+            <End Role="course" EntitySet="course" />
+            <End Role="course_completions" EntitySet="course_completions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_course_completions_userId" Association="Self.FK_course_completions_userId">
+            <End Role="user" EntitySet="user" />
+            <End Role="course_completions" EntitySet="course_completions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enrol_courseId" Association="Self.FK_enrol_courseId">
+            <End Role="course" EntitySet="course" />
+            <End Role="enrol" EntitySet="enrol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_answers_question" Association="Self.FK_question_answers_question">
+            <End Role="question" EntitySet="question" />
+            <End Role="question_answers" EntitySet="question_answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_attempt_steps_question_attempts" Association="Self.FK_question_attempt_steps_question_attempts">
+            <End Role="question_attempts" EntitySet="question_attempts" />
+            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_attempt_steps_user" Association="Self.FK_question_attempt_steps_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_attempts_question" Association="Self.FK_question_attempts_question">
+            <End Role="question" EntitySet="question" />
+            <End Role="question_attempts" EntitySet="question_attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_course_categoryId" Association="Self.FK_question_course_categoryId">
+            <End Role="course_categories" EntitySet="course_categories" />
+            <End Role="question" EntitySet="question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_attempts_quiz" Association="Self.FK_quiz_attempts_quiz">
+            <End Role="quiz" EntitySet="quiz" />
+            <End Role="quiz_attempts" EntitySet="quiz_attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_attempts_user" Association="Self.FK_quiz_attempts_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="quiz_attempts" EntitySet="quiz_attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_course" Association="Self.FK_quiz_course">
+            <End Role="course" EntitySet="course" />
+            <End Role="quiz" EntitySet="quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_grades_quiz" Association="Self.FK_quiz_grades_quiz">
+            <End Role="quiz" EntitySet="quiz" />
+            <End Role="quiz_grades" EntitySet="quiz_grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_grades_userId" Association="Self.FK_quiz_grades_userId">
+            <End Role="user" EntitySet="user" />
+            <End Role="quiz_grades" EntitySet="quiz_grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_slots_question" Association="Self.FK_quiz_slots_question">
+            <End Role="question" EntitySet="question" />
+            <End Role="quiz_slots" EntitySet="quiz_slots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_slots_quiz" Association="Self.FK_quiz_slots_quiz">
+            <End Role="quiz" EntitySet="quiz" />
+            <End Role="quiz_slots" EntitySet="quiz_slots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_role_assignments_role_assignments" Association="Self.FK_role_assignments_role_assignments">
+            <End Role="role" EntitySet="role" />
+            <End Role="role_assignments" EntitySet="role_assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_enrolments_userId" Association="Self.FK_user_enrolments_userId">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_enrolments" EntitySet="user_enrolments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_info_data_user_info_field" Association="Self.FK_user_info_data_user_info_field">
+            <End Role="user_info_field" EntitySet="user_info_field" />
+            <End Role="user_info_data" EntitySet="user_info_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_info_data_userId" Association="Self.FK_user_info_data_userId">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_info_data" EntitySet="user_info_data" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReportDepotModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="contactForm">
+          <Key>
+            <PropertyRef Name="contactFormId" />
+          </Key>
+          <Property Name="contactFormId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="emailAddress" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="position" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="department" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="message" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="subject" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="aspUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contactForm1" Relationship="Self.FK_contactForm_contactForm" FromRole="contactForm" ToRole="contactForm1" />
+          <NavigationProperty Name="contactForm2" Relationship="Self.FK_contactForm_contactForm" FromRole="contactForm1" ToRole="contactForm" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="courseId" />
+          </Key>
+          <Property Name="courseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shortname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idnumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="startdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="visible" Type="Boolean" Nullable="false" />
+          <Property Name="timecreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="timemodified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="enablecompletion" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="course_completions" Relationship="Self.FK_course_completions_courseId" FromRole="course" ToRole="course_completions" />
+          <NavigationProperty Name="enrols" Relationship="Self.FK_enrol_courseId" FromRole="course" ToRole="enrol" />
+          <NavigationProperty Name="quizs" Relationship="Self.FK_quiz_course" FromRole="course" ToRole="quiz" />
+        </EntityType>
+        <EntityType Name="course_categories">
+          <Key>
+            <PropertyRef Name="categoryId" />
+          </Key>
+          <Property Name="categoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idnumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coursecount" Type="Int32" Nullable="false" />
+          <Property Name="visible" Type="Boolean" Nullable="false" />
+          <Property Name="timemodified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="questions" Relationship="Self.FK_question_course_categoryId" FromRole="course_categories" ToRole="question" />
+        </EntityType>
+        <EntityType Name="course_completions">
+          <Key>
+            <PropertyRef Name="course_completionsId" />
+          </Key>
+          <Property Name="course_completionsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="courseId" Type="Int32" />
+          <Property Name="timeenrolled" Type="DateTime" Precision="3" />
+          <Property Name="timestarted" Type="DateTime" Precision="3" />
+          <Property Name="timecompleted" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="course" Relationship="Self.FK_course_completions_courseId" FromRole="course_completions" ToRole="course" />
+          <NavigationProperty Name="user" Relationship="Self.FK_course_completions_userId" FromRole="course_completions" ToRole="user" />
+        </EntityType>
+        <EntityType Name="enrol">
+          <Key>
+            <PropertyRef Name="enrolId" />
+          </Key>
+          <Property Name="enrolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enrol1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="courseId" Type="Int32" Nullable="false" />
+          <Property Name="enrolstartdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="enrolenddate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="course" Relationship="Self.FK_enrol_courseId" FromRole="enrol" ToRole="course" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="questionId" />
+          </Key>
+          <Property Name="questionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="questiontext" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="defaultmark" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="timecreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="course_categories" Relationship="Self.FK_question_course_categoryId" FromRole="question" ToRole="course_categories" />
+          <NavigationProperty Name="question_answers" Relationship="Self.FK_question_answers_question" FromRole="question" ToRole="question_answers" />
+          <NavigationProperty Name="question_attempts" Relationship="Self.FK_question_attempts_question" FromRole="question" ToRole="question_attempts" />
+          <NavigationProperty Name="quiz_slots" Relationship="Self.FK_quiz_slots_question" FromRole="question" ToRole="quiz_slots" />
+        </EntityType>
+        <EntityType Name="question_answers">
+          <Key>
+            <PropertyRef Name="question_answersId" />
+          </Key>
+          <Property Name="question_answersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionId" Type="Int32" Nullable="false" />
+          <Property Name="answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fraction" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="question" Relationship="Self.FK_question_answers_question" FromRole="question_answers" ToRole="question" />
+        </EntityType>
+        <EntityType Name="question_attempt_steps">
+          <Key>
+            <PropertyRef Name="question_attempt_stepsId" />
+          </Key>
+          <Property Name="question_attempt_stepsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_attemptsId" Type="Int32" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fraction" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="timecreated" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="question_attempts" Relationship="Self.FK_question_attempt_steps_question_attempts" FromRole="question_attempt_steps" ToRole="question_attempts" />
+          <NavigationProperty Name="user" Relationship="Self.FK_question_attempt_steps_user" FromRole="question_attempt_steps" ToRole="user" />
+        </EntityType>
+        <EntityType Name="question_attempts">
+          <Key>
+            <PropertyRef Name="question_attemptsId" />
+          </Key>
+          <Property Name="question_attemptsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionId" Type="Int32" Nullable="false" />
+          <Property Name="maxmark" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="minfraction" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="maxfraction" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="questionssummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="rightanswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="question" Relationship="Self.FK_question_attempts_question" FromRole="question_attempts" ToRole="question" />
+          <NavigationProperty Name="question_attempt_steps" Relationship="Self.FK_question_attempt_steps_question_attempts" FromRole="question_attempts" ToRole="question_attempt_steps" />
+        </EntityType>
+        <EntityType Name="question_categories">
+          <Key>
+            <PropertyRef Name="question_categoriesId" />
+          </Key>
+          <Property Name="question_categoriesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="quiz">
+          <Key>
+            <PropertyRef Name="quizId" />
+          </Key>
+          <Property Name="quizId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="courseId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="attempts" Type="Int32" />
+          <Property Name="sumgrades" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="grade" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="timecreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="course" Relationship="Self.FK_quiz_course" FromRole="quiz" ToRole="course" />
+          <NavigationProperty Name="quiz_attempts" Relationship="Self.FK_quiz_attempts_quiz" FromRole="quiz" ToRole="quiz_attempts" />
+          <NavigationProperty Name="quiz_grades" Relationship="Self.FK_quiz_grades_quiz" FromRole="quiz" ToRole="quiz_grades" />
+          <NavigationProperty Name="quiz_slots" Relationship="Self.FK_quiz_slots_quiz" FromRole="quiz" ToRole="quiz_slots" />
+        </EntityType>
+        <EntityType Name="quiz_attempts">
+          <Key>
+            <PropertyRef Name="quiz_attempts1" />
+          </Key>
+          <Property Name="quiz_attempts1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quizId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="attempt" Type="Int32" />
+          <Property Name="state" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="timestart" Type="DateTime" Precision="3" />
+          <Property Name="timefinish" Type="DateTime" Precision="3" />
+          <Property Name="sumgrades" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="quiz" Relationship="Self.FK_quiz_attempts_quiz" FromRole="quiz_attempts" ToRole="quiz" />
+          <NavigationProperty Name="user" Relationship="Self.FK_quiz_attempts_user" FromRole="quiz_attempts" ToRole="user" />
+        </EntityType>
+        <EntityType Name="quiz_grades">
+          <Key>
+            <PropertyRef Name="quiz_gradesId" />
+          </Key>
+          <Property Name="quiz_gradesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quizId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="quiz" Relationship="Self.FK_quiz_grades_quiz" FromRole="quiz_grades" ToRole="quiz" />
+          <NavigationProperty Name="user" Relationship="Self.FK_quiz_grades_userId" FromRole="quiz_grades" ToRole="user" />
+        </EntityType>
+        <EntityType Name="quiz_slots">
+          <Key>
+            <PropertyRef Name="quiz_gradesId" />
+          </Key>
+          <Property Name="quiz_gradesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quizId" Type="Int32" Nullable="false" />
+          <Property Name="questionId" Type="Int32" Nullable="false" />
+          <Property Name="maxmark" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="question" Relationship="Self.FK_quiz_slots_question" FromRole="quiz_slots" ToRole="question" />
+          <NavigationProperty Name="quiz" Relationship="Self.FK_quiz_slots_quiz" FromRole="quiz_slots" ToRole="quiz" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="shortname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="role_assignments" Relationship="Self.FK_role_assignments_role_assignments" FromRole="role" ToRole="role_assignments" />
+        </EntityType>
+        <EntityType Name="role_assignments">
+          <Key>
+            <PropertyRef Name="role_assignmentsId" />
+          </Key>
+          <Property Name="role_assignmentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleId" Type="Int32" Nullable="false" />
+          <Property Name="shortname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="role" Relationship="Self.FK_role_assignments_role_assignments" FromRole="role_assignments" ToRole="role" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deleted" Type="Boolean" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="firstaccess" Type="DateTime" Precision="3" />
+          <Property Name="lastaccess" Type="DateTime" Precision="3" />
+          <Property Name="timecreated" Type="DateTime" Precision="3" />
+          <Property Name="timemodified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="course_completions" Relationship="Self.FK_course_completions_userId" FromRole="user" ToRole="course_completions" />
+          <NavigationProperty Name="question_attempt_steps" Relationship="Self.FK_question_attempt_steps_user" FromRole="user" ToRole="question_attempt_steps" />
+          <NavigationProperty Name="quiz_attempts" Relationship="Self.FK_quiz_attempts_user" FromRole="user" ToRole="quiz_attempts" />
+          <NavigationProperty Name="quiz_grades" Relationship="Self.FK_quiz_grades_userId" FromRole="user" ToRole="quiz_grades" />
+          <NavigationProperty Name="user_enrolments" Relationship="Self.FK_user_enrolments_userId" FromRole="user" ToRole="user_enrolments" />
+          <NavigationProperty Name="user_info_data" Relationship="Self.FK_user_info_data_userId" FromRole="user" ToRole="user_info_data" />
+        </EntityType>
+        <EntityType Name="user_enrolments">
+          <Key>
+            <PropertyRef Name="user_enrolmentsId" />
+          </Key>
+          <Property Name="user_enrolmentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="timestart" Type="DateTime" Precision="3" />
+          <Property Name="timeend" Type="DateTime" Precision="3" />
+          <Property Name="timecreated" Type="DateTime" Precision="3" />
+          <Property Name="timemodified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_enrolments_userId" FromRole="user_enrolments" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_info_data">
+          <Key>
+            <PropertyRef Name="user_info_dataId" />
+          </Key>
+          <Property Name="user_info_dataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="user_info_fieldId" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_info_data_userId" FromRole="user_info_data" ToRole="user" />
+          <NavigationProperty Name="user_info_field" Relationship="Self.FK_user_info_data_user_info_field" FromRole="user_info_data" ToRole="user_info_field" />
+        </EntityType>
+        <EntityType Name="user_info_field">
+          <Key>
+            <PropertyRef Name="user_info_fieldId" />
+          </Key>
+          <Property Name="user_info_fieldId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="shortname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="datatype" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="required" Type="Boolean" />
+          <Property Name="visible" Type="Boolean" />
+          <Property Name="defaultdata" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="param1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user_info_data" Relationship="Self.FK_user_info_data_user_info_field" FromRole="user_info_field" ToRole="user_info_data" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_contactForm_contactForm">
+          <End Role="contactForm" Type="Self.contactForm" Multiplicity="1" />
+          <End Role="contactForm1" Type="Self.contactForm" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="contactForm">
+              <PropertyRef Name="contactFormId" />
+            </Principal>
+            <Dependent Role="contactForm1">
+              <PropertyRef Name="contactFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_course_completions_courseId">
+          <End Role="course" Type="Self.course" Multiplicity="0..1" />
+          <End Role="course_completions" Type="Self.course_completions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="course_completions">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enrol_courseId">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="enrol" Type="Self.enrol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="enrol">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_course">
+          <End Role="course" Type="Self.course" Multiplicity="1" />
+          <End Role="quiz" Type="Self.quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="courseId" />
+            </Principal>
+            <Dependent Role="quiz">
+              <PropertyRef Name="courseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_course_categoryId">
+          <End Role="course_categories" Type="Self.course_categories" Multiplicity="1" />
+          <End Role="question" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course_categories">
+              <PropertyRef Name="categoryId" />
+            </Principal>
+            <Dependent Role="question">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_course_completions_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="course_completions" Type="Self.course_completions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="course_completions">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_answers_question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="question_answers" Type="Self.question_answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="question_answers">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_attempts_question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="question_attempts" Type="Self.question_attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="question_attempts">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_slots_question">
+          <End Role="question" Type="Self.question" Multiplicity="1" />
+          <End Role="quiz_slots" Type="Self.quiz_slots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question">
+              <PropertyRef Name="questionId" />
+            </Principal>
+            <Dependent Role="quiz_slots">
+              <PropertyRef Name="questionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_attempt_steps_question_attempts">
+          <End Role="question_attempts" Type="Self.question_attempts" Multiplicity="1" />
+          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question_attempts">
+              <PropertyRef Name="question_attemptsId" />
+            </Principal>
+            <Dependent Role="question_attempt_steps">
+              <PropertyRef Name="question_attemptsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_attempt_steps_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="question_attempt_steps">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_attempts_quiz">
+          <End Role="quiz" Type="Self.quiz" Multiplicity="1" />
+          <End Role="quiz_attempts" Type="Self.quiz_attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="quiz_attempts">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_grades_quiz">
+          <End Role="quiz" Type="Self.quiz" Multiplicity="1" />
+          <End Role="quiz_grades" Type="Self.quiz_grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="quiz_grades">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_slots_quiz">
+          <End Role="quiz" Type="Self.quiz" Multiplicity="1" />
+          <End Role="quiz_slots" Type="Self.quiz_slots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quiz">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="quiz_slots">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_attempts_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="quiz_attempts" Type="Self.quiz_attempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="quiz_attempts">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quiz_grades_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="quiz_grades" Type="Self.quiz_grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="quiz_grades">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_role_assignments_role_assignments">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="role_assignments" Type="Self.role_assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="role_assignments">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_enrolments_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_enrolments" Type="Self.user_enrolments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="user_enrolments">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_info_data_userId">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_info_data" Type="Self.user_info_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="user_info_data">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_info_data_user_info_field">
+          <End Role="user_info_field" Type="Self.user_info_field" Multiplicity="1" />
+          <End Role="user_info_data" Type="Self.user_info_data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_info_field">
+              <PropertyRef Name="user_info_fieldId" />
+            </Principal>
+            <Dependent Role="user_info_data">
+              <PropertyRef Name="user_info_fieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ReportDepotEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="contactForms" EntityType="Self.contactForm" />
+          <EntitySet Name="courses" EntityType="Self.course" />
+          <EntitySet Name="course_categories" EntityType="Self.course_categories" />
+          <EntitySet Name="course_completions" EntityType="Self.course_completions" />
+          <EntitySet Name="enrols" EntityType="Self.enrol" />
+          <EntitySet Name="questions" EntityType="Self.question" />
+          <EntitySet Name="question_answers" EntityType="Self.question_answers" />
+          <EntitySet Name="question_attempt_steps" EntityType="Self.question_attempt_steps" />
+          <EntitySet Name="question_attempts" EntityType="Self.question_attempts" />
+          <EntitySet Name="question_categories" EntityType="Self.question_categories" />
+          <EntitySet Name="quizs" EntityType="Self.quiz" />
+          <EntitySet Name="quiz_attempts" EntityType="Self.quiz_attempts" />
+          <EntitySet Name="quiz_grades" EntityType="Self.quiz_grades" />
+          <EntitySet Name="quiz_slots" EntityType="Self.quiz_slots" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="role_assignments" EntityType="Self.role_assignments" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="user_enrolments" EntityType="Self.user_enrolments" />
+          <EntitySet Name="user_info_data" EntityType="Self.user_info_data" />
+          <EntitySet Name="user_info_field" EntityType="Self.user_info_field" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_contactForm_contactForm" Association="Self.FK_contactForm_contactForm">
+            <End Role="contactForm" EntitySet="contactForms" />
+            <End Role="contactForm1" EntitySet="contactForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_course_completions_courseId" Association="Self.FK_course_completions_courseId">
+            <End Role="course" EntitySet="courses" />
+            <End Role="course_completions" EntitySet="course_completions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enrol_courseId" Association="Self.FK_enrol_courseId">
+            <End Role="course" EntitySet="courses" />
+            <End Role="enrol" EntitySet="enrols" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_course" Association="Self.FK_quiz_course">
+            <End Role="course" EntitySet="courses" />
+            <End Role="quiz" EntitySet="quizs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_course_categoryId" Association="Self.FK_question_course_categoryId">
+            <End Role="course_categories" EntitySet="course_categories" />
+            <End Role="question" EntitySet="questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_course_completions_userId" Association="Self.FK_course_completions_userId">
+            <End Role="user" EntitySet="users" />
+            <End Role="course_completions" EntitySet="course_completions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_answers_question" Association="Self.FK_question_answers_question">
+            <End Role="question" EntitySet="questions" />
+            <End Role="question_answers" EntitySet="question_answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_attempts_question" Association="Self.FK_question_attempts_question">
+            <End Role="question" EntitySet="questions" />
+            <End Role="question_attempts" EntitySet="question_attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_slots_question" Association="Self.FK_quiz_slots_question">
+            <End Role="question" EntitySet="questions" />
+            <End Role="quiz_slots" EntitySet="quiz_slots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_attempt_steps_question_attempts" Association="Self.FK_question_attempt_steps_question_attempts">
+            <End Role="question_attempts" EntitySet="question_attempts" />
+            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_attempt_steps_user" Association="Self.FK_question_attempt_steps_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_attempts_quiz" Association="Self.FK_quiz_attempts_quiz">
+            <End Role="quiz" EntitySet="quizs" />
+            <End Role="quiz_attempts" EntitySet="quiz_attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_grades_quiz" Association="Self.FK_quiz_grades_quiz">
+            <End Role="quiz" EntitySet="quizs" />
+            <End Role="quiz_grades" EntitySet="quiz_grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_slots_quiz" Association="Self.FK_quiz_slots_quiz">
+            <End Role="quiz" EntitySet="quizs" />
+            <End Role="quiz_slots" EntitySet="quiz_slots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_attempts_user" Association="Self.FK_quiz_attempts_user">
+            <End Role="user" EntitySet="users" />
+            <End Role="quiz_attempts" EntitySet="quiz_attempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quiz_grades_userId" Association="Self.FK_quiz_grades_userId">
+            <End Role="user" EntitySet="users" />
+            <End Role="quiz_grades" EntitySet="quiz_grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_role_assignments_role_assignments" Association="Self.FK_role_assignments_role_assignments">
+            <End Role="role" EntitySet="roles" />
+            <End Role="role_assignments" EntitySet="role_assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_enrolments_userId" Association="Self.FK_user_enrolments_userId">
+            <End Role="user" EntitySet="users" />
+            <End Role="user_enrolments" EntitySet="user_enrolments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_info_data_userId" Association="Self.FK_user_info_data_userId">
+            <End Role="user" EntitySet="users" />
+            <End Role="user_info_data" EntitySet="user_info_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_info_data_user_info_field" Association="Self.FK_user_info_data_user_info_field">
+            <End Role="user_info_field" EntitySet="user_info_field" />
+            <End Role="user_info_data" EntitySet="user_info_data" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReportDepotModel1StoreContainer" CdmEntityContainer="ReportDepotEntities1">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="ReportDepotModel1.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="ReportDepotModel1.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="ReportDepotModel1.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="ReportDepotModel1.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ReportDepotModel1.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contactForms">
+            <EntityTypeMapping TypeName="ReportDepotModel1.contactForm">
+              <MappingFragment StoreEntitySet="contactForm">
+                <ScalarProperty Name="contactFormId" ColumnName="contactFormId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="aspUserId" ColumnName="aspUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="courses">
+            <EntityTypeMapping TypeName="ReportDepotModel1.course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="shortname" ColumnName="shortname" />
+                <ScalarProperty Name="idnumber" ColumnName="idnumber" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="timecreated" ColumnName="timecreated" />
+                <ScalarProperty Name="timemodified" ColumnName="timemodified" />
+                <ScalarProperty Name="enablecompletion" ColumnName="enablecompletion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="course_categories">
+            <EntityTypeMapping TypeName="ReportDepotModel1.course_categories">
+              <MappingFragment StoreEntitySet="course_categories">
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="idnumber" ColumnName="idnumber" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="coursecount" ColumnName="coursecount" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="timemodified" ColumnName="timemodified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="course_completions">
+            <EntityTypeMapping TypeName="ReportDepotModel1.course_completions">
+              <MappingFragment StoreEntitySet="course_completions">
+                <ScalarProperty Name="course_completionsId" ColumnName="course_completionsId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="timeenrolled" ColumnName="timeenrolled" />
+                <ScalarProperty Name="timestarted" ColumnName="timestarted" />
+                <ScalarProperty Name="timecompleted" ColumnName="timecompleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enrols">
+            <EntityTypeMapping TypeName="ReportDepotModel1.enrol">
+              <MappingFragment StoreEntitySet="enrol">
+                <ScalarProperty Name="enrolId" ColumnName="enrolId" />
+                <ScalarProperty Name="enrol1" ColumnName="enrol" />
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="enrolstartdate" ColumnName="enrolstartdate" />
+                <ScalarProperty Name="enrolenddate" ColumnName="enrolenddate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questions">
+            <EntityTypeMapping TypeName="ReportDepotModel1.question">
+              <MappingFragment StoreEntitySet="question">
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="questiontext" ColumnName="questiontext" />
+                <ScalarProperty Name="defaultmark" ColumnName="defaultmark" />
+                <ScalarProperty Name="timecreated" ColumnName="timecreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question_answers">
+            <EntityTypeMapping TypeName="ReportDepotModel1.question_answers">
+              <MappingFragment StoreEntitySet="question_answers">
+                <ScalarProperty Name="question_answersId" ColumnName="question_answersId" />
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+                <ScalarProperty Name="fraction" ColumnName="fraction" />
+                <ScalarProperty Name="feedback" ColumnName="feedback" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question_attempt_steps">
+            <EntityTypeMapping TypeName="ReportDepotModel1.question_attempt_steps">
+              <MappingFragment StoreEntitySet="question_attempt_steps">
+                <ScalarProperty Name="question_attempt_stepsId" ColumnName="question_attempt_stepsId" />
+                <ScalarProperty Name="question_attemptsId" ColumnName="question_attemptsId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="fraction" ColumnName="fraction" />
+                <ScalarProperty Name="timecreated" ColumnName="timecreated" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question_attempts">
+            <EntityTypeMapping TypeName="ReportDepotModel1.question_attempts">
+              <MappingFragment StoreEntitySet="question_attempts">
+                <ScalarProperty Name="question_attemptsId" ColumnName="question_attemptsId" />
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="maxmark" ColumnName="maxmark" />
+                <ScalarProperty Name="minfraction" ColumnName="minfraction" />
+                <ScalarProperty Name="maxfraction" ColumnName="maxfraction" />
+                <ScalarProperty Name="questionssummary" ColumnName="questionssummary" />
+                <ScalarProperty Name="rightanswer" ColumnName="rightanswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question_categories">
+            <EntityTypeMapping TypeName="ReportDepotModel1.question_categories">
+              <MappingFragment StoreEntitySet="question_categories">
+                <ScalarProperty Name="question_categoriesId" ColumnName="question_categoriesId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="info" ColumnName="info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quizs">
+            <EntityTypeMapping TypeName="ReportDepotModel1.quiz">
+              <MappingFragment StoreEntitySet="quiz">
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="attempts" ColumnName="attempts" />
+                <ScalarProperty Name="sumgrades" ColumnName="sumgrades" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="timecreated" ColumnName="timecreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quiz_attempts">
+            <EntityTypeMapping TypeName="ReportDepotModel1.quiz_attempts">
+              <MappingFragment StoreEntitySet="quiz_attempts">
+                <ScalarProperty Name="quiz_attempts1" ColumnName="quiz_attempts" />
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="attempt" ColumnName="attempt" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="timestart" ColumnName="timestart" />
+                <ScalarProperty Name="timefinish" ColumnName="timefinish" />
+                <ScalarProperty Name="sumgrades" ColumnName="sumgrades" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quiz_grades">
+            <EntityTypeMapping TypeName="ReportDepotModel1.quiz_grades">
+              <MappingFragment StoreEntitySet="quiz_grades">
+                <ScalarProperty Name="quiz_gradesId" ColumnName="quiz_gradesId" />
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quiz_slots">
+            <EntityTypeMapping TypeName="ReportDepotModel1.quiz_slots">
+              <MappingFragment StoreEntitySet="quiz_slots">
+                <ScalarProperty Name="quiz_gradesId" ColumnName="quiz_gradesId" />
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="questionId" ColumnName="questionId" />
+                <ScalarProperty Name="maxmark" ColumnName="maxmark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="ReportDepotModel1.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="shortname" ColumnName="shortname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role_assignments">
+            <EntityTypeMapping TypeName="ReportDepotModel1.role_assignments">
+              <MappingFragment StoreEntitySet="role_assignments">
+                <ScalarProperty Name="role_assignmentsId" ColumnName="role_assignmentsId" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="shortname" ColumnName="shortname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ReportDepotModel1.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="ReportDepotModel1.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="firstaccess" ColumnName="firstaccess" />
+                <ScalarProperty Name="lastaccess" ColumnName="lastaccess" />
+                <ScalarProperty Name="timecreated" ColumnName="timecreated" />
+                <ScalarProperty Name="timemodified" ColumnName="timemodified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_enrolments">
+            <EntityTypeMapping TypeName="ReportDepotModel1.user_enrolments">
+              <MappingFragment StoreEntitySet="user_enrolments">
+                <ScalarProperty Name="user_enrolmentsId" ColumnName="user_enrolmentsId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="timestart" ColumnName="timestart" />
+                <ScalarProperty Name="timeend" ColumnName="timeend" />
+                <ScalarProperty Name="timecreated" ColumnName="timecreated" />
+                <ScalarProperty Name="timemodified" ColumnName="timemodified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_info_data">
+            <EntityTypeMapping TypeName="ReportDepotModel1.user_info_data">
+              <MappingFragment StoreEntitySet="user_info_data">
+                <ScalarProperty Name="user_info_dataId" ColumnName="user_info_dataId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="user_info_fieldId" ColumnName="user_info_fieldId" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_info_field">
+            <EntityTypeMapping TypeName="ReportDepotModel1.user_info_field">
+              <MappingFragment StoreEntitySet="user_info_field">
+                <ScalarProperty Name="user_info_fieldId" ColumnName="user_info_fieldId" />
+                <ScalarProperty Name="shortname" ColumnName="shortname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="datatype" ColumnName="datatype" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="required" ColumnName="required" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="defaultdata" ColumnName="defaultdata" />
+                <ScalarProperty Name="param1" ColumnName="param1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ReportDepotModel1.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
