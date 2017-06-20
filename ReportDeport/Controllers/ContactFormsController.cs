@@ -10,107 +10,109 @@ using ReportDeport.Models;
 
 namespace ReportDeport.Controllers
 {
-    public class TemplateController : Controller
+    public class ContactFormsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Template
+        // GET: ContactForms
         public ActionResult Index()
         {
-            return View(db.TemplateViewModels.ToList());
+            return View(db.ContactForms.ToList());
         }
 
-        // GET: Template/Details/5
+        // GET: ContactForms/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TemplateViewModel templateViewModel = db.TemplateViewModels.Find(id);
-            if (templateViewModel == null)
+            ContactForm contactForm = db.ContactForms.Find(id);
+            if (contactForm == null)
             {
                 return HttpNotFound();
             }
-            return View(templateViewModel);
+            return View(contactForm);
         }
 
-        // GET: Template/Create
+
+
+        // GET: ContactForms/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Template/Create
+        // POST: ContactForms/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,description")] TemplateViewModel templateViewModel)
+        public ActionResult Create([Bind(Include = "ContactFormId,name,emailAddress,date,position,department,message,subject,conpanyEmail")] ContactForm contactForm)
         {
             if (ModelState.IsValid)
             {
-                db.TemplateViewModels.Add(templateViewModel);
+                db.ContactForms.Add(contactForm);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(templateViewModel);
+            return View(contactForm);
         }
 
-        // GET: Template/Edit/5
+        // GET: ContactForms/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TemplateViewModel templateViewModel = db.TemplateViewModels.Find(id);
-            if (templateViewModel == null)
+            ContactForm contactForm = db.ContactForms.Find(id);
+            if (contactForm == null)
             {
                 return HttpNotFound();
             }
-            return View(templateViewModel);
+            return View(contactForm);
         }
 
-        // POST: Template/Edit/5
+        // POST: ContactForms/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,description")] TemplateViewModel templateViewModel)
+        public ActionResult Edit([Bind(Include = "ContactFormId,name,emailAddress,date,position,department,message,subject,conpanyEmail")] ContactForm contactForm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(templateViewModel).State = EntityState.Modified;
+                db.Entry(contactForm).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(templateViewModel);
+            return View(contactForm);
         }
 
-        // GET: Template/Delete/5
+        // GET: ContactForms/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TemplateViewModel templateViewModel = db.TemplateViewModels.Find(id);
-            if (templateViewModel == null)
+            ContactForm contactForm = db.ContactForms.Find(id);
+            if (contactForm == null)
             {
                 return HttpNotFound();
             }
-            return View(templateViewModel);
+            return View(contactForm);
         }
 
-        // POST: Template/Delete/5
+        // POST: ContactForms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TemplateViewModel templateViewModel = db.TemplateViewModels.Find(id);
-            db.TemplateViewModels.Remove(templateViewModel);
+            ContactForm contactForm = db.ContactForms.Find(id);
+            db.ContactForms.Remove(contactForm);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

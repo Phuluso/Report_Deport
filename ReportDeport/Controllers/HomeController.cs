@@ -15,7 +15,7 @@ namespace ReportDeport.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Browse help topics";
 
             return View();
         }
