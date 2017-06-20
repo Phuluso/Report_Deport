@@ -31,5 +31,7 @@ namespace ReportDeport.Models
         }
 
         public System.Data.Entity.DbSet<ReportDeport.Models.TemplateViewModel> TemplateViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<ReportDeport.Models.ContactInfo> ContactInfoes { get; set; }
     }
 }
