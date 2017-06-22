@@ -30,8 +30,5 @@ namespace ReportDeport.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<ReportDeport.Models.Template> Template { get; set; }
-
-        public System.Data.Entity.DbSet<ReportDeport.Models.ContactForm> ContactForms { get; set; }
     }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0813b8a9ce0c48fb9e4dfc36d52f6c72" Name="Diagram1">
+        <EntityTypeShape EntityType="ReportDepotModel4.C__MigrationHistory" Width="1.5" PointX="8.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.AspNetRole" Width="1.5" PointX="8.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.AspNetUserClaim" Width="1.5" PointX="13.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.AspNetUserLogin" Width="1.5" PointX="13.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.AspNetUser" Width="1.5" PointX="11" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.contactForm" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.course" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.course_categories" Width="1.5" PointX="1.5" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.course_completions" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.enrol" Width="1.5" PointX="3.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.question" Width="1.5" PointX="1.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.question_answers" Width="1.5" PointX="3.75" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.question_attempt_steps" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.question_attempts" Width="1.5" PointX="3.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.question_categories" Width="1.5" PointX="10.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.quiz" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.quiz_attempts" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.quiz_grades" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.quiz_slots" Width="1.5" PointX="5.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.role" Width="1.5" PointX="8.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.role_assignments" Width="1.5" PointX="11" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.sysdiagram" Width="1.5" PointX="8.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.user" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.user_enrolments" Width="1.5" PointX="3" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.user_info_data" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel4.user_info_field" Width="1.5" PointX="3.75" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="ReportDepotModel4.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_contactForm_contactForm" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_course_completions_courseId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_enrol_courseId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_quiz_course" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_question_course_categoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_course_completions_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_question_answers_question" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_question_attempts_question" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_quiz_slots_question" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_question_attempt_steps_question_attempts" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_question_attempt_steps_user" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_quiz_attempts_quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_quiz_grades_quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_quiz_slots_quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_quiz_attempts_user" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_quiz_grades_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_role_assignments_role_assignments" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_user_enrolments_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_user_info_data_userId" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.FK_user_info_data_user_info_field" ManuallyRouted="false" />
+        <AssociationConnector Association="ReportDepotModel4.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
