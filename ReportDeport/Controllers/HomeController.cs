@@ -97,7 +97,7 @@ namespace ReportDeport.Controllers
             }
             ws.Cells["A:AZ"].AutoFitColumns();
             Response.Clear();
-            Response.ContentType = "application/vnd.openxmlformat-officedocument.spreadsheetml.sheet";
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             Response.AddHeader("content-disposition", "attachment: filename=" + "ExcelReport.xlsx");
             Response.BinaryWrite(pck.GetAsByteArray());
             Response.End();
