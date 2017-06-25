@@ -205,6 +205,7 @@
     <Compile Include="Controllers\ContactFormsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\templatesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,6 +224,10 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Columns.cs" />
+    <Compile Include="Models\columnTranslation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\contactForm.cs">
@@ -296,6 +301,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\template.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\templateColumn.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
@@ -395,6 +406,12 @@
     <Content Include="Views\ContactForms\Details.cshtml" />
     <Content Include="Views\ContactForms\Edit.cshtml" />
     <Content Include="Views\ContactForms\Index.cshtml" />
+    <Content Include="Views\templates\Create.cshtml" />
+    <Content Include="Views\templates\Delete.cshtml" />
+    <Content Include="Views\templates\Details.cshtml" />
+    <Content Include="Views\templates\Edit.cshtml" />
+    <Content Include="Views\templates\Index.cshtml" />
+    <Content Include="Views\templates\TemplatesIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

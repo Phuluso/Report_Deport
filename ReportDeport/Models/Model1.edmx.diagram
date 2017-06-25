@@ -54,6 +54,13 @@
         <AssociationConnector Association="ReportDepotModel4.FK_user_info_data_userId" ManuallyRouted="false" />
         <AssociationConnector Association="ReportDepotModel4.FK_user_info_data_user_info_field" ManuallyRouted="false" />
         <AssociationConnector Association="ReportDepotModel4.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ReportDepotModel4.template" Width="1.5" PointX="13.375" PointY="8.75" />
+        <AssociationConnector Association="ReportDepotModel4.FK_template_template" />
+        <AssociationConnector Association="ReportDepotModel4.FK_template_template1" />
+        <EntityTypeShape EntityType="ReportDepotModel4.columnTranslation" Width="1.5" PointX="13.375" PointY="13" />
+        <EntityTypeShape EntityType="ReportDepotModel4.templateColumn" Width="1.5" PointX="15.625" PointY="10.75" />
+        <AssociationConnector Association="ReportDepotModel4.FK_templateColumn_columnTranslations" />
+        <AssociationConnector Association="ReportDepotModel4.FK_templateColumn_template" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -51,5 +51,8 @@ namespace ReportDeport.Models
         public virtual DbSet<user_enrolments> user_enrolments { get; set; }
         public virtual DbSet<user_info_data> user_info_data { get; set; }
         public virtual DbSet<user_info_field> user_info_field { get; set; }
+        public virtual DbSet<template> templates { get; set; }
+        public virtual DbSet<columnTranslation> columnTranslations { get; set; }
+        public virtual DbSet<templateColumn> templateColumns { get; set; }
     }
 }
