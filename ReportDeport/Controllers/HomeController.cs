@@ -38,6 +38,13 @@ namespace ReportDeport.Controllers
             return View();
         }
 
+        public ActionResult UserLogin()
+        {
+            ViewBag.Message = "Page where registered users are directed to";
+
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
