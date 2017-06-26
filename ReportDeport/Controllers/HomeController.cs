@@ -51,6 +51,15 @@ namespace ReportDeport.Controllers
 
             return View();
         }
+
+        public ActionResult Initial()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+
         public void ExportToExcel()
         {
             List<CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel
@@ -87,10 +96,10 @@ namespace ReportDeport.Controllers
             int rowStart = 7;
             foreach (var item in courseList)
             {
-                //ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-               
+                ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("#808080")));
 
-                ws.Cells[string.Format("A{0}", rowStart)].Value = item.courseId;
+                 ws.Cells[string.Format("A{0}", rowStart)].Value = item.courseId;
                 ws.Cells[string.Format("B{0}", rowStart)].Value = item.categoryId;
                 ws.Cells[string.Format("C{0}", rowStart)].Value = item.fullname;
                 ws.Cells[string.Format("D{0}", rowStart)].Value = item.shortname;

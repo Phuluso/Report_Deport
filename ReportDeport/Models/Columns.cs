@@ -10,6 +10,7 @@ namespace ReportDeport.Models
 
         public int ColumnId { get; set; }
         public string ColumnName { get; set; }
+        public string ReportName { get; set; }
         public bool IsChecked { get; set; }
 
     }

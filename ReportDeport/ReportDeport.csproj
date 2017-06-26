@@ -203,6 +203,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactFormsController.cs" />
+    <Compile Include="Controllers\GenerateReportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\templatesController.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\Columns.cs" />
     <Compile Include="Models\columnTranslation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -325,13 +327,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-login.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\hubblestudios.png" />
     <Content Include="Content\images\logo.png" />
-    <Content Include="Content\images\Reports.png" />
-    <Content Include="Content\modern-business.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -416,7 +414,11 @@
     <Content Include="Views\templates\Edit.cshtml" />
     <Content Include="Views\templates\Index.cshtml" />
     <Content Include="Views\templates\TemplatesIndex.cshtml" />
-    <Content Include="Views\Home\UserLogin.cshtml" />
+    <Content Include="Views\GenerateReport\Create.cshtml" />
+    <Content Include="Views\GenerateReport\Delete.cshtml" />
+    <Content Include="Views\GenerateReport\Details.cshtml" />
+    <Content Include="Views\GenerateReport\Edit.cshtml" />
+    <Content Include="Views\GenerateReport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
