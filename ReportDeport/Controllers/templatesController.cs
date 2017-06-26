@@ -25,7 +25,7 @@ namespace ReportDeport.Controllers
             {
                 if (item.templateId == id)
                 {
-                    columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = true });
+                    columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = false });
                 }
 
             }
@@ -38,18 +38,72 @@ namespace ReportDeport.Controllers
         [HttpPost]
         public ActionResult Index(columnItemList columnList, int? id)
         {
-            if (columnList.columns!= null)
+            DateTime now = DateTime.Now;
+
+            if (columnList.columns != null)
             {
                 foreach (var item in columnList.columns)
                 {
-                    if (!item.IsChecked)
+
+                    if (item.IsChecked)
                     {
-                        templateColumn field = db.templateColumns.Find(item.ColumnId);
-                        db.templateColumns.Remove(field);
+                        templateColumn tempCol = new templateColumn();
+
+                        int numSameName = 0;
+                        foreach (var template in db.templates.ToList())
+                        {
+                            if (template.name.Equals(columnList.columns[0].ReportName))
+                            {
+                                numSameName++;
+                            }
+                        }
+                        
+                        if (numSameName == 0)
+                        {
+                            template temp = new template();
+                            temp.date = now;
+                            temp.name = columnList.columns[0].ReportName;
+                            temp.userId = User.Identity.GetUserId();
+
+                            db.templates.Add(temp);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            ViewBag.Error = "You have already saved a report with the same name. Please enter a new Report Name.";
+                        }
+
+
+                        if (columnList.columns[0].ReportName == null)
+                        {
+                            ViewBag.Error = "Please enter Report Name.";
+                        }
+
+                        foreach (var colTransItem in db.columnTranslations.ToList())
+                        {
+
+                            if (colTransItem.userColumnName.Equals(item.ColumnName))
+                            {
+                                tempCol.columnTranslationId = colTransItem.columnTranslationId;
+                            }
+                        }
+
+                        foreach (var tempItem in db.templates.ToList())
+                        {
+                            if (tempItem.name.Equals(columnList.columns[0].ReportName) && tempItem.name != null && (tempItem.date == now))
+                            {
+                                tempCol.templateId = tempItem.templateId;
+                            }
+                        }
+
+                        db.templateColumns.Add(tempCol);
                         db.SaveChanges();
+
                     }
+                    
                 }
             }
+
 
             List<columnItem> columns = new List<columnItem>();
             if (columnList.columns != null)

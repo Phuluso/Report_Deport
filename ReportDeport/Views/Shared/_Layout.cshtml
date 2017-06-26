@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href='@Url.Action("UserLogin", "Home")'>
-                    <img src="~/Content/images/icon.png" style="width: 55px;" />
+                    <img src="~/Content/images/icon.png" style="width: 55px; border-radius:2px;" />
                 </a>
             </div>
             <div class="navbar-collapse collapse">
@@ -27,6 +27,7 @@
                     <li>@Html.ActionLink("Help", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Create", "ContactForms")</li>
                     <li>@Html.ActionLink("Templates", "Edit", "templates")</li>
+                    <li>@Html.ActionLink("Generate Report", "Index", "GenerateReport")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

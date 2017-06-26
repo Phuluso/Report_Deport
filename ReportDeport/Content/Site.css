@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#registerLink
+{
+   color:  rgb(43, 202, 210);
+}

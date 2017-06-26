@@ -6813,7 +6813,7 @@ button.close {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 .btn-default {
-  background-image: -webkit-linear-gradient(#6d7070, #474949 50%, #3d3f3f);
+  /*background-image: -webkit-linear-gradient(#6d7070, #474949 50%, #3d3f3f);
   background-image: -o-linear-gradient(#6d7070, #474949 50%, #3d3f3f);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#6d7070), color-stop(50%, #474949), to(#3d3f3f));
   background-image: linear-gradient(#6d7070, #474949 50%, #3d3f3f);
@@ -6821,10 +6821,14 @@ button.close {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff6d7070', endColorstr='#ff3d3f3f', GradientType=0);
   -webkit-filter: none;
           filter: none;
-  border: 1px solid #2e2f2f;
+  border: 1px solid #2e2f2f;*/
+
+    color: #ffffff;
+  background-color: #446e9b;
+  border-color: #446e9b;
 }
 .btn-default:hover {
-  background-image: -webkit-linear-gradient(#636565, #3d3f3f 50%, #333434);
+  /*background-image: -webkit-linear-gradient(#636565, #3d3f3f 50%, #333434);
   background-image: -o-linear-gradient(#636565, #3d3f3f 50%, #333434);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#636565), color-stop(50%, #3d3f3f), to(#333434));
   background-image: linear-gradient(#636565, #3d3f3f 50%, #333434);
@@ -6832,7 +6836,17 @@ button.close {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff636565', endColorstr='#ff333434', GradientType=0);
   -webkit-filter: none;
           filter: none;
-  border: 1px solid #242525;
+  border: 1px solid #242525;*/
+
+    background-image: -webkit-linear-gradient(#5f8ab9, #3e648d 50%, #385a7f);
+  background-image: -o-linear-gradient(#5f8ab9, #3e648d 50%, #385a7f);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#5f8ab9), color-stop(50%, #3e648d), to(#385a7f));
+  background-image: linear-gradient(#5f8ab9, #3e648d 50%, #385a7f);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5f8ab9', endColorstr='#ff385a7f', GradientType=0);
+  -webkit-filter: none;
+          filter: none;
+  border: 1px solid #2e4b69;
 }
 .btn-primary {
   background-image: -webkit-linear-gradient(#6d94bf, #446e9b 50%, #3e648d);
