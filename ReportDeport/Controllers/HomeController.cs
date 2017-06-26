@@ -88,7 +88,7 @@ namespace ReportDeport.Controllers
             foreach (var item in courseList)
             {
                 ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                //ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("grey")));
+                ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("#808080")));
 
                  ws.Cells[string.Format("A{0}", rowStart)].Value = item.courseId;
                 ws.Cells[string.Format("B{0}", rowStart)].Value = item.categoryId;
