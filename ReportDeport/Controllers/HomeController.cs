@@ -14,7 +14,10 @@ namespace ReportDeport.Controllers
         ReportDepotEntities4 db = new ReportDepotEntities4();
         public ActionResult Index()
         {
-            List<CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel
+            allModels allList = new allModels();
+            
+
+           List <CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel
             {
                 courseId = x.courseId,
                 categoryId = x.categoryId,
@@ -26,9 +29,30 @@ namespace ReportDeport.Controllers
                 timecreated = x.timecreated,
                 timemodified = x.timemodified,
                 enablecompletion = x.enablecompletion
-            }).ToList(); 
+            }).ToList();
+            allList.courses = courseList;
 
-            return View(courseList);
+          
+
+            allList.columnTrans = db.columnTranslations.ToList();
+
+           
+
+            List<CategoryViewModel> categoryList = db.course_categories.Select(x => new CategoryViewModel
+            {
+              
+                categoryId = x.categoryId,
+                name = x.name,
+                idnumber = x.idnumber,
+                description = x.description,
+                coursecount = x.coursecount,
+                visible = x.visible,
+                timemodified = x.timemodified,
+               
+            }).ToList();
+            allList.categories = categoryList;
+
+            return View(allList);
         }
 
         public ActionResult About()
