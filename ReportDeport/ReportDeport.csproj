@@ -227,6 +227,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\Columns.cs" />
     <Compile Include="Models\columnTranslation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
