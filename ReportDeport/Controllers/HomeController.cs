@@ -44,6 +44,15 @@ namespace ReportDeport.Controllers
 
             return View();
         }
+
+        public ActionResult Initial()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+
         public void ExportToExcel()
         {
             List<CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel

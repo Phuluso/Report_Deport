@@ -7,13 +7,13 @@
 
 
 <h2>Select Report Fields</h2>
-
+<table>
     @using (Html.BeginForm("Index", "templates"))
     {
+        @Html.TextBoxFor(m => Model.columns[0].ReportName)
 
-        <table>
-            @for (int i = 0; i < Model.columns.Count; i++)
-            {
+        for (int i = 0; i < Model.columns.Count; i++)
+        {
             <tr>
                 <td>
                     @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
@@ -22,8 +22,7 @@
                     @Html.HiddenFor(m => Model.columns[i].ColumnName)
                 </td>
             </tr>
-            }
-
-        </table>
-        <input type="submit" value="Continue">
+        }
     }
+</table>
+<input type="submit" value="Continue">

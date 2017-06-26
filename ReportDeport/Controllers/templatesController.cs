@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ReportDeport;
+using Microsoft.AspNet.Identity;
 
 namespace ReportDeport.Controllers
 {
@@ -16,13 +17,17 @@ namespace ReportDeport.Controllers
         ReportDepotEntities4 db = new ReportDepotEntities4();
 
         // GET: templates
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
 
             List<columnItem> columns = new List<columnItem>();
             foreach (var item in db.templateColumns)
             {
-                columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = true });
+                if (item.templateId == id)
+                {
+                    columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = false });
+                }
+
             }
             columnItemList colList = new columnItemList();
             colList.columns = columns;
@@ -31,28 +36,33 @@ namespace ReportDeport.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(columnItemList columnList)
+        public ActionResult Index(columnItemList columnList, int? id)
         {
-
-            foreach(var item in columnList.columns)
+            if (columnList.columns == null)
             {
-                if(!item.IsChecked)
+                foreach (var item in columnList.columns)
                 {
-                    templateColumn field = db.templateColumns.Find(item.ColumnId);
-                    db.templateColumns.Remove(field);
-                    db.SaveChanges();
+                    if (!item.IsChecked)
+                    {
+                        templateColumn field = db.templateColumns.Find(item.ColumnId);
+                        db.templateColumns.Remove(field);
+                        db.SaveChanges();
+                    }
                 }
             }
 
             List<columnItem> columns = new List<columnItem>();
-            foreach (var item in db.templateColumns)
+            foreach (var item in columnList.columns)
             {
-                columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = true });
+                if (!item.IsChecked)
+                {
+                    db.templates.Add(new template() { date = DateTime.Now, userId = User.Identity.GetUserId(), name = item.ReportName });
+                }
             }
             columnItemList colList = new columnItemList();
             colList.columns = columns;
 
-            return View(colList);
+            return View("Edit", db.templates.ToList());
         }
 
         // GET: templates/Details/5
@@ -106,7 +116,7 @@ namespace ReportDeport.Controllers
         // GET: templates/Edit/5
         public ActionResult Edit(int? id)
         {
-            
+
             return View(db.templates.ToList());
         }
 

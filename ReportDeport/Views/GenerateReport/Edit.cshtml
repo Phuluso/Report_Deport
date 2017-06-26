@@ -1,0 +1,29 @@
+﻿@model List<ReportDeport.Models.template>
+
+@{
+    ViewBag.Title = "Report History";
+}
+
+<h2>Report History</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.ActionLink("Generate Report", "Index", new { id = item.templateId })
+            </td>
+        </tr>
+    }
+
+</table>
