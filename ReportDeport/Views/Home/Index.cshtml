@@ -1,7 +1,7 @@
 ﻿@using ReportDeport.Models
-@model IEnumerable<ReportDeport.Models.CourseViewModel>
-@model IEnumerable<ReportDeport.Models.course>
-@model IEnumerable<ReportDeport.Models.CategoryViewModel>
+
+
+@model ReportDeport.Models.allModels
 @{
     ViewBag.Title = "Log in";
 }
@@ -11,25 +11,25 @@
     <label>Course</label>
 </div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_table">Show/Hide</a><br/>
 <div class="container collapse" id="course_table" >
+   
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+                
+                        @for (int i = 0; i < Model.columnTrans.Count; i++)
+                        {
+                            if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                            {
+                                <th>@Model.columnTrans[i].userColumnName</th>
+                            }
+
+                        }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -71,6 +71,8 @@
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
+
+
 <div class="col-md-2">
     <label>Course Categories</label>
 </div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_categories_table">Show/Hide</a><br />
@@ -78,53 +80,48 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-               
+             
                 <th>Category ID</th>
-                <th>Category Name</th>
-                <th>ID number</th>
-                <th>Description</th>
-                <th>Course count</th>
+                <th>name</th>
+                <th>idnumber</th>
+                <th>description</th>
+                <th>course Count</th>
                 <th>Visible</th>
                 <th>Time modified</th>
-               
+                
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.categories)
                 {
                     <tr style="background-color:grey">
                         <td>
-                            @item.courseId
-                        </td>
-                        <td>
                             @item.categoryId
                         </td>
+                     
                         <td>
-                            @item.fullname
-                        </td>
-                        <td>
-                            @item.shortname
+                            @item.name
                         </td>
                         <td>
                             @item.idnumber
                         </td>
                         <td>
-                            @item.startdate
+                            @item.description
+                        </td>
+                        <td>
+                            @item.coursecount
+
                         </td>
                         <td>
                             @item.visible
                         </td>
-                        <td>
-                            @item.timecreated
-                        </td>
+                       
                         <td>
                             @item.timemodified
                         </td>
-                        <td>
-                            @item.enablecompletion
-                        </td>
+                      
 
                     </tr>
                 }
@@ -141,17 +138,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Enrol ID</th>
-                <th>Enrol</th>
-                <th>Course ID</th>
-                <th>Start date</th>
-                <th>End date</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -190,6 +191,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -201,22 +203,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -255,6 +256,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -265,22 +267,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -319,6 +320,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -329,22 +331,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -383,6 +384,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -393,22 +395,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -447,6 +448,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -457,22 +459,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -511,6 +512,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -521,22 +523,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -575,6 +576,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -585,22 +587,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -639,6 +640,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -649,22 +651,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -703,6 +704,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
@@ -713,22 +715,21 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Course ID</th>
-                <th>Category ID</th>
-                <th>Fullname</th>
-                <th>Shortname</th>
-                <th>ID number</th>
-                <th>Start date</th>
-                <th>Visible</th>
-                <th>Time Created</th>
-                <th>Time modified</th>
-                <th>Enable completion</th>
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model)
+                foreach (var item in Model.courses)
                 {
                     <tr style="background-color:grey">
                         <td>
@@ -767,6 +768,7 @@
             }
         </tbody>
     </table>
+
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
 
