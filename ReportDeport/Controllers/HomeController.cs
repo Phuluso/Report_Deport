@@ -38,6 +38,13 @@ namespace ReportDeport.Controllers
             return View();
         }
 
+        public ActionResult UserLogin()
+        {
+            ViewBag.Message = "Page where registered users are directed to";
+
+            return View();
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -89,10 +96,10 @@ namespace ReportDeport.Controllers
             int rowStart = 7;
             foreach (var item in courseList)
             {
-                //ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-               
+                ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("#808080")));
 
-                ws.Cells[string.Format("A{0}", rowStart)].Value = item.courseId;
+                 ws.Cells[string.Format("A{0}", rowStart)].Value = item.courseId;
                 ws.Cells[string.Format("B{0}", rowStart)].Value = item.categoryId;
                 ws.Cells[string.Format("C{0}", rowStart)].Value = item.fullname;
                 ws.Cells[string.Format("D{0}", rowStart)].Value = item.shortname;
