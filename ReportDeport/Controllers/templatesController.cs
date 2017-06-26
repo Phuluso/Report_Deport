@@ -25,7 +25,7 @@ namespace ReportDeport.Controllers
             {
                 if (item.templateId == id)
                 {
-                    columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = false });
+                    columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = true });
                 }
 
             }
@@ -38,7 +38,7 @@ namespace ReportDeport.Controllers
         [HttpPost]
         public ActionResult Index(columnItemList columnList, int? id)
         {
-            if (columnList.columns == null)
+            if (columnList.columns!= null)
             {
                 foreach (var item in columnList.columns)
                 {
@@ -52,11 +52,14 @@ namespace ReportDeport.Controllers
             }
 
             List<columnItem> columns = new List<columnItem>();
-            foreach (var item in columnList.columns)
+            if (columnList.columns != null)
             {
-                if (!item.IsChecked)
+                foreach (var item in columnList.columns)
                 {
-                    db.templates.Add(new template() { date = DateTime.Now, userId = User.Identity.GetUserId(), name = item.ReportName });
+                    if (!item.IsChecked)
+                    {
+                        db.templates.Add(new template() { date = DateTime.Now, userId = User.Identity.GetUserId(), name = item.ReportName });
+                    }
                 }
             }
             columnItemList colList = new columnItemList();
