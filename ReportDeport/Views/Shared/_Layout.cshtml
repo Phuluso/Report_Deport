@@ -18,22 +18,26 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href='@Url.Action("UserLogin", "Home")'>
-                    <img src="~/Content/images/icon.png" style="width: 55px; border-radius:2px;" />
+                    <img src="~/Content/images/icon.png" style="width: 55px;" />
                 </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "UserLogin", "Home")</li>
-                    <li>@Html.ActionLink("Help", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Create", "ContactForms")</li>
-                    <li>@Html.ActionLink("Templates", "Edit", "templates")</li>
                     <li>@Html.ActionLink("Generate Report", "Index", "GenerateReport")</li>
+                    <li>@Html.ActionLink("Download History", "Index", "Home")</li>
+                    
+                    <li>@Html.ActionLink("Download Templates", "Edit", "templates")</li>
+                    
+                    <li>@Html.ActionLink("Contact Us", "Create", "ContactForms")</li>
+                    <li>@Html.ActionLink("Help", "About", "Home")</li>
+                  
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content" >
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>

@@ -14,7 +14,7 @@
 {
 
 <div class="form-group">
-    @Html.LabelFor(model => model.columns[0].ReportName, "Report Depot", htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.LabelFor(model => model.columns[0].ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
         @Html.EditorFor(model => model.columns[0].ReportName, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.columns[0].ReportName, "", new { @class = "text-danger" })
