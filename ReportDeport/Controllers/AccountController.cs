@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ReportDeport.Models;
 
+
+
 namespace ReportDeport.Controllers
 {
     [Authorize]
