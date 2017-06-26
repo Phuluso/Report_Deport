@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ReportDepotModel4.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ReportDepotModel4.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -65,6 +65,14 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="columnTranslations">
+          <Key>
+            <PropertyRef Name="columnTranslationId" />
+          </Key>
+          <Property Name="columnTranslationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userColumnName" Type="nvarchar" MaxLength="50" />
+          <Property Name="columnDirectory" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="contactForm">
           <Key>
@@ -248,6 +256,23 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="template">
+          <Key>
+            <PropertyRef Name="templateId" />
+          </Key>
+          <Property Name="templateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="userId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="templateColumn">
+          <Key>
+            <PropertyRef Name="templateColumnId" />
+          </Key>
+          <Property Name="templateColumnId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="columnTranslationId" Type="int" />
+          <Property Name="templateId" Type="int" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -561,6 +586,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_template_template">
+          <End Role="template" Type="Self.template" Multiplicity="1" />
+          <End Role="template1" Type="Self.template" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="templateId" />
+            </Principal>
+            <Dependent Role="template1">
+              <PropertyRef Name="templateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_template_template1">
+          <End Role="template" Type="Self.template" Multiplicity="1" />
+          <End Role="template1" Type="Self.template" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="templateId" />
+            </Principal>
+            <Dependent Role="template1">
+              <PropertyRef Name="templateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_templateColumn_columnTranslations">
+          <End Role="columnTranslations" Type="Self.columnTranslations" Multiplicity="0..1" />
+          <End Role="templateColumn" Type="Self.templateColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="columnTranslations">
+              <PropertyRef Name="columnTranslationId" />
+            </Principal>
+            <Dependent Role="templateColumn">
+              <PropertyRef Name="columnTranslationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_templateColumn_template">
+          <End Role="template" Type="Self.template" Multiplicity="0..1" />
+          <End Role="templateColumn" Type="Self.templateColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="templateId" />
+            </Principal>
+            <Dependent Role="templateColumn">
+              <PropertyRef Name="templateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_user_enrolments_userId">
           <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="user_enrolments" Type="Self.user_enrolments" Multiplicity="*" />
@@ -604,6 +677,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="columnTranslations" EntityType="Self.columnTranslations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contactForm" EntityType="Self.contactForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="course" EntityType="Self.course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="course_categories" EntityType="Self.course_categories" Schema="dbo" store:Type="Tables" />
@@ -621,6 +695,8 @@
           <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="role_assignments" EntityType="Self.role_assignments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="template" EntityType="Self.template" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="templateColumn" EntityType="Self.templateColumn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_enrolments" EntityType="Self.user_enrolments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_info_data" EntityType="Self.user_info_data" Schema="dbo" store:Type="Tables" />
@@ -709,6 +785,22 @@
             <End Role="role" EntitySet="role" />
             <End Role="role_assignments" EntitySet="role_assignments" />
           </AssociationSet>
+          <AssociationSet Name="FK_template_template" Association="Self.FK_template_template">
+            <End Role="template" EntitySet="template" />
+            <End Role="template1" EntitySet="template" />
+          </AssociationSet>
+          <AssociationSet Name="FK_template_template1" Association="Self.FK_template_template1">
+            <End Role="template" EntitySet="template" />
+            <End Role="template1" EntitySet="template" />
+          </AssociationSet>
+          <AssociationSet Name="FK_templateColumn_columnTranslations" Association="Self.FK_templateColumn_columnTranslations">
+            <End Role="columnTranslations" EntitySet="columnTranslations" />
+            <End Role="templateColumn" EntitySet="templateColumn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_templateColumn_template" Association="Self.FK_templateColumn_template">
+            <End Role="template" EntitySet="template" />
+            <End Role="templateColumn" EntitySet="templateColumn" />
+          </AssociationSet>
           <AssociationSet Name="FK_user_enrolments_userId" Association="Self.FK_user_enrolments_userId">
             <End Role="user" EntitySet="user" />
             <End Role="user_enrolments" EntitySet="user_enrolments" />
@@ -722,8 +814,7 @@
             <End Role="user_info_data" EntitySet="user_info_data" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReportDepotModel4" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1452,7 +1543,107 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="templates" EntityType="ReportDepotModel4.template" />
+          <AssociationSet Name="FK_template_template" Association="ReportDepotModel4.FK_template_template">
+            <End Role="template" EntitySet="templates" />
+            <End Role="template1" EntitySet="templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_template_template1" Association="ReportDepotModel4.FK_template_template1">
+            <End Role="template" EntitySet="templates" />
+            <End Role="template1" EntitySet="templates" />
+          </AssociationSet>
+          <EntitySet Name="columnTranslations" EntityType="ReportDepotModel4.columnTranslation" />
+          <EntitySet Name="templateColumns" EntityType="ReportDepotModel4.templateColumn" />
+          <AssociationSet Name="FK_templateColumn_columnTranslations" Association="ReportDepotModel4.FK_templateColumn_columnTranslations">
+            <End Role="columnTranslation" EntitySet="columnTranslations" />
+            <End Role="templateColumn" EntitySet="templateColumns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_templateColumn_template" Association="ReportDepotModel4.FK_templateColumn_template">
+            <End Role="template" EntitySet="templates" />
+            <End Role="templateColumn" EntitySet="templateColumns" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="template">
+          <Key>
+            <PropertyRef Name="templateId" />
+          </Key>
+          <Property Name="templateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="template1" Relationship="ReportDepotModel4.FK_template_template" FromRole="template" ToRole="template1" />
+          <NavigationProperty Name="template2" Relationship="ReportDepotModel4.FK_template_template" FromRole="template1" ToRole="template" />
+          <NavigationProperty Name="template11" Relationship="ReportDepotModel4.FK_template_template1" FromRole="template" ToRole="template1" />
+          <NavigationProperty Name="template3" Relationship="ReportDepotModel4.FK_template_template1" FromRole="template1" ToRole="template" />
+          <NavigationProperty Name="templateColumns" Relationship="ReportDepotModel4.FK_templateColumn_template" FromRole="template" ToRole="templateColumn" />
+        </EntityType>
+        <Association Name="FK_template_template">
+          <End Type="ReportDepotModel4.template" Role="template" Multiplicity="1" />
+          <End Type="ReportDepotModel4.template" Role="template1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="templateId" />
+            </Principal>
+            <Dependent Role="template1">
+              <PropertyRef Name="templateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_template_template1">
+          <End Type="ReportDepotModel4.template" Role="template" Multiplicity="1" />
+          <End Type="ReportDepotModel4.template" Role="template1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="templateId" />
+            </Principal>
+            <Dependent Role="template1">
+              <PropertyRef Name="templateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="columnTranslation">
+          <Key>
+            <PropertyRef Name="columnTranslationId" />
+          </Key>
+          <Property Name="columnTranslationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userColumnName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="columnDirectory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="templateColumns" Relationship="ReportDepotModel4.FK_templateColumn_columnTranslations" FromRole="columnTranslation" ToRole="templateColumn" />
+        </EntityType>
+        <EntityType Name="templateColumn">
+          <Key>
+            <PropertyRef Name="templateColumnId" />
+          </Key>
+          <Property Name="templateColumnId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="columnTranslationId" Type="Int32" />
+          <Property Name="templateId" Type="Int32" />
+          <NavigationProperty Name="columnTranslation" Relationship="ReportDepotModel4.FK_templateColumn_columnTranslations" FromRole="templateColumn" ToRole="columnTranslation" />
+          <NavigationProperty Name="template" Relationship="ReportDepotModel4.FK_templateColumn_template" FromRole="templateColumn" ToRole="template" />
+        </EntityType>
+        <Association Name="FK_templateColumn_columnTranslations">
+          <End Type="ReportDepotModel4.columnTranslation" Role="columnTranslation" Multiplicity="0..1" />
+          <End Type="ReportDepotModel4.templateColumn" Role="templateColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="columnTranslation">
+              <PropertyRef Name="columnTranslationId" />
+            </Principal>
+            <Dependent Role="templateColumn">
+              <PropertyRef Name="columnTranslationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_templateColumn_template">
+          <End Type="ReportDepotModel4.template" Role="template" Multiplicity="0..1" />
+          <End Type="ReportDepotModel4.templateColumn" Role="templateColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="templateId" />
+            </Principal>
+            <Dependent Role="templateColumn">
+              <PropertyRef Name="templateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1778,6 +1969,34 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="templates">
+            <EntityTypeMapping TypeName="ReportDepotModel4.template">
+              <MappingFragment StoreEntitySet="template">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="templateId" ColumnName="templateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="columnTranslations">
+            <EntityTypeMapping TypeName="ReportDepotModel4.columnTranslation">
+              <MappingFragment StoreEntitySet="columnTranslations">
+                <ScalarProperty Name="columnDirectory" ColumnName="columnDirectory" />
+                <ScalarProperty Name="userColumnName" ColumnName="userColumnName" />
+                <ScalarProperty Name="columnTranslationId" ColumnName="columnTranslationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="templateColumns">
+            <EntityTypeMapping TypeName="ReportDepotModel4.templateColumn">
+              <MappingFragment StoreEntitySet="templateColumn">
+                <ScalarProperty Name="templateId" ColumnName="templateId" />
+                <ScalarProperty Name="columnTranslationId" ColumnName="columnTranslationId" />
+                <ScalarProperty Name="templateColumnId" ColumnName="templateColumnId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
