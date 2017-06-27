@@ -21,7 +21,7 @@ namespace ReportDeport.Models
         }
     
         public int templateId { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public System.DateTime date { get; set; }
         public string name { get; set; }
         public string userId { get; set; }
     

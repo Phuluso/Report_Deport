@@ -17,18 +17,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-@*@if (!User.Identity.Name.Equals(""))
-{*@
+
                 <a href='@Url.Action("UserLogin", "Home")'>
                     <img src="~/Content/images/icon.png" style="width: 55px;" />
                 </a>
-@*}
-else
-{
-    <a href='@Url.Action("Login", "Account")'>
-        <img src="~/Content/images/icon.png" style="width: 55px;" />
-    </a>
-}*@
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

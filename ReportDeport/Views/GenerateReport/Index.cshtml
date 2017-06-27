@@ -10,20 +10,32 @@
 
 <hr>
 
-@using (Html.BeginForm("Index", "templates"))
+@using (Html.BeginForm("Index", "GenerateReport"))
 {
 
-<div class="form-group">
-    @Html.LabelFor(model => model.columns[0].ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.columns[0].ReportName, new { htmlAttributes = new { @class = "form-control" } })
-        <p style="color:red">@ViewBag.Error</p>
+    <div class="form-group">
+        @Html.LabelFor(model => model.columns[0].ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.columns[0].ReportName, new { htmlAttributes = new { @class = "form-control" } })
+            @if (ViewBag.Errors != null)
+            {
+                if (ViewBag.Errors.Length != 0)
+                {
+                    <p style="color:red">
+                        @foreach (var error in ViewBag.Errors)
+                        {
+                        @error
+                        <br>
+                        }
+                    </p>
+                }
+            }
+        </div>
     </div>
-</div>
 
-<hr>
-<hr>
-<hr>
+    <hr>
+    <hr>
+    <hr>
 
     <table>
         @for (int i = 0; i < Model.columns.Count; i++)
@@ -39,5 +51,5 @@
         }
 
     </table>
-        <input type="submit" value="Continue" class="btn btn-default" }>
+    <input type="submit" value="Continue" class="btn btn-default" }>
 }

@@ -25,7 +25,7 @@ namespace ReportDeport.Controllers
             {
                 if (item.templateId == id)
                 {
-                    columns.Add(new columnItem() { ColumnId = item.templateColumnId, ColumnName = item.columnTranslation.userColumnName, IsChecked = false });
+                    columns.Add(new columnItem() {  ColumnName = item.columnTranslation.userColumnName, IsChecked = true });
                 }
 
             }
@@ -48,40 +48,7 @@ namespace ReportDeport.Controllers
                     if (item.IsChecked)
                     {
                         templateColumn tempCol = new templateColumn();
-
-                        int numSameName = 0;
-                        foreach (var template in db.templates.ToList())
-                        {
-                            if (columnList.columns[0].ReportName == null)
-                            {
-                                ViewBag.Error = "Please enter Report Name.";
-                            }
-                            else
-                            {
-                                if (template.name.Equals(columnList.columns[0].ReportName))
-                                {
-                                    numSameName++;
-                                }
-                            }
-                        }
                         
-                        if (numSameName == 0)
-                        {
-                            template temp = new template();
-                            temp.date = now;
-                            temp.name = columnList.columns[0].ReportName;
-                            temp.userId = User.Identity.GetUserId();
-
-                            db.templates.Add(temp);
-                            db.SaveChanges();
-                        }
-                        else
-                        {
-                            ViewBag.Error = "You have already saved a report with the same name. Please enter a new Report Name.";
-                        }
-
-
-
 
                         foreach (var colTransItem in db.columnTranslations.ToList())
                         {

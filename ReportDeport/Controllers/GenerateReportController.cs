@@ -19,7 +19,7 @@ namespace ReportDeport.Controllers
         public ActionResult Index(int? id)
         {
             List<columnItem> columns = new List<columnItem>();
-            foreach (var item in db.columnTranslations)
+            foreach (var item in db.columnTranslations.ToList())
             {
                     columns.Add(new columnItem() { ColumnId = item.columnTranslationId, ColumnName = item.userColumnName, IsChecked = false });
             }
@@ -32,33 +32,96 @@ namespace ReportDeport.Controllers
         [HttpPost]
         public ActionResult Index(columnItemList columnList, int? id)
         {
-
-            columnItemList newList = new columnItemList();
-            if (columnList.columns != null)
-            {
-                foreach (var item in columnList.columns)
-                {
-                    if (item.IsChecked)
-                    {
-                        newList.columns.Add(item);
-                    }
-                }
-
-            }
-
+            bool templateAdded = false;
+            DateTime now = DateTime.Now;
             List<columnItem> columns = new List<columnItem>();
+            ViewBag.Error = "";
             if (columnList.columns != null)
             {
                 foreach (var item in columnList.columns)
                 {
-                    if (!item.IsChecked)
+                    if (item.IsChecked && !templateAdded)
                     {
-                        db.templates.Add(new template() { date = DateTime.Now, userId = User.Identity.GetUserId(), name = item.ReportName });
+
+                        int numSameName = 0;
+                        foreach (var template in db.templates.ToList())
+                        {
+                            if (columnList.columns[0].ReportName == null)
+                            {
+                                ViewBag.Errors = new string[] { "Please enter a Report Name" };
+                                return View(columnList);
+                            }
+                            else
+                            {
+                                if (template.name.Equals(columnList.columns[0].ReportName))
+                                {
+                                    numSameName++;
+                                }
+                            }
+                        }
+
+                        if (numSameName == 0)
+                        {
+                            templateAdded = true;
+                            template temp = new template();
+                            temp.date = now;
+                            temp.name = columnList.columns[0].ReportName;
+                            temp.userId = User.Identity.GetUserId();
+
+                            db.templates.Add(temp);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            ViewBag.Errors = new string[] { "You have already saved a report with the same name", "Please enter a new Report Name" };
+                            return View(columnList);
+                        }
+
                     }
                 }
             }
+
+
             columnItemList colList = new columnItemList();
             colList.columns = columns;
+
+            columnItemList newList = new columnItemList();
+            newList.columns = new List<columnItem>();
+            if (columnList.columns != null)
+            {
+                foreach (var item in columnList.columns)
+                {
+
+                    if (item.IsChecked)
+                    {
+                        templateColumn tempCol = new templateColumn();
+
+
+                        foreach (var colTransItem in db.columnTranslations.ToList())
+                        {
+
+                            if (colTransItem.userColumnName.Equals(item.ColumnName))
+                            {
+                                tempCol.columnTranslationId = colTransItem.columnTranslationId;
+                            }
+                        }
+
+                        foreach (var tempItem in db.templates.ToList())
+                        {
+                            if (tempItem.name.Equals(columnList.columns[0].ReportName) && tempItem.name != null && (tempItem.date == now))
+                            {
+                                tempCol.templateId = tempItem.templateId;
+                            }
+                        }
+
+                        db.templateColumns.Add(tempCol);
+                        db.SaveChanges();
+
+                    }
+
+                }
+            }
+
 
             return View("Edit", db.templates.ToList());
         }
@@ -112,20 +175,7 @@ namespace ReportDeport.Controllers
         // GET: GenerateReport/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            template template = db.templates.Find(id);
-            if (template == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            return View(template);
+            return View(db.templates.ToList());
         }
 
         // POST: GenerateReport/Edit/5
@@ -137,15 +187,11 @@ namespace ReportDeport.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(template).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(template).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            return View(template);
+            return View();
         }
 
         // GET: GenerateReport/Delete/5
