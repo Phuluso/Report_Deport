@@ -52,6 +52,19 @@ namespace ReportDeport.Controllers
             }).ToList();
             allList.categories = categoryList;
 
+            List<EnrolViewModel> enrolList = db.enrols.Select(x => new EnrolViewModel
+            {
+
+                enrolId = x.enrolId,
+                enrol1 = x.enrol1,
+                courseId = x.courseId,
+                enrolstartdate = x.enrolstartdate,
+                enrolenddate = x.enrolenddate,
+               
+
+            }).ToList();
+            allList.enrol = enrolList;
+
             return View(allList);
         }
 
@@ -127,7 +140,7 @@ namespace ReportDeport.Controllers
             foreach (var item in courseList)
             {
                 ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("#808080")));
+                ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("#3399f3")));
 
                  ws.Cells[string.Format("A{0}", rowStart)].Value = item.courseId;
                 ws.Cells[string.Format("B{0}", rowStart)].Value = item.categoryId;
@@ -136,6 +149,7 @@ namespace ReportDeport.Controllers
                 ws.Cells[string.Format("E{0}", rowStart)].Value = item.idnumber;
                 ws.Cells[string.Format("F{0}", rowStart)].Value = item.startdate;
                 ws.Cells[string.Format("G{0}", rowStart)].Value = item.visible;
+               
                 ws.Cells[string.Format("H{0}", rowStart)].Value = item.timecreated;
                 ws.Cells[string.Format("I{0}", rowStart)].Value = item.timemodified;
                 ws.Cells[string.Format("J{0}", rowStart)].Value = item.enablecompletion;

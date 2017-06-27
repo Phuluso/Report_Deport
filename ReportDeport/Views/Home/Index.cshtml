@@ -8,8 +8,8 @@
 @Styles.Render("~/Content/SiteStyles.css")
 
 <div class="col-md-2">
-    
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_table">Course</a><br/>
+    <label>Courses</label>
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_table">Show/Hide</a><br/>
 <div class="container collapse" id="course_table" >
    
     <table class="table table-responsive">
@@ -31,7 +31,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -74,21 +74,21 @@
 
 
 <div class="col-md-2">
-  
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_categories_table">Course Categories</a><br />
+    <label>Course Categories</label>
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_categories_table">Show/Hide</a><br />
 <div class="container collapse" id="course_categories_table">
     <table class="table table-responsive">
         <thead>
             <tr>
-             
-                <th>Category ID</th>
-                <th>name</th>
-                <th>idnumber</th>
-                <th>description</th>
-                <th>course Count</th>
-                <th>Visible</th>
-                <th>Time modified</th>
-                
+
+                @for (int i = 0; i < Model.columnTrans.Count; i++)
+                {
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course_categories"))
+                    {
+                        <th>@Model.columnTrans[i].userColumnName</th>
+                    }
+
+                }
             </tr>
         </thead>
         <tbody>
@@ -96,11 +96,10 @@
             {
                 foreach (var item in Model.categories)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.categoryId
                         </td>
-                     
                         <td>
                             @item.name
                         </td>
@@ -112,21 +111,22 @@
                         </td>
                         <td>
                             @item.coursecount
-
                         </td>
+                        
                         <td>
                             @item.visible
                         </td>
-                       
+                      
                         <td>
                             @item.timemodified
                         </td>
-                      
+                        
 
                     </tr>
                 }
             }
         </tbody>
+       
     </table>
     <a href="@Url.Action("ExportToExcel","Home")">Download</a>
 </div>
@@ -141,7 +141,7 @@
 
                 @for (int i = 0; i < Model.columnTrans.Count; i++)
                 {
-                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("enrol"))
                     {
                         <th>@Model.columnTrans[i].userColumnName</th>
                     }
@@ -152,39 +152,20 @@
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model.courses)
+                foreach (var item in Model.enrol)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
+                        
                         <td>
                             @item.courseId
                         </td>
                         <td>
-                            @item.categoryId
+                            @item.enrolstartdate
                         </td>
                         <td>
-                            @item.fullname
+                            @item.enrolenddate
                         </td>
-                        <td>
-                            @item.shortname
-                        </td>
-                        <td>
-                            @item.idnumber
-                        </td>
-                        <td>
-                            @item.startdate
-                        </td>
-                        <td>
-                            @item.visible
-                        </td>
-                        <td>
-                            @item.timecreated
-                        </td>
-                        <td>
-                            @item.timemodified
-                        </td>
-                        <td>
-                            @item.enablecompletion
-                        </td>
+                        
 
                     </tr>
                 }
@@ -206,7 +187,7 @@
 
                 @for (int i = 0; i < Model.columnTrans.Count; i++)
                 {
-                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("course"))
+                    if (Model.columnTrans[i].columnDirectory.Split(Convert.ToChar("."))[0].Equals("enrol"))
                     {
                         <th>@Model.columnTrans[i].userColumnName</th>
                     }
@@ -217,39 +198,25 @@
         <tbody>
             @if (Model != null)
             {
-                foreach (var item in Model.courses)
+                foreach (var item in Model.enrol)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
+                        <td>
+                            @item.enrolId
+                        </td>
+                        <td>
+                            @item.enrol1
+                        </td>
                         <td>
                             @item.courseId
                         </td>
                         <td>
-                            @item.categoryId
+                            @item.enrolstartdate
                         </td>
                         <td>
-                            @item.fullname
+                            @item.enrolenddate
                         </td>
-                        <td>
-                            @item.shortname
-                        </td>
-                        <td>
-                            @item.idnumber
-                        </td>
-                        <td>
-                            @item.startdate
-                        </td>
-                        <td>
-                            @item.visible
-                        </td>
-                        <td>
-                            @item.timecreated
-                        </td>
-                        <td>
-                            @item.timemodified
-                        </td>
-                        <td>
-                            @item.enablecompletion
-                        </td>
+
 
                     </tr>
                 }
@@ -283,7 +250,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -347,7 +314,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -411,7 +378,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -475,7 +442,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -539,7 +506,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -603,7 +570,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -667,7 +634,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
@@ -731,7 +698,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:grey">
+                    <tr style="background-color:#3399f3">
                         <td>
                             @item.courseId
                         </td>
