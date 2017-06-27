@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ReportDeport.Models.ContactForm>
+﻿@model IEnumerable<ReportDeport.Models.contactForm>
 
 @{
     ViewBag.Title = "Index";
@@ -34,7 +34,7 @@
             @Html.DisplayNameFor(model => model.subject)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.conpanyEmail)
+            @Html.DisplayNameFor(model => model.emailAddress)
         </th>
         <th></th>
     </tr>
@@ -63,12 +63,12 @@
             @Html.DisplayFor(modelItem => item.subject)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.conpanyEmail)
+            @Html.DisplayFor(modelItem => item.emailAddress)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ContactFormId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ContactFormId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ContactFormId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.contactFormId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.contactFormId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.contactFormId })
         </td>
     </tr>
 }
