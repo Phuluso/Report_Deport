@@ -83,6 +83,12 @@ namespace ReportDeport.Controllers
             return View();
         }
 
+        public ActionResult PendingUserMessage()
+        {
+            ViewBag.Message = "Pending user";
+
+            return View();
+        }
 
         public void ExportToExcel()
         {
