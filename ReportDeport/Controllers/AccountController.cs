@@ -9,14 +9,23 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ReportDeport.Models;
-
-
+using System.Web.Hosting;
+using System.IO;
 
 namespace ReportDeport.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        [HttpGet]
+        [AllowAnonymous]
+
+        public ActionResult SendEmail() {
+            return View();
+        }
+             
+
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -284,6 +293,8 @@ namespace ReportDeport.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
+
+
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
@@ -454,6 +465,9 @@ namespace ReportDeport.Controllers
             return RedirectToAction("UserLogin", "Home");
         }
 
+
+     
+
         internal class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri)
@@ -481,6 +495,17 @@ namespace ReportDeport.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+
+        public static async Task<string> EmailTemplate(string template)
+        {
+            var templateFilePath = HostingEnvironment.MapPath("~/Content/templates/") + template + ".cshtml";
+            StreamReader objstreamreaderfile = new StreamReader(templateFilePath);
+            var body = await objstreamreaderfile.ReadToEndAsync();
+            objstreamreaderfile.Close();
+            return body;
+
+
         }
         #endregion
     }
