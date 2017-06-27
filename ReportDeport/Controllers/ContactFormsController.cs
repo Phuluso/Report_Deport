@@ -27,7 +27,7 @@ namespace ReportDeport.Controllers
         // GET: ContactForms/Create
         public ActionResult Create()
         {
-            int i = 0;
+            
             return View();
         }
 
@@ -43,7 +43,7 @@ namespace ReportDeport.Controllers
                 contact.aspUserId = User.Identity.GetUserId();
                 db.contactForms.Add(contact);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
             catch
             {
