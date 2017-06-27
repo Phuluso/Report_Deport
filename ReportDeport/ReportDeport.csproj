@@ -253,6 +253,7 @@
     <Compile Include="Models\enrol.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EnrolViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageUsers.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

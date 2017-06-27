@@ -25,7 +25,7 @@ namespace ReportDeport.Models
         public List<CourseViewModel> courses { get; set; }
         public List<CategoryViewModel> categories { get; set; }
 
-        public List<enrol> enrol { get; set; }
+        public List<EnrolViewModel> enrol { get; set; }
         public List<columnItem> columns { get; set; }
 
         public List<columnTranslation> columnTrans { get; set; }
