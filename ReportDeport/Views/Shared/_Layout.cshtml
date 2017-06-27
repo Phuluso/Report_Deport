@@ -17,21 +17,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+@*@if (!User.Identity.Name.Equals(""))
+{*@
                 <a href='@Url.Action("UserLogin", "Home")'>
                     <img src="~/Content/images/icon.png" style="width: 55px;" />
                 </a>
+@*}
+else
+{
+    <a href='@Url.Action("Login", "Account")'>
+        <img src="~/Content/images/icon.png" style="width: 55px;" />
+    </a>
+}*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @if (!User.Identity.Name.Equals(""))
+                    {
                     <li>@Html.ActionLink("Home", "UserLogin", "Home")</li>
                     <li>@Html.ActionLink("Generate Report", "Index", "GenerateReport")</li>
                     <li>@Html.ActionLink("Download History", "Index", "Home")</li>
-                    
                     <li>@Html.ActionLink("Download Templates", "Edit", "templates")</li>
-                    
                     <li>@Html.ActionLink("Contact Us", "Create", "ContactForms")</li>
                     <li>@Html.ActionLink("Help", "About", "Home")</li>
-                  
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
