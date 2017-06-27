@@ -52,9 +52,16 @@ namespace ReportDeport.Controllers
                         int numSameName = 0;
                         foreach (var template in db.templates.ToList())
                         {
-                            if (template.name.Equals(columnList.columns[0].ReportName))
+                            if (columnList.columns[0].ReportName == null)
                             {
-                                numSameName++;
+                                ViewBag.Error = "Please enter Report Name.";
+                            }
+                            else
+                            {
+                                if (template.name.Equals(columnList.columns[0].ReportName))
+                                {
+                                    numSameName++;
+                                }
                             }
                         }
                         
@@ -74,10 +81,7 @@ namespace ReportDeport.Controllers
                         }
 
 
-                        if (columnList.columns[0].ReportName == null)
-                        {
-                            ViewBag.Error = "Please enter Report Name.";
-                        }
+
 
                         foreach (var colTransItem in db.columnTranslations.ToList())
                         {

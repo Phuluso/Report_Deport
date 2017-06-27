@@ -33,17 +33,17 @@ namespace ReportDeport.Controllers
         public ActionResult Index(columnItemList columnList, int? id)
         {
 
+            columnItemList newList = new columnItemList();
             if (columnList.columns != null)
             {
                 foreach (var item in columnList.columns)
                 {
-                    if (!item.IsChecked)
+                    if (item.IsChecked)
                     {
-                        templateColumn field = db.templateColumns.Find(item.ColumnId);
-                        db.templateColumns.Remove(field);
-                        db.SaveChanges();
+                        newList.columns.Add(item);
                     }
                 }
+
             }
 
             List<columnItem> columns = new List<columnItem>();
