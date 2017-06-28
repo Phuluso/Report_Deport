@@ -24,6 +24,7 @@ namespace ReportDeport.Models
         public System.DateTime date { get; set; }
         public string name { get; set; }
         public string userId { get; set; }
+        public bool isHistory { get; set; }
     
         public virtual template template1 { get; set; }
         public virtual template template2 { get; set; }

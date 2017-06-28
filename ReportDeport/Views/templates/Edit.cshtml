@@ -10,19 +10,13 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    @*<tr>
-            <th>
-                @Html.DisplayNameFor(model => model.date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th></th>
-        </tr>*@
+
     @if (Model != null)
     {
         foreach (var item in Model)
         {
+            if (!item.isHistory)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.date)
@@ -34,6 +28,7 @@
                     @Html.ActionLink("Generate Report", "Index", new { id = item.templateId })
                 </td>
             </tr>
+            }
         }
     }
 

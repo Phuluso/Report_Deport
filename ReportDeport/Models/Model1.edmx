@@ -265,6 +265,7 @@
           <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="userId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="isHistory" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="templateColumn">
           <Key>
@@ -1576,6 +1577,7 @@
           <NavigationProperty Name="template11" Relationship="ReportDepotModel4.FK_template_template1" FromRole="template" ToRole="template1" />
           <NavigationProperty Name="template3" Relationship="ReportDepotModel4.FK_template_template1" FromRole="template1" ToRole="template" />
           <NavigationProperty Name="templateColumns" Relationship="ReportDepotModel4.FK_templateColumn_template" FromRole="template" ToRole="templateColumn" />
+          <Property Name="isHistory" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_template_template">
           <End Type="ReportDepotModel4.template" Role="template" Multiplicity="1" />
@@ -1972,6 +1974,7 @@
           <EntitySetMapping Name="templates">
             <EntityTypeMapping TypeName="ReportDepotModel4.template">
               <MappingFragment StoreEntitySet="template">
+                <ScalarProperty Name="isHistory" ColumnName="isHistory" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="date" ColumnName="date" />

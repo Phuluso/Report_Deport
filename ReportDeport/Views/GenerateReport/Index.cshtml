@@ -1,13 +1,51 @@
-﻿@model ReportDeport.Models.columnItemList
+﻿@model ReportDeport.Models.columnItemListTranslations
 
 @{
-    ViewBag.Title = "Templates";
+    ViewBag.Title = "Generate Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<h2>Select Report Fields</h2>
+<h2>Generate Report</h2>
 
+<hr>
+<br>
+<br>
+
+@using (Html.BeginForm("Create", "GenerateReport"))
+{
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.columns[0].ReportName, "Search", htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.columns[0].ReportName, new { htmlAttributes = new { @class = "form-control" } })
+                <p style="color:red">
+                    @if (ViewBag.Error != null)
+                    {
+                        if (ViewBag.Error.StartsWith("No fields found containing"))
+                        {
+                            @ViewBag.Error
+                        }
+                    }
+                </p>
+
+
+            </div>
+
+
+
+            <div class="col-md-2">
+                <center><input type="submit" value="Search" class="btn btn-default"></center>
+            </div>
+        </div>
+    </div>
+}
+
+<br>
+<br>
+<br>
 <hr>
 
 @using (Html.BeginForm("Index", "GenerateReport"))
@@ -16,7 +54,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.columns[0].ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.columns[0].ReportName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.columns[0].ReportName, "", new { htmlAttributes = new { @class = "form-control" } })
             @if (ViewBag.Errors != null)
             {
                 if (ViewBag.Errors.Length != 0)
@@ -24,8 +62,8 @@
                     <p style="color:red">
                         @foreach (var error in ViewBag.Errors)
                         {
-                        @error
-                        <br>
+                            @error
+                            <br>
                         }
                     </p>
                 }
@@ -37,19 +75,114 @@
     <hr>
     <hr>
 
-    <table>
-        @for (int i = 0; i < Model.columns.Count; i++)
-        {
-            <tr>
-                <td>
-                    @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
-                    @Model.columns[i].ColumnName
-                    @Html.HiddenFor(m => Model.columns[i].ColumnId)
-                    @Html.HiddenFor(m => Model.columns[i].ColumnName)
-                </td>
-            </tr>
-        }
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <h4>Learners</h4>
+            @for (int i = 0; i < Model.columns.Count; i++)
+            {
+                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                foreach (var item in Model.translations)
+                {
+                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                    {
+                        columnDets = item;
+                        break;
+                    }
+                }
+                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
 
-    </table>
-    <input type="submit" value="Continue" class="btn btn-default" }>
+                if (startOfColDir.StartsWith("user") || startOfColDir.StartsWith("role"))
+                {
+                    <div>
+                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                        @Model.columns[i].ColumnName
+                        @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-md-3">
+            <h4>Courses</h4>
+            @for (int i = 0; i < Model.columns.Count; i++)
+            {
+                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                foreach (var item in Model.translations)
+                {
+                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                    {
+                        columnDets = item;
+                        break;
+                    }
+                }
+                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+
+                if (startOfColDir.StartsWith("course"))
+                {
+                    <div>
+                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                        @Model.columns[i].ColumnName
+                        @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="col-md-3">
+            <h4>Quizez</h4>
+            @for (int i = 0; i < Model.columns.Count; i++)
+            {
+                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                foreach (var item in Model.translations)
+                {
+                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                    {
+                        columnDets = item;
+                        break;
+                    }
+                }
+                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+
+                if (startOfColDir.StartsWith("course") || startOfColDir.StartsWith("quiz"))
+                {
+                    <div>
+                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                        @Model.columns[i].ColumnName
+                        @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-md-3">
+            <h4>Questions</h4>
+            @for (int i = 0; i < Model.columns.Count; i++)
+            {
+                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                foreach (var item in Model.translations)
+                {
+                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                    {
+                        columnDets = item;
+                        break;
+                    }
+                }
+                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+
+                if (startOfColDir.StartsWith("question") || startOfColDir.StartsWith("quiz"))
+                {<div>
+                @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                @Model.columns[i].ColumnName
+                @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                @Html.HiddenFor(m => Model.columns[i].ColumnName)
+            </div>
+                }
+            }
+        </div>
+
+    </div>
+    <div class="col-md-12" style="padding-top:3%">
+        <center><input type="submit" value="Generate" class="btn btn-default"></center>
+    </div>
 }

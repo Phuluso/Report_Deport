@@ -19,14 +19,37 @@ namespace ReportDeport.Controllers
         public ActionResult Index(int? id)
         {
             List<columnItem> columns = new List<columnItem>();
-            foreach (var item in db.columnTranslations.ToList())
-            {
-                    columns.Add(new columnItem() { ColumnId = item.columnTranslationId, ColumnName = item.userColumnName, IsChecked = false });
-            }
-            columnItemList colList = new columnItemList();
-            colList.columns = columns;
 
-            return View(colList);
+            if (id != null)
+            {
+                foreach (var item in db.templateColumns)
+                {
+                    if (item.templateId == id)
+                    {
+                        columns.Add(new columnItem() { ColumnName = item.columnTranslation.userColumnName, IsChecked = true });
+                    }
+                }
+                columnItemList list = new columnItemList();
+                list.columns = columns;
+                return View("Details", list);
+            }
+            else
+            {
+                foreach (var item in db.columnTranslations)
+                {
+                    columns.Add(new columnItem() { ColumnName = item.userColumnName, IsChecked = false });
+                }
+                //return View("Edit",db.templates.ToList());
+            }
+
+
+
+            columnItemListTranslations colTrans = new columnItemListTranslations();
+            colTrans.columns = columns;
+            colTrans.translations = db.columnTranslations.ToList();
+
+
+            return View(colTrans);
         }
 
         [HttpPost]
@@ -49,7 +72,10 @@ namespace ReportDeport.Controllers
                             if (columnList.columns[0].ReportName == null)
                             {
                                 ViewBag.Errors = new string[] { "Please enter a Report Name" };
-                                return View(columnList);
+                                columnItemListTranslations colTrans = new columnItemListTranslations();
+                                colTrans.columns = columnList.columns;
+                                colTrans.translations = db.columnTranslations.ToList();
+                                return View(colTrans);
                             }
                             else
                             {
@@ -66,6 +92,7 @@ namespace ReportDeport.Controllers
                             template temp = new template();
                             temp.date = now;
                             temp.name = columnList.columns[0].ReportName;
+                            temp.isHistory = true;
                             temp.userId = User.Identity.GetUserId();
 
                             db.templates.Add(temp);
@@ -74,7 +101,10 @@ namespace ReportDeport.Controllers
                         else
                         {
                             ViewBag.Errors = new string[] { "You have already saved a report with the same name", "Please enter a new Report Name" };
-                            return View(columnList);
+                            columnItemListTranslations colTrans = new columnItemListTranslations();
+                            colTrans.columns = columnList.columns;
+                            colTrans.translations = db.columnTranslations.ToList();
+                            return View(colTrans);
                         }
 
                     }
@@ -129,16 +159,7 @@ namespace ReportDeport.Controllers
         // GET: GenerateReport/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            template template = db.templates.Find(id);
-            if (template == null)
-            {
-                return HttpNotFound();
-            }
-            return View(template);
+            return View(db.templates.ToList());
         }
 
         // GET: GenerateReport/Create
@@ -155,21 +176,47 @@ namespace ReportDeport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "templateId,date,name,userId")] template template)
+        public ActionResult Create(columnItemListTranslations searchTerm)
         {
-            if (ModelState.IsValid)
+            DateTime now = DateTime.Now;
+            List<columnItem> columns = new List<columnItem>();
+            ViewBag.Error = "";
+
+            foreach (var item in db.columnTranslations.ToList())
             {
-                db.templates.Add(template);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (searchTerm.columns[0].ReportName != null)
+                {
+                    if (item.userColumnName.ToUpper().Contains(searchTerm.columns[0].ReportName.ToUpper()))
+                    {
+                        var colItem = new columnItem();
+                        colItem.ColumnName = item.userColumnName;
+                        colItem.IsChecked = false;
+                        colItem.ReportName = "";
+                        columns.Add(colItem);
+                    }
+                }
             }
 
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            ViewBag.templateId = new SelectList(db.templates, "templateId", "name", template.templateId);
-            return View(template);
+            if(columns.Count == 0)
+            {
+                ViewBag.Error = "No fields found containing '" + searchTerm.columns[0].ReportName + "'";
+                foreach (var item in db.columnTranslations.ToList())
+                {
+                        var colItem = new columnItem();
+                        colItem.ColumnName = item.userColumnName;
+                        colItem.IsChecked = false;
+                        colItem.ReportName = "";
+                        columns.Add(colItem);
+                }
+            }
+
+            columnItemListTranslations colTrans = new columnItemListTranslations();
+
+                colTrans.columns = columns;
+            
+            colTrans.translations = db.columnTranslations.ToList();
+
+            return View("Index", colTrans);
         }
 
         // GET: GenerateReport/Edit/5

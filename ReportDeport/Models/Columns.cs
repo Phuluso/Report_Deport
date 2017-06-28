@@ -20,6 +20,13 @@ namespace ReportDeport.Models
         public List<columnItem> columns { get; set; }
     }
 
+    public class columnItemListTranslations
+    {
+        public List<columnItem> columns { get; set; }
+        public List<columnTranslation> translations { get; set; }
+    }
+
+
     public class allModels
     {
         public List<CourseViewModel> courses { get; set; }

@@ -13,6 +13,8 @@
 
     @foreach (var item in Model)
     {
+        if (item.isHistory)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.date)
@@ -24,6 +26,7 @@
                 @Html.ActionLink("Generate Report", "Index", new { id = item.templateId })
             </td>
         </tr>
+        }
     }
 
 </table>

@@ -1,74 +1,30 @@
-﻿@model ReportDeport.Models.template
+﻿@model ReportDeport.Models.columnItemList
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Templates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>template</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.date)
-        </dt>
+<h2>Select Report Fields</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.date)
-        </dd>
+@using (Html.BeginForm("Index", "templates"))
+{
+    <br>
+    <table>
+        @for (int i = 0; i < Model.columns.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                    @Model.columns[i].ColumnName
+                    @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                    @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                </td>
+            </tr>
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.userId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.userId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.template1.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.template1.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.template2.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.template2.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.template11.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.template11.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.template3.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.template3.name)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.templateId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    </table>
+    <br>
+        <input type="submit" value="Continue" class="btn btn-default">
+}
