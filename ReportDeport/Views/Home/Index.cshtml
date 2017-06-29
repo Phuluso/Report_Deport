@@ -7,9 +7,12 @@
 }
 @Styles.Render("~/Content/SiteStyles.css")
 
+<h2>Download Preview</h2>
+<hr>
+
 <div class="col-md-2">
     <label>Courses</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_table">Show/Hide</a><br/>
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_table">Preview/Hide</a><br/>
 <div class="container collapse" id="course_table" >
    
     <table class="table table-responsive">
@@ -31,13 +34,8 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
-                        <td>
-                            @item.courseId
-                        </td>
-                        <td>
-                            @item.categoryId
-                        </td>
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
+                        
                         <td>
                             @item.fullname
                         </td>
@@ -50,18 +48,14 @@
                         <td>
                             @item.startdate
                         </td>
-                        <td>
-                            @item.visible
-                        </td>
+                        
                         <td>
                             @item.timecreated
                         </td>
                         <td>
                             @item.timemodified
                         </td>
-                        <td>
-                            @item.enablecompletion
-                        </td>
+                        
 
                     </tr>
                 }
@@ -75,7 +69,7 @@
 
 <div class="col-md-2">
     <label>Course Categories</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_categories_table">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#course_categories_table">Preview/Hide</a><br />
 <div class="container collapse" id="course_categories_table">
     <table class="table table-responsive">
         <thead>
@@ -96,10 +90,8 @@
             {
                 foreach (var item in Model.categories)
                 {
-                    <tr style="background-color:#3399f3">
-                        <td>
-                            @item.categoryId
-                        </td>
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
+                       
                         <td>
                             @item.name
                         </td>
@@ -113,9 +105,7 @@
                             @item.coursecount
                         </td>
                         
-                        <td>
-                            @item.visible
-                        </td>
+                       
                       
                         <td>
                             @item.timemodified
@@ -133,7 +123,7 @@
 
 <div class="col-md-2">
         <label>Enrolments</label> 
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#enrol_table">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#enrol_table">Preview/Hide</a><br />
 <div class="container collapse" id="enrol_table">
     <table class="table table-responsive">
         <thead>
@@ -154,17 +144,17 @@
             {
                 foreach (var item in Model.enrol)
                 {
-                    <tr style="background-color:#3399f3">
-                        
-                        <td>
-                            @item.courseId
-                        </td>
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.enrolstartdate
                         </td>
                         <td>
                             @item.enrolenddate
                         </td>
+                        <td>
+                            @item.courseId
+                        </td>
+                        
                         
 
                     </tr>
@@ -179,7 +169,7 @@
 
 <div class="col-md-2">
             <label>Questions</label> 
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#questions_table">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#questions_table">Preview/Hide</a><br />
 <div class="container collapse" id="questions_table">
     <table class="table table-responsive">
         <thead>
@@ -200,7 +190,7 @@
             {
                 foreach (var item in Model.enrol)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.enrolId
                         </td>
@@ -229,7 +219,7 @@
 
 <div class="col-md-2">
         <label>Question Answers</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#questions_answers_table">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#questions_answers_table">Preview/Hide</a><br />
 <div class="container collapse" id="questions_answers_table">
     <table class="table table-responsive">
         <thead>
@@ -250,7 +240,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>
@@ -293,7 +283,7 @@
 
 <div class="col-md-2">
     <label>Question attempt steps</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#question_attempt_steps">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#question_attempt_steps">Preview/Hide</a><br />
 <div class="container collapse" id="question_attempt_steps">
     <table class="table table-responsive">
         <thead>
@@ -314,7 +304,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>
@@ -357,7 +347,7 @@
 
 <div class="col-md-2">
     <label>Question attempts</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#question_attemts">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#question_attemts">Preview/Hide</a><br />
 <div class="container collapse" id="question_attemts">
     <table class="table table-responsive">
         <thead>
@@ -378,7 +368,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>
@@ -421,7 +411,7 @@
 
 <div class="col-md-2">
     <label>Question categories</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#question_categories">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#question_categories">Preview/Hide</a><br />
 <div class="container collapse" id="question_categories">
     <table class="table table-responsive">
         <thead>
@@ -442,7 +432,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>
@@ -485,7 +475,7 @@
 
 <div class="col-md-2">
     <label>Quiz</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz">Preview/Hide</a><br />
 <div class="container collapse" id="quiz">
     <table class="table table-responsive">
         <thead>
@@ -506,7 +496,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>
@@ -549,7 +539,7 @@
 
 <div class="col-md-2">
     <label>Quiz attempts</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz_attempts">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz_attempts">Preview/Hide</a><br />
 <div class="container collapse" id="quiz_attempts">
     <table class="table table-responsive">
         <thead>
@@ -570,7 +560,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>
@@ -613,7 +603,7 @@
 
 <div class="col-md-2">
     <label>Quiz grades</label>
-</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz_grades">Show/Hide</a><br />
+</div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz_grades">Preview/Hide</a><br />
 <div class="container collapse" id="quiz_grades">
     <table class="table table-responsive">
         <thead>
@@ -634,7 +624,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>
@@ -677,7 +667,7 @@
 
 <div class="col-md-2">
     <label>Quiz slots</label>
-    </div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz_slots">Show/Hide</a><br />
+    </div><a href="#" class="btn btn-lg btn-primary" data-toggle="collapse" data-target="#quiz_slots">Preview/Hide</a><br />
 <div class="container collapse" id="quiz_slots">
     <table class="table table-responsive">
         <thead>
@@ -698,7 +688,7 @@
             {
                 foreach (var item in Model.courses)
                 {
-                    <tr style="background-color:#3399f3">
+                    <tr style="background-color:rgba(51, 153, 243, 0.36)">
                         <td>
                             @item.courseId
                         </td>

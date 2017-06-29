@@ -9145,7 +9145,7 @@ function defaultPrefilter( elem, props, opts ) {
 	}
 
 
-	// show/hide pass
+	// Preview/Hide pass
 	for ( prop in props ) {
 		value = props[ prop ];
 		if ( rfxtypes.exec( value ) ) {
