@@ -25,5 +25,6 @@ textarea {
 
 #registerLink
 {
-   color:  rgb(43, 202, 210);
+   color: #008ed4;
+    text-decoration: overline;
 }

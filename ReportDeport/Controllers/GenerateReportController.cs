@@ -178,15 +178,30 @@ namespace ReportDeport.Controllers
         [HttpPost]
         public ActionResult Create(columnItemListTranslations searchTerm)
         {
-            DateTime now = DateTime.Now;
-            List<columnItem> columns = new List<columnItem>();
-            ViewBag.Error = "";
+           
+                DateTime now = DateTime.Now;
+                List<columnItem> columns = new List<columnItem>();
+                ViewBag.Error = "";
 
-            foreach (var item in db.columnTranslations.ToList())
-            {
-                if (searchTerm.columns[0].ReportName != null)
+                foreach (var item in db.columnTranslations.ToList())
                 {
-                    if (item.userColumnName.ToUpper().Contains(searchTerm.columns[0].ReportName.ToUpper()))
+                    if (searchTerm.columns[0].ReportName != null)
+                    {
+                        if (item.userColumnName.ToUpper().Contains(searchTerm.columns[0].ReportName.ToUpper()))
+                        {
+                            var colItem = new columnItem();
+                            colItem.ColumnName = item.userColumnName;
+                            colItem.IsChecked = false;
+                            colItem.ReportName = "";
+                            columns.Add(colItem);
+                        }
+                    }
+                }
+
+                if (columns.Count == 0)
+                {
+                    ViewBag.Error = "No fields found containing '" + searchTerm.columns[0].ReportName + "'";
+                    foreach (var item in db.columnTranslations.ToList())
                     {
                         var colItem = new columnItem();
                         colItem.ColumnName = item.userColumnName;
@@ -195,29 +210,16 @@ namespace ReportDeport.Controllers
                         columns.Add(colItem);
                     }
                 }
-            }
 
-            if(columns.Count == 0)
-            {
-                ViewBag.Error = "No fields found containing '" + searchTerm.columns[0].ReportName + "'";
-                foreach (var item in db.columnTranslations.ToList())
-                {
-                        var colItem = new columnItem();
-                        colItem.ColumnName = item.userColumnName;
-                        colItem.IsChecked = false;
-                        colItem.ReportName = "";
-                        columns.Add(colItem);
-                }
-            }
-
-            columnItemListTranslations colTrans = new columnItemListTranslations();
+                columnItemListTranslations colTrans = new columnItemListTranslations();
 
                 colTrans.columns = columns;
-            
-            colTrans.translations = db.columnTranslations.ToList();
 
-            return View("Index", colTrans);
-        }
+                colTrans.translations = db.columnTranslations.ToList();
+
+                return View("Index", colTrans);
+            }
+        
 
         // GET: GenerateReport/Edit/5
         public ActionResult Edit(int? id)

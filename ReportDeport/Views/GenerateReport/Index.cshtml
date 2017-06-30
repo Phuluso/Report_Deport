@@ -4,24 +4,116 @@
     ViewBag.Title = "Generate Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style type="text/css">
+    .form-style-9 {
+        
+        background: #FAFAFA;
+        padding: 30px;
+        /*margin: 50px auto;*/
+        box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+        border-radius: 10px;
+        border: 6px solid #305A72;
+    }
 
+        .form-style-9 ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+            .form-style-9 ul li {
+                display: block;
+                margin-bottom: 10px;
+                min-height: 35px;
+            }
+
+                .form-style-9 ul li .field-style {
+                    box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    padding: 8px;
+                    outline: none;
+                    border: 1px solid #B0CFE0;
+                    -webkit-transition: all 0.30s ease-in-out;
+                    -moz-transition: all 0.30s ease-in-out;
+                    -ms-transition: all 0.30s ease-in-out;
+                    -o-transition: all 0.30s ease-in-out;
+                }
+
+                    .form-style-9 ul li .field-style:focus {
+                        box-shadow: 0 0 5px #B0CFE0;
+                        border: 1px solid #B0CFE0;
+                    }
+
+                .form-style-9 ul li .field-split {
+                    width: 49%;
+                }
+
+                .form-style-9 ul li .field-full {
+                    width: 100%;
+                }
+
+                .form-style-9 ul li input.align-left {
+                    float: left;
+                }
+
+                .form-style-9 ul li input.align-right {
+                    float: right;
+                }
+
+                .form-style-9 ul li textarea {
+                    width: 100%;
+                    height: 100px;
+                }
+
+                .form-style-9 ul li input[type="button"],
+                .form-style-9 ul li input[type="submit"] {
+                    -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
+                    -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
+                    box-shadow: inset 0px 1px 0px 0px #3985B1;
+                    background-color: #216288;
+                    border: 1px solid #17445E;
+                    display: inline-block;
+                    cursor: pointer;
+                    color: #FFFFFF;
+                    padding: 8px 18px;
+                    text-decoration: none;
+                    font: 12px Arial, Helvetica, sans-serif;
+                }
+
+                    .form-style-9 ul li input[type="button"]:hover,
+                    .form-style-9 ul li input[type="submit"]:hover {
+                        background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+                        background-color: #28739E;
+                    }
+
+
+
+
+
+</style>
 
 <h2>Generate Report</h2>
 
 <hr>
-<br>
-<br>
+
+
+
+
+
+
+
 
 @using (Html.BeginForm("Create", "GenerateReport"))
 {
     <div class="col-md-12">
         <div class="form-group">
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.columns[0].ReportName, "Search", htmlAttributes: new { @class = "control-label" })
-            </div>
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.columns[0].ReportName, new { htmlAttributes = new { @class = "form-control" } })
-                <p style="color:red">
+
+            <div class="col-md-3 " style="display: -webkit-inline-box; float: right;">
+                @Html.EditorFor(model => model.columns[0].ReportName, new { htmlAttributes = new { @class = "form-control", @style= "margin-left: -37px",@placeholder="Type search field here" } })
+                <center><input type="submit" value="Search" class="btn btn-default" style="margin-left: -3px;"></center>
+                <p style="color:red;margin-left: -311px;" >
+                    <br /><br />
                     @if (ViewBag.Error != null)
                     {
                         if (ViewBag.Error.StartsWith("No fields found containing"))
@@ -30,156 +122,202 @@
                         }
                     }
                 </p>
-
-
             </div>
 
 
 
-            <div class="col-md-2">
-                <center><input type="submit" value="Search" class="btn btn-default"></center>
-            </div>
+            
+                
+           
         </div>
     </div>
 }
 
-<br>
-<br>
-<br>
-<hr>
-
 @using (Html.BeginForm("Index", "GenerateReport"))
 {
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.columns[0].ReportName, "Report Name", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.columns[0].ReportName, "", new { htmlAttributes = new { @class = "form-control" } })
-            @if (ViewBag.Errors != null)
-            {
-                if (ViewBag.Errors.Length != 0)
+    
+
+    <hr>
+    <hr>
+    <hr>
+
+    <div class="col-md-12 form-style-9">
+        <div class="form-group row" style="padding-left: 26.5%; padding-right: 35%; display: -webkit-box;">
+            @Html.LabelFor(model => model.columns[0].ReportName, "Report Name: ",  new { @style= "line-height: 2; font-size: 18px;margin-right: 4px;" })
+           
+                @Html.EditorFor(model => model.columns[0].ReportName, "", new { htmlAttributes = new { @class = "form-control" } })
+               
+            
+        </div>
+        @if (ViewBag.Errors != null)
                 {
-                    <p style="color:red">
-                        @foreach (var error in ViewBag.Errors)
+                    if (ViewBag.Errors.Length != 0)
+                    {
+                <p style="color:red;text-align: center;">
+                    @foreach (var error in ViewBag.Errors)
                         {
-                            @error
-                            <br>
+                        @error
+                        <br>
+                    }
+                </p>
+            }
+        }
+        <div class="col-md-3">
+            <table class="table table-striped">
+                <thead class="thead-inverse" style="font-size: 18px;">
+                    <tr>
+                        <th>Learners</th>
+
+
+                    </tr>
+                </thead>
+
+                @for (int i = 0; i < Model.columns.Count; i++)
+                {
+                    ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                    foreach (var item in Model.translations)
+                    {
+                        if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                        {
+                            columnDets = item;
+                            break;
                         }
-                    </p>
-                }
-            }
-        </div>
-    </div>
+                    }
+                    string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
 
-    <hr>
-    <hr>
-    <hr>
-
-    <div class="col-md-12">
-        <div class="col-md-3">
-            <h4>Learners</h4>
-            @for (int i = 0; i < Model.columns.Count; i++)
-            {
-                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
-                foreach (var item in Model.translations)
-                {
-                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                    if (startOfColDir.StartsWith("user") || startOfColDir.StartsWith("role"))
                     {
-                        columnDets = item;
-                        break;
+                        <tr>
+                            <td>
+                                @Html.CheckBoxFor(m => Model.columns[i].IsChecked, new { @class = "control control--checkbox" })
+                                @Model.columns[i].ColumnName
+                                @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                                @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                            </td>
+
+                        </tr>
+
                     }
                 }
-                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+            </table>
 
-                if (startOfColDir.StartsWith("user") || startOfColDir.StartsWith("role"))
-                {
-                    <div>
-                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
-                        @Model.columns[i].ColumnName
-                        @Html.HiddenFor(m => Model.columns[i].ColumnId)
-                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
-                    </div>
-                }
-            }
-        </div>
+</div>
         <div class="col-md-3">
-            <h4>Courses</h4>
-            @for (int i = 0; i < Model.columns.Count; i++)
-            {
-                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
-                foreach (var item in Model.translations)
+            <table class="table table-striped">
+                <thead class="thead-inverse" style="font-size: 18px;">
+                    <tr>
+                        <th>Courses</th>
+
+
+                    </tr>
+                </thead>
+                @for (int i = 0; i < Model.columns.Count; i++)
                 {
-                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                    ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                    foreach (var item in Model.translations)
                     {
-                        columnDets = item;
-                        break;
+                        if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                        {
+                            columnDets = item;
+                            break;
+                        }
+                    }
+                    string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+
+                    if (startOfColDir.StartsWith("course"))
+                    {
+                        
+                        <tr>
+                            <td>
+                               @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                            @Model.columns[i].ColumnName
+                            @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                            @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                            </td>
+
+                        </tr>
                     }
                 }
-                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
-
-                if (startOfColDir.StartsWith("course"))
-                {
-                    <div>
-                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
-                        @Model.columns[i].ColumnName
-                        @Html.HiddenFor(m => Model.columns[i].ColumnId)
-                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
-                    </div>
-                }
-            }
-        </div>
+                </table>
+</div>
 
         <div class="col-md-3">
-            <h4>Quizez</h4>
-            @for (int i = 0; i < Model.columns.Count; i++)
-            {
-                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
-                foreach (var item in Model.translations)
+            <table class="table table-striped">
+                <thead class="thead-inverse" style="font-size: 18px;">
+                    <tr>
+                        <th>Quizzes</th>
+
+
+                    </tr>
+                </thead>
+                @for (int i = 0; i < Model.columns.Count; i++)
                 {
-                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                    ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                    foreach (var item in Model.translations)
                     {
-                        columnDets = item;
-                        break;
+                        if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                        {
+                            columnDets = item;
+                            break;
+                        }
+                    }
+                    string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+
+                    if (startOfColDir.StartsWith("course") || startOfColDir.StartsWith("quiz"))
+                    {
+                        
+                        <tr>
+                            <td>
+                                @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                                @Model.columns[i].ColumnName
+                                @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                                @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                            </td>
+
+                        </tr>
                     }
                 }
-                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
-
-                if (startOfColDir.StartsWith("course") || startOfColDir.StartsWith("quiz"))
-                {
-                    <div>
-                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
-                        @Model.columns[i].ColumnName
-                        @Html.HiddenFor(m => Model.columns[i].ColumnId)
-                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
-                    </div>
-                }
-            }
-        </div>
+                </table>
+</div>
         <div class="col-md-3">
-            <h4>Questions</h4>
-            @for (int i = 0; i < Model.columns.Count; i++)
-            {
-                ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
-                foreach (var item in Model.translations)
-                {
-                    if (Model.columns[i].ColumnName.Equals(item.userColumnName))
-                    {
-                        columnDets = item;
-                        break;
-                    }
-                }
-                string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+            <table class="table table-striped">
+                <thead class="thead-inverse" style="font-size: 18px;">
+                    <tr>
+                        <th>Questions</th>
 
-                if (startOfColDir.StartsWith("question") || startOfColDir.StartsWith("quiz"))
-                {<div>
-                @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+
+                    </tr>
+                </thead>
+                @for (int i = 0; i < Model.columns.Count; i++)
+                {
+                    ReportDeport.Models.columnTranslation columnDets = new ReportDeport.Models.columnTranslation();
+                    foreach (var item in Model.translations)
+                    {
+                        if (Model.columns[i].ColumnName.Equals(item.userColumnName))
+                        {
+                            columnDets = item;
+                            break;
+                        }
+                    }
+                    string startOfColDir = columnDets.columnDirectory.Split(Convert.ToChar("."))[0];
+
+                    if (startOfColDir.StartsWith("question") || startOfColDir.StartsWith("quiz"))
+                    {
+            
+            <tr>
+                <td>
+                   @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
                 @Model.columns[i].ColumnName
                 @Html.HiddenFor(m => Model.columns[i].ColumnId)
                 @Html.HiddenFor(m => Model.columns[i].ColumnName)
-            </div>
+                </td>
+
+            </tr>
+                    }
                 }
-            }
-        </div>
+                </table>
+</div>
 
     </div>
     <div class="col-md-12" style="padding-top:3%">
