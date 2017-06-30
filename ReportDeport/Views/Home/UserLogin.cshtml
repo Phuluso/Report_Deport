@@ -7,7 +7,7 @@
 
 <body>
     <h1 class="page-header">
-        Report Deport
+        Report Depot
     </h1>
 
 
@@ -36,10 +36,10 @@
                     <h4>Report History</h4>
                 </div>
                 <div class="panel-body">
-                    <p>Store Templates of Previous Downlaods: On this page is where you will find a record of all the reports you have previously downloaded. They are arranged in ascending order starting from latest to earliest</p>
+                    <p>Store Templates of Previous Downloads: On this page is where you will find a record of all the reports you have previously downloaded. They are arranged in ascending order starting from latest to earliest</p>
                     @if (!User.Identity.Name.Equals(""))
                     {
-                    <a href="#" class="btn btn-primary">Previously Downloaded</a>
+                    <a href="~/GenerateReport/Edit" class="btn btn-primary">Previously Downloaded</a>
                     }
                 </div>
             </div>
@@ -53,7 +53,7 @@
                     <p>Allows user to get a view of what the final report will look like. This is helpful as users can identify any missing fields on the report before downlaoding the report. You can also edit the file. </p>
                     @if (!User.Identity.Name.Equals(""))
                     {
-                    <a href="~/Views/Home/Index.cshtml" class="btn btn-primary">Report Preview Page</a>
+                    <a href="~/Home/Index" class="btn btn-primary">Report Preview Page</a>
                     }
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     <p>The report request page is where the user is presenterd with a drop down search box contianing all the tables they cant get data on. They then choose fields they desire and click preview or download </p>
                     @if (!User.Identity.Name.Equals(""))
                     {
-                    <a href="~/Views/GenerateReport/Index.cshtml" class="btn btn-primary">Report Request</a>
+                    <a href="~/GenerateReport/Index" class="btn btn-primary">Report Request</a>
                     }
                 </div>
             </div>
@@ -85,9 +85,9 @@
                 </h4>
                 <ul>
                     
-                    <li>Able to download reports instantly, saving the client time and also offering a sense of customisation by allowing different/multiple results.</li>
-                    <li>Able to store templates that can be used to download the same report fields but in a future date.</li>
-                    <li>Able to store previously downlaoded reports and allow the user to download them again</li>
+                    <li>Download reports instantly, saving the client time and also offering a sense of customisation by allowing different/multiple results.</li>
+                    <li>Store templates that can be used to download the same report fields but in a future date</li>
+                    <li>Store previously downlaoded reports and allow the user to download them again</li>
                                   
                 </ul>
              </div>
