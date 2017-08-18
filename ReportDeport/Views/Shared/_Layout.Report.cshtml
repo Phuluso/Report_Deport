@@ -37,24 +37,34 @@
 
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class="navbar-brand" style="padding-top: 8px;">
-                    <a href="/">
-                        <img src="~/Content/img/report-icon.png" onerror="this.style.display='none'" width="45" />
-                        .Net Report Builder
-                    </a>
-                </div>
+
+                <a href='@Url.Action("UserLogin", "Home")'>
+                    <img src="~/Content/images/icon.png" style="width: 55px;" />
+                </a>
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                    @if (!User.Identity.Name.Equals(""))
+                    {
+                        <li>@Html.ActionLink("Home", "UserLogin", "Home")</li>
+                        <li>@Html.ActionLink("Build Report", "Index", "GenerateReport")</li>
+                        <li>@Html.ActionLink("Report History", "Edit", "GenerateReport")</li>
+                        <li>@Html.ActionLink("Report Templates", "Edit", "templates")</li>
+                        <li>@Html.ActionLink("Report Preview", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Contact Us", "Create", "ContactForms")</li>
+                        <li>@Html.ActionLink("Help", "About", "Home")</li>
+                    }
+
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

@@ -507,6 +507,7 @@
     <Content Include="Views\DotNetReport\_reportFilter.cshtml" />
     <Content Include="Views\DotNetReport\Report.cshtml" />
     <Content Include="Views\DotNetReport\Index.cshtml" />
+    <Content Include="Views\DotNetReport\Templates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
