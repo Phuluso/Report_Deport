@@ -25,6 +25,11 @@ namespace ReportDeport.Controllers
             return View();
         }
 
+        public ActionResult Templates()
+        {
+            return View();
+        }
+
         public ActionResult Report(int reportId, string reportName, string reportDescription, bool includeSubTotal,
             bool aggregateReport, bool showDataWithGraph, string reportSql, string connectKey, string reportFilter, string reportType, int selectedFolder)
         {

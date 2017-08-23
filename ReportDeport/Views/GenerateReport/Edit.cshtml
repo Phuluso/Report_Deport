@@ -91,6 +91,19 @@
 
 <h2>Report History</h2>
 
+
+<div class="clearfix">
+    <p class="pull-left">Please choose a Report from this Folder</p>
+    <div class="pull-right">
+        <a href="#" data-bind="click: function(){ SelectedFolder("Default Folder"); }">
+            ..back to Folders List
+        </a>
+
+
+    </div>
+</div>
+
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -117,7 +130,7 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.ActionLink("Generate Report", "Index", new { id = item.templateId })
+                @Html.ActionLink("Build Report", "Index", new { id = item.templateId })
             </td>
         </tr>
         }
