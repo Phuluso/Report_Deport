@@ -17,6 +17,8 @@ namespace ReportDeport.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        ReportDepotEntities4 db = new ReportDepotEntities4();
+
         [HttpGet]
         [AllowAnonymous]
 
@@ -160,9 +162,7 @@ namespace ReportDeport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-
-          
-
+            
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -170,7 +170,7 @@ namespace ReportDeport.Controllers
                 if (result.Succeeded)
                 {
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -181,6 +181,8 @@ namespace ReportDeport.Controllers
                 }
                 AddErrors(result);
             }
+
+
 
             // If we got this far, something failed, redisplay form
             return View(model);

@@ -21,10 +21,36 @@ namespace ReportDeport.Controllers
 {
     public class DotNetReportController : Controller
     {
+
+        ReportDepotEntities4 db = new ReportDepotEntities4();
 	public ActionResult Index()
         {
-            var id = User.Identity.GetUserId();
-            ViewBag.uid = id;
+
+
+            bool found = false;
+
+            foreach(var item in db.UserId_Int)
+            {
+                if(item.Id == User.Identity.GetUserId())
+                {
+                    found = true;
+
+                    ViewBag.uId = item.IdInt;
+                }
+            }
+
+            if(!found)
+            {
+                Random rand = new Random();
+                UserId_Int uInt = new UserId_Int();
+                int r = rand.Next(100000000, 1000000000);
+                uInt.IdInt = r;
+                ViewBag.uId = r;
+                uInt.Id = User.Identity.GetUserId();
+                db.UserId_Int.Add(uInt);
+                db.SaveChanges();
+
+            }
 
             return View();
         }

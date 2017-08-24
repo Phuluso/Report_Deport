@@ -21,9 +21,10 @@ namespace ReportDeport.Models
         }
     
         public int templateId { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public System.DateTime date { get; set; }
         public string name { get; set; }
         public string userId { get; set; }
+        public bool isHistory { get; set; }
     
         public virtual template template1 { get; set; }
         public virtual template template2 { get; set; }
@@ -31,6 +32,5 @@ namespace ReportDeport.Models
         public virtual template template3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<templateColumn> templateColumns { get; set; }
-        public bool isHistory { get; internal set; }
     }
 }

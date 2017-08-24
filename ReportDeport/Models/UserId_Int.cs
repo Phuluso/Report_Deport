@@ -12,10 +12,11 @@ namespace ReportDeport.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class question_categories
+    public partial class UserId_Int
     {
-        public int C_question_categoriesId_ { get; set; }
-        public string name { get; set; }
-        public string info { get; set; }
+        public string Id { get; set; }
+        public int IdInt { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
