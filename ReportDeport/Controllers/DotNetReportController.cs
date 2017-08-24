@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using OfficeOpenXml;
 using System.Text.RegularExpressions;
+using Microsoft.AspNet.Identity;
 
 namespace ReportDeport.Controllers
 {
@@ -22,17 +23,18 @@ namespace ReportDeport.Controllers
     {
 	public ActionResult Index()
         {
-            return View();
-        }
+            var id = User.Identity.GetUserId();
+            ViewBag.uid = id;
 
-        public ActionResult Templates()
-        {
             return View();
         }
 
         public ActionResult Report(int reportId, string reportName, string reportDescription, bool includeSubTotal,
             bool aggregateReport, bool showDataWithGraph, string reportSql, string connectKey, string reportFilter, string reportType, int selectedFolder)
         {
+            var id = User.Identity.GetUserId();
+            ViewBag.uid = id;
+
             var model = new DotNetReportModel
             {
                 ReportId = reportId,

@@ -1,9 +1,11 @@
 ﻿@using System.Configuration
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Report Builder";
     Layout = "../shared/_Layout.Report.cshtml";
 }
+
 
 @section scripts{
     <script type="text/javascript">
@@ -26,10 +28,11 @@
                 reportId: @(Request.QueryString["reportId"] != null ? Request.QueryString["reportId"] : "0"),
                 accountApiToken: "@ConfigurationManager.AppSettings["dotNetReport.accountApiToken"]", // Your Account Api Token from your http://dotnetreport.com Account
                 dataconnectApiToken: "@ConfigurationManager.AppSettings["dotNetReport.dataconnectApiToken"]", // Your Data Connect Api Token from your http://dotnetreport.com Account
-                clientId: "" // You can pass your multi-tenant client id here to keep track of their reports and folders
+                clientId: "@ViewBag.uid" // You can pass your multi-tenant client id here to keep track of their reports and folders
+
             });
-            vm.init(@(Request.QueryString["folderId"]!=null? Request.QueryString["folderId"]: "0"));
-            ko.applyBindings(vm);
+                vm.init(@(Request.QueryString["folderId"] != null ? Request.QueryString["folderId"] : "0"));
+                ko.applyBindings(vm);
         });
 
     </script>
@@ -93,7 +96,7 @@
                 <div data-bind="visible: SelectedFolder()==null">
                     <p>Please choose Folders below to view Reports</p>
                     <ul class="folder-list" data-bind="foreach: Folders">
-                        <li data-bind="click: function(){ $parent.SelectedFolder($data); }">
+                        <li data-bind="click: function(){ $parent.SelectedFolder($data);}">
                             <span class="glyphicon glyphicon-folder-open"></span>
                             <span class="desc" data-bind="text: FolderName"></span>
                         </li>
