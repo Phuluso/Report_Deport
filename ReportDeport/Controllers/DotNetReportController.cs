@@ -22,7 +22,7 @@ namespace ReportDeport.Controllers
 {
     public class DotNetReportController : Controller
     {
-        ReportDepotEntities7 db = new ReportDepotEntities7();
+        ReportDepotEntities8 db = new ReportDepotEntities8();
         public ActionResult Index()
         {
             bool found = false;
@@ -122,6 +122,47 @@ namespace ReportDeport.Controllers
             return Json((new JavaScriptSerializer()).DeserializeObject("["+json.ToString()+"]"), JsonRequestBehavior.AllowGet);
         }
 
+        
+        public string removeIdWheres(string unprocessed)
+        {
+
+            string processed = "";
+            string temp = unprocessed;
+
+            if(unprocessed.Contains("AND ("))
+            {
+                int startPos = unprocessed.IndexOf("AND (");
+                int endPos = temp.IndexOf(")") + 1;
+                while (endPos < startPos)
+                {
+                    temp = temp.Substring(unprocessed.IndexOf(")") + 1);
+                    endPos = unprocessed.IndexOf(")") + 1;
+                }
+                processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos, unprocessed.Length-1);
+            }else
+            {
+                int startPos = unprocessed.IndexOf("WHERE");
+                int endPos = unprocessed.IndexOf("ORDER");
+                processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos, unprocessed.Length-1);
+            }
+
+            bool found = false;
+            foreach (var item in db.UserId_Int)
+            {
+                if (item.AspNetUserId == User.Identity.GetUserId())
+                {
+                }
+            }
+
+            if (String.IsNullOrEmpty(processed) || !found)
+            {
+                return unprocessed;
+            }
+            else
+            {
+                return processed;
+            }
+        }
 
 
         public JsonResult RunReport(string reportSql, string connectKey, string reportType, int pageNumber = 1, int pageSize = 50, string sortBy = null, bool desc = false)
@@ -142,6 +183,7 @@ namespace ReportDeport.Controllers
                 // Execute sql
                 var dt = new DataTable();
                 var dtPaged = new DataTable();
+                removeIdWheres(sql);
                 using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[connectKey].ConnectionString))
                 {
                     conn.Open();
@@ -448,13 +490,6 @@ namespace ReportDeport.Controllers
 
                 foreach (DataColumn col in dt.Columns)
                 {
-                    //if(col.ColumnName.Equals("Int ID"))
-                    //{
-                    //    if (row.ItemArray.ElementAt(0).Equals)
-                    //    {
-
-                    //    }
-                    //}
 
                     items.Add(new DotNetReportDataRowItemModel
                     {

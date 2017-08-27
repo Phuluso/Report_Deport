@@ -45,7 +45,7 @@
                 apiUrl: "@ConfigurationManager.AppSettings["dotNetReport.apiUrl"]",
                 accountApiToken: "@ConfigurationManager.AppSettings["dotNetReport.accountApiToken"]", // Your Account Api Token from your http://dotnetreport.com Account
                 dataconnectApiToken: "@ConfigurationManager.AppSettings["dotNetReport.dataconnectApiToken"]", // Your Data Connect Api Token from your http://dotnetreport.com Account
-                clientId: "@*@ViewBag.uid*@", // You can pass your multi-tenant client id here to keep track of their reports and folders
+                clientId: "@ViewBag.uid", // You can pass your multi-tenant client id here to keep track of their reports and folders
                 reportFilter: htmlDecode('@HttpUtility.UrlDecode(Model.ReportFilter)'),
                 reportMode: "execute",
                 reportSql: "@Model.ReportSql",
