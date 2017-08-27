@@ -11,7 +11,7 @@ namespace ReportDeport.Controllers
 {
     public class HomeController : Controller
     {
-        ReportDepotEntities4 db = new ReportDepotEntities4();
+        ReportDepotEntities7 db = new ReportDepotEntities7();
         public ActionResult Index()
         {
             allModels allList = new allModels();
@@ -20,7 +20,7 @@ namespace ReportDeport.Controllers
            List <CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel
             {
                 courseId = x.courseId,
-                categoryId = x.categoryId,
+                //categoryId = x.categoryId,
                 fullname = x.fullname,
                 shortname = x.shortname,
                 idnumber = x.idnumber,
@@ -32,9 +32,20 @@ namespace ReportDeport.Controllers
             }).ToList();
             allList.courses = courseList;
 
-          
+          //  List<columnTranslation> ctl = new List<columnTranslation>();
 
-            allList.columnTrans = db.columnTranslations.ToList();
+          //foreach(var item in db.columnTranslations)
+          //  {
+          //      columnTranslation ct = new columnTranslation();
+          //      ct.columnDirectory = item.columnDirectory;
+          //      ct.columnTranslationId = item.columnTranslationId;
+          //      ct.templateColumns = item.templateColumns;
+          //      ct.userColumnName = item.userColumnName;
+          //      ctl.Add(ct);
+
+          //  }
+
+          //  allList.columnTrans = clt;
 
            
 
@@ -108,7 +119,7 @@ namespace ReportDeport.Controllers
             List<CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel
             {
                 courseId = x.courseId,
-                categoryId = x.categoryId,
+                //categoryId = x.categoryId,
                 fullname = x.fullname,
                 shortname = x.shortname,
                 idnumber = x.idnumber,

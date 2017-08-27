@@ -13,7 +13,7 @@ namespace ReportDeport.Controllers
 {
     public class GenerateReportController : Controller
     {
-        private ReportDepotEntities4 db = new ReportDepotEntities4();
+        ReportDepotEntities7 db = new ReportDepotEntities7();
 
         // GET: GenerateReport
         public ActionResult Index(int? id)
@@ -46,7 +46,7 @@ namespace ReportDeport.Controllers
 
             columnItemListTranslations colTrans = new columnItemListTranslations();
             colTrans.columns = columns;
-            colTrans.translations = db.columnTranslations.ToList();
+            //colTrans.translations = db.columnTranslations.ToList();
 
 
             return View(colTrans);
@@ -74,7 +74,7 @@ namespace ReportDeport.Controllers
                                 ViewBag.Errors = new string[] { "Please enter a Report Name" };
                                 columnItemListTranslations colTrans = new columnItemListTranslations();
                                 colTrans.columns = columnList.columns;
-                                colTrans.translations = db.columnTranslations.ToList();
+                                //colTrans.translations = db.columnTranslations.ToList();
                                 return View(colTrans);
                             }
                             else
@@ -103,7 +103,7 @@ namespace ReportDeport.Controllers
                             ViewBag.Errors = new string[] { "You have already saved a report with the same name", "Please enter a new Report Name" };
                             columnItemListTranslations colTrans = new columnItemListTranslations();
                             colTrans.columns = columnList.columns;
-                            colTrans.translations = db.columnTranslations.ToList();
+                            //colTrans.translations = db.columnTranslations.ToList();
                             return View(colTrans);
                         }
 
@@ -215,7 +215,7 @@ namespace ReportDeport.Controllers
 
                 colTrans.columns = columns;
 
-                colTrans.translations = db.columnTranslations.ToList();
+                //colTrans.translations = db.columnTranslations.ToList();
 
                 return View("Index", colTrans);
             }

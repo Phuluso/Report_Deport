@@ -14,7 +14,7 @@ namespace ReportDeport.Controllers
 {
     public class templatesController : Controller
     {
-        ReportDepotEntities4 db = new ReportDepotEntities4();
+        ReportDepotEntities7 db = new ReportDepotEntities7();
 
         // GET: templates
         public ActionResult Index(int? id)

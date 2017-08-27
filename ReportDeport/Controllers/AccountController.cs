@@ -17,7 +17,8 @@ namespace ReportDeport.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        ReportDepotEntities4 db = new ReportDepotEntities4();
+        public static string PrevView = "";
+        ReportDepotEntities7 db = new ReportDepotEntities7();
 
         [HttpGet]
         [AllowAnonymous]
@@ -92,7 +93,14 @@ namespace ReportDeport.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    if (PrevView.Equals("DotNetReportIndex"))
+                    {
+                        return RedirectToAction("Index", "DotNetReport");
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

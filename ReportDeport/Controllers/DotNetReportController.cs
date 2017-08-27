@@ -16,40 +16,42 @@ using System.Threading.Tasks;
 using OfficeOpenXml;
 using System.Text.RegularExpressions;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 
 namespace ReportDeport.Controllers
 {
     public class DotNetReportController : Controller
     {
-
-        ReportDepotEntities4 db = new ReportDepotEntities4();
-	public ActionResult Index()
+        ReportDepotEntities7 db = new ReportDepotEntities7();
+        public ActionResult Index()
         {
-
-
             bool found = false;
 
             foreach(var item in db.UserId_Int)
             {
-                if(item.Id == User.Identity.GetUserId())
+                if(item.AspNetUserId == User.Identity.GetUserId())
                 {
                     found = true;
-
                     ViewBag.uId = item.IdInt;
+                    break;
                 }
             }
 
-            if(!found)
+            if(!found && !User.Identity.Name.Equals(""))
             {
                 Random rand = new Random();
                 UserId_Int uInt = new UserId_Int();
                 int r = rand.Next(100000000, 1000000000);
                 uInt.IdInt = r;
                 ViewBag.uId = r;
-                uInt.Id = User.Identity.GetUserId();
+                uInt.AspNetUserId = User.Identity.GetUserId();
                 db.UserId_Int.Add(uInt);
                 db.SaveChanges();
 
+            }else if(User.Identity.Name.Equals(""))
+            {
+                AccountController.PrevView = "DotNetReportIndex";
+                return RedirectToAction("Login", "Account");
             }
 
             return View();
@@ -58,10 +60,24 @@ namespace ReportDeport.Controllers
         public ActionResult Report(int reportId, string reportName, string reportDescription, bool includeSubTotal,
             bool aggregateReport, bool showDataWithGraph, string reportSql, string connectKey, string reportFilter, string reportType, int selectedFolder)
         {
-            var id = User.Identity.GetUserId();
-            ViewBag.uid = id;
+            bool found = false;
+            foreach (var item in db.UserId_Int)
+            {
+                if (item.AspNetUserId == User.Identity.GetUserId())
+                {
+                    found = true;
+                    ViewBag.uId = item.IdInt;
+                    break;
+                }
+            }
 
-            var model = new DotNetReportModel
+            if (!found && !User.Identity.Name.Equals(""))
+            {
+                //if the user is not logged in they are redirected to the index page
+                return View("Index");
+            }
+
+                var model = new DotNetReportModel
             {
                 ReportId = reportId,
                 ReportType = reportType,
@@ -134,6 +150,8 @@ namespace ReportDeport.Controllers
 
                     adapter.Fill(dt);
                 }
+
+                
 
                 dtPaged = (dt.Rows.Count > 0) ? dtPaged = dt.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize).CopyToDataTable(): dt;                
 
@@ -430,6 +448,14 @@ namespace ReportDeport.Controllers
 
                 foreach (DataColumn col in dt.Columns)
                 {
+                    //if(col.ColumnName.Equals("Int ID"))
+                    //{
+                    //    if (row.ItemArray.ElementAt(0).Equals)
+                    //    {
+
+                    //    }
+                    //}
+
                     items.Add(new DotNetReportDataRowItemModel
                     {
                         Column = model.Columns[i],

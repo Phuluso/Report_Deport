@@ -11,7 +11,7 @@ namespace ReportDeport.Controllers
     public class ContactFormsController : Controller
     {
 
-        ReportDepotEntities4 db = new ReportDepotEntities4();
+        ReportDepotEntities7 db = new ReportDepotEntities7();
         // GET: ContactForms
         public ActionResult Index()
         {
