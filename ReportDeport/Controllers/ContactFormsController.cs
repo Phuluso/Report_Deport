@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Net;
 
 namespace ReportDeport.Controllers
 {
@@ -27,7 +28,7 @@ namespace ReportDeport.Controllers
         // GET: ContactForms/Create
         public ActionResult Create()
         {
-            
+
             return View();
         }
 
@@ -43,7 +44,36 @@ namespace ReportDeport.Controllers
                 contact.aspUserId = User.Identity.GetUserId();
                 db.contactForms.Add(contact);
                 db.SaveChanges();
-                return RedirectToAction("Create");
+                
+
+
+                // Gmail Address from where you send the mail
+                var fromAddress = contact.emailAddress.ToString();
+                // any address where the email will be sending
+                var toAddress ="phulusol7@gmail.com";
+                //Password of your gmail address
+                const string fromPassword = "0846742822";
+                // Passing the values and make a email formate to display
+                string subject = contact.subject.ToString();
+                string body = "From: " + contact.name.ToString() + "\n";
+                body += "Email: " + contact.emailAddress.ToString() + "\n";
+                body += "Subject: " + contact.subject.ToString() + "\n";
+                body += "Department: \n" + contact.department.ToString() + "\n";
+                body += "Message: \n" + contact.message.ToString() + "\n";
+                // smtp settings
+                var smtp = new System.Net.Mail.SmtpClient();
+                {
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                    smtp.Credentials = new NetworkCredential(toAddress, fromPassword);
+                    smtp.Timeout = 20000;
+                }
+                // Passing values to smtp object
+                smtp.Send(toAddress, "ngwphu001@myuct.ac.za", "Report deport - Website contact", body);
+                //return RedirectToAction("Create");
+                return View();
             }
             catch
             {

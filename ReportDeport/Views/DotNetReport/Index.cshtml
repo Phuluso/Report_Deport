@@ -42,9 +42,11 @@
     </script>
 }
 <center>
-<div class="form-style-9" style="width:82em; padding-left:1em">
-    <h3>Report Builder</h3>
-    <p>
+<div class="form-style-9" style="width:82em;box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: linear-gradient(to right, #b6c3d4, #d9cdcd, #c4ccd7, #a6c2df);
+    
+">
+    <h3 style="text-align: left; margin-left: 19px; padding-top: 19px;">Report Builder</h3>
+    <p style="text-align: left; margin-left: 19px; margin-bottom: 19px;">
         Manage your Reports below. You can use the intuitive and user friendly Report Building Wizard below to generate many types of Ad-hoc Reports.
     </p>
     @*<div class="alert alert-warning">
@@ -65,7 +67,7 @@
     *@
 
     <!-- Folders/Report List -->
-    <div id="report-start">
+    <div id="report-start" style="box-shadow:rgba(62, 100, 141, 0.96) 0px 0px 1px 0px;">
 
         <div class="panel panel-default folder-panel">
             @*<div class="panel-heading">
@@ -79,11 +81,11 @@
                         </div>
                         <ul class="nav navbar-nav">
                             <li class="">
-                                <a href="#" class="active" data-bind="click: createNewReport" data-toggle="modal" data-target="#modal-reportbuilder">Create a New Report</a>
+                                <a href="#" class="active" data-bind="click: createNewReport" data-toggle="modal" data-target="#modal-reportbuilder" style="font-size:18px;">Create a New Report</a>
                             </li>
                             <!-- ko if: CanManageFolders -->
                             <li class="">
-                                <a href="#" data-bind="click: ManageFolder.newFolder">Add a new Folder</a>
+                                <a href="#" data-bind="click: ManageFolder.newFolder" style="font-size:18px;">Add a new Folder</a>
                             </li>
                             <li class="dropdown" data-bind="visible: SelectedFolder()!=null">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Folder Options<span class="caret"></span></a>
@@ -174,7 +176,7 @@
     <div class="modal modal-fullscreen fade" id="modal-reportbuilder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding-right: 0px !important;">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="box-shadow: rgba(62, 100, 141, 0.96) -18px -2px 15px -5px; background: linear-gradient(to right, #b6c3d4, #d9cdcd, #c4ccd7, #a6c2df);">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">Design your Report</h4>
                 </div>
