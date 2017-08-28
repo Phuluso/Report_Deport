@@ -106,15 +106,15 @@
         <div style="clear: both;"></div>
         <br />
         <div class="panel panel-default" data-bind="visible: FlyFilters().length>0">
-            <div class="panel-heading">
+            <div class="panel-heading" style=" box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px; background: whitesmoke; ">
                 <h3 class="panel-title">
                     <a data-toggle="collapse" data-target="#filter-panel" href="#">
                         <i class="fa fa-filter"></i> Choose filter options
                     </a>
                 </h3>
             </div>
-            <div id="filter-panel" class="panel-collapse">
-                <div class="panel-body">
+            <div id="filter-panel" class="panel-collapse" style="box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: rgba(0, 0, 0, 0.09);">
+                <div class="panel-body" >
                     <!-- ko foreach: FlyFilters -->
                     <div class="row">
 
@@ -143,7 +143,7 @@
                 </div>
             </div>
         </div>
-        <div class="report-menubar">
+        <div class="report-menubar" style="box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: whitesmoke;">
             <div class="col-xs-12 col-centered" data-bind="with: pager">
                 <div class="form-inline" data-bind="visible: pages()">
                     <div class="form-group pull-left total-records">
@@ -160,7 +160,7 @@
                 </div>
             </div>
         </div>
-        <div class="report-canvas">
+        <div class="report-canvas" style="box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: rgba(0, 0, 0, 0.09);">
             <div class="report-container">
                 <div class="report-inner"  style="border-radius:1em">
                     <h2 data-bind="text: ReportName"></h2>
@@ -176,6 +176,11 @@
                     </div>
                 </div>
             </div>
+            <!-- ########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT PURCHASING LICENSE ########################### -->
+
+            <p style="text-align: center;">Powered by <a href="http://www.dotNetReport.com" target="_blank">dotNetReport.com</a></p>
+
+            <!--########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT PURCHASING LICENSE ########################### -->
         </div>
         <br />
         <span>Report ran on: @DateTime.Now.ToShortDateString() @DateTime.Now.ToShortTimeString()</span>
@@ -202,10 +207,10 @@
 
     <!-- /ko -->
     <!-- ko if: ReportDebug || HasError -->
-    <br />
-    <br />
-    <hr />
-    <code data-bind="text: ReportSql">
+    <br style="display:none" />
+    <br style="display:none" />
+    <hr style="display:none"  />
+    <code data-bind="text: ReportSql" style="display:none">
 
     </code>
     <!-- /ko -->
@@ -327,9 +332,4 @@
 
 <br />
 <br />
-<br />
-<!-- ########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT PURCHASING LICENSE ########################### -->
 
-<p>Powered by <a href="http://www.dotNetReport.com" target="_blank">dotNetReport.com</a></p>
-
-<!--########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT PURCHASING LICENSE ########################### -->

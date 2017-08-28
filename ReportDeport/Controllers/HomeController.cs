@@ -118,7 +118,7 @@ namespace ReportDeport.Controllers
         public ActionResult PendingUserMessage([Bind(Include = "name,emailAddress,date,position,department,message,subject,AspUserId")] columnItemList contact)
 
         {
-
+            return View();
         }
 
         public void ExportToExcel()
