@@ -11,7 +11,7 @@ namespace ReportDeport.Controllers
 {
     public class HomeController : Controller
     {
-        ReportDepotEntities7 db = new ReportDepotEntities7();
+        ReportDepotEntities8 db = new ReportDepotEntities8();
         public ActionResult Index()
         {
             allModels allList = new allModels();

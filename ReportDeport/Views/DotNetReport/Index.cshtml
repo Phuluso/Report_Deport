@@ -28,7 +28,7 @@
                 reportId: @(Request.QueryString["reportId"] != null ? Request.QueryString["reportId"] : "0"),
                 accountApiToken: "@ConfigurationManager.AppSettings["dotNetReport.accountApiToken"]", // Your Account Api Token from your http://dotnetreport.com Account
                 dataconnectApiToken: "@ConfigurationManager.AppSettings["dotNetReport.dataconnectApiToken"]", // Your Data Connect Api Token from your http://dotnetreport.com Account
-                clientId: "@*@ViewBag.uid*@" // You can pass your multi-tenant client id here to keep track of their reports and folders
+                clientId: "@ViewBag.uid" // You can pass your multi-tenant client id here to keep track of their reports and folders
 
             });
                 vm.init(@(Request.QueryString["folderId"] != null ? Request.QueryString["folderId"] : "0"));
