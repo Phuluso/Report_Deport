@@ -19,6 +19,10 @@
 
         var toastr = toastr || { error: function (msg) { window.alert(msg); }, success: function (msg) { window.alert(msg); } };
 
+        self.removePlayer = function (Name) {
+            self.players.remove(function(player) { return player.name == Name });
+        }
+
         $(document).ready(function () {
             var vm = new reportViewModel({
                 runReportUrl: "@Url.Action("Report")",

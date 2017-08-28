@@ -114,6 +114,13 @@ namespace ReportDeport.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult PendingUserMessage([Bind(Include = "name,emailAddress,date,position,department,message,subject,AspUserId")] columnItemList contact)
+
+        {
+
+        }
+
         public void ExportToExcel()
         {
             List<CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel

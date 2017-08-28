@@ -1,21 +1,30 @@
-﻿
+﻿@model ReportDeport.Models.columnItemList
+
 @{
-    ViewBag.Title = "PendingUserMessage";
-    
+    ViewBag.Title = "Pending Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Account pending</h2>
 
-<p style="font-size:18px;"></p>
-<p style="font-size:18px;">
-    Thanks for signing up to our Report Depot site
-</p>
-<p style="font-size:18px;">
-    You account needs to be approved by our supportstaff before you can start generating custom reports
-</p>
-<p style="font-size:18px;">
-    This process can take a maximum of 24 hours and an email will be sent to this email address
-</p>
-<p style="font-size:18px;">
-    notifying you that your account has been approved or not.
-</p>
+<h2>Select Report Fields</h2>
+
+@using (Html.BeginForm("Index", "Home"))
+{
+    <br>
+    <table>
+        @for (int i = 0; i < Model.columns.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                    @Model.columns[i].ColumnName
+                    @Html.HiddenFor(m => Model.columns[i].ColumnId)
+                    @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                </td>
+            </tr>
+        }
+
+    </table>
+        <br>
+        <input type="submit" value="Continue" class="btn btn-default">
+}

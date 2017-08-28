@@ -132,29 +132,22 @@ namespace ReportDeport.Controllers
             if(unprocessed.Contains("AND ("))
             {
                 int startPos = unprocessed.IndexOf("AND (");
-                int endPos = temp.IndexOf(")") + 1;
+                int endPos = 0;
                 while (endPos < startPos)
                 {
+                    endPos += temp.IndexOf(")\n\nORDER") + 1;
                     temp = temp.Substring(unprocessed.IndexOf(")") + 1);
-                    endPos = unprocessed.IndexOf(")") + 1;
                 }
-                processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos, unprocessed.Length-1);
+                processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos);
             }else
             {
                 int startPos = unprocessed.IndexOf("WHERE");
                 int endPos = unprocessed.IndexOf("ORDER");
-                processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos, unprocessed.Length-1);
+                processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos);
             }
 
-            bool found = false;
-            foreach (var item in db.UserId_Int)
-            {
-                if (item.AspNetUserId == User.Identity.GetUserId())
-                {
-                }
-            }
 
-            if (String.IsNullOrEmpty(processed) || !found)
+            if (String.IsNullOrEmpty(processed))
             {
                 return unprocessed;
             }
@@ -183,7 +176,7 @@ namespace ReportDeport.Controllers
                 // Execute sql
                 var dt = new DataTable();
                 var dtPaged = new DataTable();
-                removeIdWheres(sql);
+                sql = removeIdWheres(sql);
                 using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[connectKey].ConnectionString))
                 {
                     conn.Open();
