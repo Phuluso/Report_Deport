@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -155,6 +156,35 @@ namespace ReportDeport.Controllers
                         if(user.Email.Equals(item.ColumnName))
                         {
                             user.PhoneNumber = null;
+                           
+
+                                // Gmail Address from where you send the mail
+                                var fromAddress = user.Email.ToString();
+                                // any address where the email will be sending
+                                var toAddress = "phulusol7@gmail.com";
+                                //Password of your gmail address
+                                const string fromPassword = "0846742822";
+                                // Passing the values and make a email formate to display
+                               
+                                string body = "Dear " + user.UserName.ToString() + "\n";
+                                body += "Thank you for signing up with Report Depot." +"\n";
+                                body += "Your account is ready and you may start building your custom reports. " +"\n\n";
+                                body += "best regards," + "\n";
+                                body += "Report Deport Team \n" + "\n";
+                                // smtp settings
+                                var smtp = new System.Net.Mail.SmtpClient();
+                                {
+                                    smtp.Host = "smtp.gmail.com";
+                                    smtp.Port = 587;
+                                    smtp.EnableSsl = true;
+                                    smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                                    smtp.Credentials = new NetworkCredential(toAddress, fromPassword);
+                                    smtp.Timeout = 20000;
+                                }
+                                // Passing values to smtp object
+                                smtp.Send("reportdepot@hubbleStudios.co.za", user.Email.ToString(), "Report deport - Account status", body);
+                                //return RedirectToAction("Create");
+                                
                             break;
                         }
                         
@@ -162,6 +192,9 @@ namespace ReportDeport.Controllers
                 }
             }
             db.SaveChanges();
+            
+            
+        
 
             return View("ManageUsers");
         }
