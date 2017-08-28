@@ -516,11 +516,12 @@
     <Content Include="Views\GenerateReport\Index.cshtml" />
     <Content Include="Views\ManageUsers\Random.cshtml" />
     <Content Include="Views\Account\SendEmail.cshtml" />
-    <Content Include="Views\Home\PendingUserMessage.cshtml" />
+    <Content Include="Views\Home\ManageUsers.cshtml" />
     <Content Include="Views\Shared\_Layout.Report.cshtml" />
     <Content Include="Views\DotNetReport\_reportFilter.cshtml" />
     <Content Include="Views\DotNetReport\Report.cshtml" />
     <Content Include="Views\DotNetReport\Index.cshtml" />
+    <Content Include="Views\Home\PendingUserMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

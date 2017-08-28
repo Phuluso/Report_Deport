@@ -109,16 +109,61 @@ namespace ReportDeport.Controllers
 
         public ActionResult PendingUserMessage()
         {
-            ViewBag.Message = "Pending user";
+            ViewBag.Message = "Your contact page.";
 
             return View();
         }
 
-        [HttpPost]
-        public ActionResult PendingUserMessage([Bind(Include = "name,emailAddress,date,position,department,message,subject,AspUserId")] columnItemList contact)
-
+        public ActionResult ManageUsers()
         {
+            columnItemList unapprovedUsers = new columnItemList();
+            unapprovedUsers.columns = new List<columnItem>();
 
+            foreach (var i in db.AspNetUsers)
+            {
+                if (  !String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0"))
+                {
+                    columnItem temp = new columnItem();
+                    temp.ColumnName = i.UserName;
+                    temp.IsChecked = false;
+                    unapprovedUsers.columns.Add(temp);
+                }
+            }
+
+            return View(unapprovedUsers);
+        }
+
+        [HttpPost]
+        public ActionResult ManageUsers([Bind(Include = "columns")] columnItemList colList)
+        {
+            if(colList == null)
+            {
+                colList = new columnItemList();
+            }
+
+            if (colList.columns == null)
+            {
+                colList.columns = new List<columnItem>();
+            }
+
+            foreach (var item in colList.columns)
+            {
+                if(item.IsChecked)
+                {
+                    foreach(var user in db.AspNetUsers)
+                    {
+                        if(user.Email.Equals(item.ColumnName))
+                        {
+                            user.PhoneNumber = null;
+                            break;
+                        }
+                        
+                    }
+                }
+            }
+            db.SaveChanges();
+
+            return View("ManageUsers");
         }
 
         public void ExportToExcel()

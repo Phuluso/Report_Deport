@@ -82,6 +82,17 @@ namespace ReportDeport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            foreach(var item in db.AspNetUsers)
+            {
+                if(item.PhoneNumber == null)
+                {
+                    continue;
+                }else if(item.Email.Equals(model.Email) && item.PhoneNumber.Equals("0"))
+                {
+                    return RedirectToAction("PendingUserMessage", "Home");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -170,10 +181,9 @@ namespace ReportDeport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = "0" };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
