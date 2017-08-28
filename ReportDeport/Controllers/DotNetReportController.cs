@@ -37,18 +37,20 @@ namespace ReportDeport.Controllers
                 }
             }
 
-            if(!found && !User.Identity.Name.Equals(""))
+            if (!found && !User.Identity.Name.Equals(""))
             {
                 Random rand = new Random();
                 UserId_Int uInt = new UserId_Int();
                 int r = rand.Next(100000000, 1000000000);
                 uInt.IdInt = r;
                 ViewBag.uId = r;
+                uInt.UserId = 1;
                 uInt.AspNetUserId = User.Identity.GetUserId();
                 db.UserId_Int.Add(uInt);
                 db.SaveChanges();
 
-            }else if(User.Identity.Name.Equals(""))
+            }
+            else if (User.Identity.Name.Equals("") && !found)
             {
                 AccountController.PrevView = "DotNetReportIndex";
                 return RedirectToAction("Login", "Account");
