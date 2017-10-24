@@ -5,21 +5,16 @@
 @Styles.Render("~/Content/SiteStyles.css")
 
 
-<div style="text-align:center;">
+<div style="text-align:center; display:none;">
     <img src="~/Content/images/logo.png">
 </div>
-<div class="container">
+<div class="container" style="margin-top: 4%;">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-login">
+            <div class="panel panel-login" style="box-shadow: 0px 1px 0px rgba(0,0,0,0.3) !important;">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-6">
-                            <a style="color:aqua">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</a>
-                        </div>
-                        <div class="col-xs-6">
-                            <a style="color:aqua">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink"})</a>
-                        </div>
+                        <img src="~/Content/images/icon.png">
                     </div>
                     <hr>
                 </div>
