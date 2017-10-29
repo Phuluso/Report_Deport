@@ -24,14 +24,31 @@
             padding-top: 80px;
             padding-bottom: 40px;
         }
-        .navbar-inverse{
-            background-color: #286893;            
-            height: 60px;
-        }
-        .navbar-brand a {
-            text-decoration: none;
-            color: #fff;
-        }
+        .tooltip {
+    position: relative;
+    display: inline-block;
+    
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
     </style>
 </head>
 
@@ -46,7 +63,7 @@
                 </button>
 
                 <a href='@Url.Action("UserLogin", "Home")'>
-                    <img src="~/Content/images/icon.png" style="width: 55px;" />
+                    <img src="~/Content/images/logo.png" style="filter:brightness(100);width: 74%;margin-left: -15px;" />
                 </a>
 
             </div>

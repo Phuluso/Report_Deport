@@ -40,7 +40,7 @@
     }
 
         .folder-list li:hover {
-            background-color: #ddd;
+            background-color: rgba(3, 163, 239, 0.9);
         }
 
     .folder-list .glyphicon {
@@ -139,7 +139,7 @@
     }
 
         .folder-list li:hover {
-            background-color: #ddd;
+            background-color: rgba(3, 163, 239, 0.9);
         }
 
     .folder-list .glyphicon {
@@ -157,8 +157,8 @@
 
 
 .button-box:hover {
-    color: #37a000;
-    border-bottom-color: #37a000;
+    color: rgba(3, 163, 239, 0.9);
+    border-bottom-color: rgba(3, 163, 239, 0.9);
 }
 
 .button-box .glyphicon {
@@ -173,10 +173,12 @@
 }
 
 .button-box.active {
-    color: #007ba0;
-    border-bottom-color: #005ea0;
+    color: rgba(3, 163, 239, 0.9);
+    border-bottom-color: rgba(3, 163, 239, 0.9);
 }
-
+#report_labels {
+        margin-bottom: 9px;
+}
 .button-box {
     cursor: pointer;
 }
