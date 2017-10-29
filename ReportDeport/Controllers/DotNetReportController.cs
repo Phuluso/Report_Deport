@@ -25,36 +25,36 @@ namespace ReportDeport.Controllers
         ReportDepotEntities8 db = new ReportDepotEntities8();
         public ActionResult Index()
         {
-            bool found = false;
+            //bool found = false;
 
-            foreach(var item in db.UserId_Int)
-            {
-                if(item.AspNetUserId == User.Identity.GetUserId())
-                {
-                    found = true;
-                    ViewBag.uId = item.IdInt;
-                    break;
-                }
-            }
+            //foreach(var item in db.UserId_Int)
+            //{
+            //    if(item.AspNetUserId == User.Identity.GetUserId())
+            //    {
+            //        found = true;
+            //        ViewBag.uId = item.IdInt;
+            //        break;
+            //    }
+            //}
 
-            if (!found && !User.Identity.Name.Equals(""))
-            {
-                Random rand = new Random();
-                UserId_Int uInt = new UserId_Int();
-                int r = rand.Next(100000000, 1000000000);
-                uInt.IdInt = r;
-                ViewBag.uId = r;
-                uInt.UserId = 1;
-                uInt.AspNetUserId = User.Identity.GetUserId();
-                db.UserId_Int.Add(uInt);
-                db.SaveChanges();
+            //if (!found && !User.Identity.Name.Equals(""))
+            //{
+            //    Random rand = new Random();
+            //    UserId_Int uInt = new UserId_Int();
+            //    int r = rand.Next(100000000, 1000000000);
+            //    uInt.IdInt = r;
+            //    ViewBag.uId = r;
+            //    uInt.UserId = 1;
+            //    uInt.AspNetUserId = User.Identity.GetUserId();
+            //    db.UserId_Int.Add(uInt);
+            //    db.SaveChanges();
 
-            }
-            else if (User.Identity.Name.Equals("") && !found)
-            {
-                AccountController.PrevView = "DotNetReportIndex";
-                return RedirectToAction("Login", "Account");
-            }
+            //}
+            //else if (User.Identity.Name.Equals("") && !found)
+            //{
+            //    AccountController.PrevView = "DotNetReportIndex";
+            //    return RedirectToAction("Login", "Account");
+            //}
 
             return View();
         }

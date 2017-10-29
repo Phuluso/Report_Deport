@@ -42,9 +42,7 @@
     </script>
 }
 <center>
-<div class="form-style-9" style="width:82em;box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: linear-gradient(to right, #b6c3d4, #d9cdcd, #c4ccd7, #a6c2df);
-    
-">
+<div class="form-style-9" style="background: linear-gradient(to right, #b6c3d4, #d9cdcd, #c4ccd7, #a6c2df);    width: 75%;">
     <h3 style="text-align: left; margin-left: 19px; padding-top: 19px;">Report Builder</h3>
     <p style="text-align: left; margin-left: 19px; margin-bottom: 19px;">
         Manage your Reports below. You can use the intuitive and user friendly Report Building Wizard below to generate many types of Ad-hoc Reports.
@@ -67,9 +65,9 @@
     *@
 
     <!-- Folders/Report List -->
-    <div id="report-start" style="box-shadow:rgba(62, 100, 141, 0.96) 0px 0px 1px 0px;">
+    <div id="report-start" >
 
-        <div class="panel panel-default folder-panel">
+        <div class="panel panel-default folder-panel" style="border-radius: 0;">
             @*<div class="panel-heading">
                     <h3 class="panel-title">Choose Report</h3>
                 </div>*@
@@ -183,31 +181,31 @@
                 <div class="modal-body">
                     <h5><span class="fa fa-file"></span> Choose Report Type</h5>
                     <div class="row">
-                        <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="col-md-3 col-sm-3 col-xs-6" style="width:20% !important;">
                             <div class="button-box" tabindex="0" data-bind="click: function(){ setReportType('List'); }, css: {active: ReportType()=='List'}">
                                 <span class="glyphicon glyphicon-list-alt"></span>
                                 <p>List</p>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="col-md-3 col-sm-3 col-xs-6" style="width:20% !important;">
                             <div class="button-box" tabindex="0" data-bind="click: function(){ setReportType('Summary'); }, css: {active: ReportType()=='Summary'}">
                                 <span class="glyphicon glyphicon-th-list"></span>
                                 <p>Summary</p>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="col-md-3 col-sm-3 col-xs-6" style="width:20% !important;">
                             <div class="button-box" tabindex="0" data-bind="click: function(){ setReportType('Bar'); }, css: {active: ReportType()=='Bar'}">
                                 <span class="glyphicon fa fa-bar-chart"></span>
                                 <p>Bar</p>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="col-md-3 col-sm-3 col-xs-6" style="width:20% !important;">
                             <div class="button-box" tabindex="0" data-bind="click: function(){ setReportType('Pie'); }, css: {active: ReportType()=='Pie'}">
                                 <span class="glyphicon fa fa-pie-chart"></span>
                                 <p>Pie</p>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="col-md-3 col-sm-3 col-xs-6" style="width:20% !important;">
                             <div class="button-box" tabindex="0" data-bind="click: function(){ setReportType('Line'); }, css: {active: ReportType()=='Line'}">
                                 <span class="glyphicon fa fa-line-chart"></span>
                                 <p>Line</p>
@@ -223,8 +221,12 @@
                     <hr />
                     <h5><span class="fa fa-database"></span> Choose Data for Report</h5>
                     <div>
-                        <div class="col-md-12">
-                            <select class="form-control" data-bind="options: Tables, optionsCaption: 'Choose Section...', optionsText: 'tableName', value: SelectedTable"></select>
+                        <label class="col-sm-12 control-label" id="report_labels" style="text-align: left; padding-left: 0;">Report Sections</label>
+                        <div class="col-md-12" style="display: flex;padding-left:0;">
+                            <select class="form-control" data-bind="options: Tables, optionsCaption: 'Choose Section...', optionsText: 'tableName', value: SelectedTable"></select><div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
+                                                                                                                                                                                       <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
+    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+</div>
                         </div>
 
                         <div class="col-md-12 padded-div" data-bind="visible: ChooseFields().length>0">
@@ -336,25 +338,37 @@
                     <hr />
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Report Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" required placeholder="Report Name" data-bind="value: ReportName">
+                            <label class="col-sm-12 control-label" id="report_labels">Report Name</label>
+                            <div class="col-sm-12" style="display:flex;">
+                                <input type="text" class="form-control" required placeholder="Report Name" data-bind="value: ReportName" style="width: 96.5%;">
+                                <div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
+                                    <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
+                                    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Report Description</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="3" placeholder="Optional Report Description" data-bind="value: ReportDescription"></textarea>
+                            <label class="col-sm-12 control-label" id="report_labels">Report Description</label>
+                            <div class="col-sm-12" style="display:flex;">
+                                <textarea class="form-control" rows="3" placeholder="Optional Report Description" data-bind="value: ReportDescription" style="width: 96.5%;"></textarea>
+                                <div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
+                                    <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
+                                    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Sort By</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" required data-bind="options: SelectedFields, optionsText: 'selectedFieldName', optionsCaption: 'Please Choose', optionsValue: 'fieldId', value: SortByField"></select>
+                            <label class="col-sm-12 control-label" id="report_labels">Sort By</label>
+                            <div class="col-sm-12" style="display:flex;">
+                                <select class="form-control" required data-bind="options: SelectedFields, optionsText: 'selectedFieldName', optionsCaption: 'Please Choose', optionsValue: 'fieldId', value: SortByField" style="width: 96.5%;"></select>
+                                <div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
+                                    <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
+                                    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+                                </div>
                             </div>
                         </div>
                         <div class="checkbox">
-                            <label>
+                            <label id="incl_subtotals">
                                 <input type="checkbox" data-bind="checked: IncludeSubTotal" />
                                 Include Subtotals
                             </label>
@@ -371,9 +385,13 @@
                             </label>
                         </div>
                         <div class="form-group" data-bind="visible: SaveReport">
-                            <label class="col-sm-2 control-label">Choose Folder</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" data-bind="options: Folders, optionsText: 'FolderName', optionsValue: 'Id', value: FolderID"></select>
+                            <label class="col-sm-12 control-label" id="report_labels">Choose Folder</label>
+                            <div class="col-sm-12" style="display:flex;">
+                                <select class="form-control" data-bind="options: Folders, optionsText: 'FolderName', optionsValue: 'Id', value: FolderID" style="width: 96.5%;"></select>
+                                <div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
+                                    <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
+                                    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+                                </div>
                             </div>
                         </div>
                     </form>
