@@ -5,28 +5,112 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-<h2>Select Report Fields</h2>
+    #myInput {
+        background-image: url('https://www.w3schools.com/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
 
+    #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+    }
+
+        #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            #myTable tr.header, #myTable tr:hover {
+                background-color: #f1f1f1;
+            }
+</style>
+<h2 style="margin-top: 4%;"><span class="glyphicon glyphicon-user"></span> Users</h2>
+
+
+
+All() | Administrators() | Approved() | Pending(@Model.columns.Count)
 @using (Html.BeginForm("ManageUsers", "Home"))
 {
     <br>
-    <table>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+    <table id="myTable">
+        <tr class="header">
+            <th sty>Username</th>
+            <th>Email Address</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Company</th>
+         </tr>
+        
+        
         @if (Model != null)
         {
             for (int i = 0; i < Model.columns.Count; i++)
             {
-            <tr>
-                <td>
-                    @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
-                    @Model.columns[i].ColumnName
-                    @Html.HiddenFor(m => Model.columns[i].ColumnName)
-                </td>
-            </tr>
+                <tr>
+
+                    <td>Ricky Conn</td>
+                    <td>
+                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                        @Model.columns[i].ColumnName
+                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                    </td>
+                    <td>Pending</td>
+                    <td>Admin</td>
+                    <td>Hubble Studios</td>
+                </tr>
             }
         }
+                
 
+
+       
+    
+  
     </table>
         <br>
         <input type="submit" value="Continue" class="btn btn-default">
 }
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+
+
+ 
+
+}
+</script>

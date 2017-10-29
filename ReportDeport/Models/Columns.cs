@@ -14,10 +14,17 @@ namespace ReportDeport.Models
         public bool IsChecked { get; set; }
 
     }
+    public class loggedInItem {
+        public string email { get; set; }
+
+    }
+    
 
     public class columnItemList
     {
         public List<columnItem> columns { get; set; }
+
+        public List<loggedInItem> emails { get; set; }
     }
 
     public class columnItemListTranslations

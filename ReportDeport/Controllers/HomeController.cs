@@ -110,6 +110,7 @@ namespace ReportDeport.Controllers
 
         public ActionResult PendingUserMessage()
         {
+
             ViewBag.Message = "Your contact page.";
 
             return View();

@@ -1,21 +1,20 @@
 ﻿
 @{
     ViewBag.Title = "PendingUserMessage";
-    
+    string wd = TempData["unconfirmedEmail"].ToString();
+
 }
 
-<h2>Account pending</h2>
+<h2 style="margin-top: 4%;">Account pending</h2>
 
 <p style="font-size:18px;"></p>
 <p style="font-size:18px;">
     Thanks for signing up to our Report Depot site
 </p>
 <p style="font-size:18px;">
-    You account needs to be approved by our supportstaff before you can start generating custom reports
-</p>
-<p style="font-size:18px;">
-    This process can take a maximum of 24 hours and an email will be sent to this email address
-</p>
-<p style="font-size:18px;">
+    Your account needs to be approved by our support staff before you can start generating custom reports
+    <br>
+    This process can take a maximum of 24 hours and an email will be sent to @wd
+<br>
     notifying you that your account has been approved or not.
 </p>
