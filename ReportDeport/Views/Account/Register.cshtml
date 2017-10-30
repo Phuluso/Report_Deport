@@ -5,6 +5,10 @@
 @Styles.Render("~/Content/SiteStyles.css")
 
 
+
+
+
+
 <div style="text-align:center; display:none;">
     <img src="~/Content/images/logo.png">
 </div>
@@ -67,13 +71,18 @@
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password"><div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
+    <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
+    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+</div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
                                             <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                            
                                         </div>
+                                        <div><p style="color:black;">Suggestion: Copy down your password to remember it after accounts gets approved.</p> </div>
                                     </div>
                                 </div>
                             </form>

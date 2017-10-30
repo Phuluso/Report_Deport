@@ -45,16 +45,16 @@
 
 
 
-All() | Administrators() | Approved() | Pending(@Model.columns.Count)
+All() | Administrators() | Approved() | Pending()
 @using (Html.BeginForm("ManageUsers", "Home"))
 {
     <br>
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 
-    <table id="myTable">
+    <table id="myTable" style="max-height: 10px !important; overflow-y: scroll !important;">
         <tr class="header">
-            <th sty>Username</th>
-            <th>Email Address</th>
+         
+            <th style="display: inline-flex;background: linear-gradient(to right, rgba(35, 50, 103, 0.9) 43%, lightgray 43%);" ><input type="checkbox" id="checkbox-" onclick="toogle(this, @Model.columns.Count)" style="margin-top:8px !important"/> <p style="font-size: 12px; color: #b5aeae; margin-bottom: 0; line-height: 25px;">Select All</p> <span style="margin-left:22px">Email Address</span></th>
             <th>Status</th>
             <th>Role</th>
             <th>Company</th>
@@ -67,9 +67,9 @@ All() | Administrators() | Approved() | Pending(@Model.columns.Count)
             {
                 <tr>
 
-                    <td>Ricky Conn</td>
+                  
                     <td>
-                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked)
+                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked, new { id = "checkbox-"+i })
                         @Model.columns[i].ColumnName
                         @Html.HiddenFor(m => Model.columns[i].ColumnName)
                     </td>
@@ -90,7 +90,11 @@ All() | Administrators() | Approved() | Pending(@Model.columns.Count)
         <input type="submit" value="Continue" class="btn btn-default">
 }
 
+
+
 <script>
+ 
+
 function myFunction() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");
@@ -108,9 +112,24 @@ function myFunction() {
     }
   }
 
+}
 
 
- 
+function toogle(source,num) {
+    var i;
+    if (source.checked == true) {
+        for (i = 0; i < num; i++) {
+            document.getElementById("checkbox-" + i).checked = true;
+        }
+    }
+    else {
+        for (i = 0; i < num; i++) {
+            document.getElementById("checkbox-" + i).checked = false;
+        }
+    }
 
 }
+
+
+
 </script>
