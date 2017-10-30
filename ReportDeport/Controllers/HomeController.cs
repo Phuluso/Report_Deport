@@ -31,24 +31,7 @@ namespace ReportDeport.Controllers
                 timemodified = x.timemodified,
                 enablecompletion = x.enablecompletion
             }).ToList();
-            allList.courses = courseList;
-
-          //  List<columnTranslation> ctl = new List<columnTranslation>();
-
-          //foreach(var item in db.columnTranslations)
-          //  {
-          //      columnTranslation ct = new columnTranslation();
-          //      ct.columnDirectory = item.columnDirectory;
-          //      ct.columnTranslationId = item.columnTranslationId;
-          //      ct.templateColumns = item.templateColumns;
-          //      ct.userColumnName = item.userColumnName;
-          //      ctl.Add(ct);
-
-          //  }
-
-          //  allList.columnTrans = clt;
-
-           
+            allList.courses = courseList;           
 
             List<CategoryViewModel> categoryList = db.course_categories.Select(x => new CategoryViewModel
             {
@@ -148,6 +131,9 @@ namespace ReportDeport.Controllers
                 colList.columns = new List<columnItem>();
             }
 
+            columnItemList unapprovedUsers = new columnItemList();
+            unapprovedUsers.columns = new List<columnItem>();
+
             foreach (var item in colList.columns)
             {
                 if(item.IsChecked)
@@ -156,8 +142,7 @@ namespace ReportDeport.Controllers
                     {
                         if(user.Email.Equals(item.ColumnName))
                         {
-                            user.PhoneNumber = null;
-                           
+                                user.PhoneNumber = null;
 
                                 // Gmail Address from where you send the mail
                                 var fromAddress = user.Email.ToString();
@@ -188,16 +173,36 @@ namespace ReportDeport.Controllers
                                 
                             break;
                         }
-                        
+                       
                     }
+                }
+                else
+                {
+                    item.IsChecked = false;
+                    unapprovedUsers.columns.Add(item);
                 }
             }
             db.SaveChanges();
-            
-            
-        
 
-            return View("ManageUsers");
+
+
+            //foreach (var i in db.AspNetUsers)
+            //{
+            //    if (!String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0"))
+            //    {
+            //        columnItem temp = new columnItem();
+            //        temp.ColumnName = i.UserName;
+            //        temp.IsChecked = false;
+            //        unapprovedUsers.columns.Add(temp);
+            //    }
+            //}
+
+            foreach(var UnapprovedUser in unapprovedUsers.columns)
+            {
+                UnapprovedUser.IsChecked = false;
+            }
+
+            return View(unapprovedUsers);
         }
 
         public void ExportToExcel()
