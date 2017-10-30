@@ -19,15 +19,15 @@ namespace ReportDeport.Controllers
     {
         public static string PrevView = "";
         ReportDepotEntities9 db = new ReportDepotEntities9();
-        
+
         [HttpGet]
         [AllowAnonymous]
 
-        public ActionResult SendEmail() {
-   
+        public ActionResult SendEmail()
+        {
             return View();
         }
-             
+
 
 
         private ApplicationSignInManager _signInManager;
@@ -37,7 +37,7 @@ namespace ReportDeport.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -49,9 +49,9 @@ namespace ReportDeport.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -83,13 +83,15 @@ namespace ReportDeport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            foreach(var item in db.AspNetUsers)
+            foreach (var item in db.AspNetUsers)
             {
-                if(item.PhoneNumber == null)
+                if (item.PhoneNumber == null)
                 {
                     continue;
-                }else if(item.Email.Equals(model.Email) && item.PhoneNumber.Equals("0"))
+                }
+                else if (item.Email.Equals(model.Email) && item.PhoneNumber.Equals("0"))
                 {
+                    TempData["unconfirmedEmail"] = model.Email;
                     return RedirectToAction("PendingUserMessage", "Home");
                 }
             }
@@ -153,7 +155,7 @@ namespace ReportDeport.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -184,11 +186,10 @@ namespace ReportDeport.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = "0"};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = "0", Company = model.Company };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -491,7 +492,7 @@ namespace ReportDeport.Controllers
         }
 
 
-     
+
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {

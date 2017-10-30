@@ -45,42 +45,41 @@
 
 
 
-All() | Administrators() | Approved() | Pending()
+Pending(@Model.columns.Count)
 @using (Html.BeginForm("ManageUsers", "Home"))
 {
     <br>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search users by organization name" title="Type in a name">
+    <div style="overflow-y: auto; max-height: 302px;">
+        <table id="myTable" style="max-height: 10px !important; overflow-y: scroll !important;">
+            <tr class="header">
 
-    <table id="myTable" style="max-height: 10px !important; overflow-y: scroll !important;">
-        <tr class="header">
-         
-            <th style="display: inline-flex;background: linear-gradient(to right, rgba(35, 50, 103, 0.9) 43%, #f1f1f1 43%);" ><input type="checkbox" id="checkbox-" onclick="toogle(this, @Model.columns.Count)" style="margin-top:8px !important"/> <p style="font-size: 12px; color: #b5aeae; margin-bottom: 0; line-height: 25px;">Select All</p> <span style="margin-left:22px">Email Address</span></th>
-            <th>Status</th>
-            <th>Role</th>
-            <th>Company</th>
-         </tr>
-        
-        
-        @if (Model != null)
-        {
-            for (int i = 0; i < Model.columns.Count; i++)
+                <th style="display: inline-flex;background: linear-gradient(to right, rgba(35, 50, 103, 0.9) 43%, #f1f1f1 43%);"><input type="checkbox" id="checkbox-" onclick="toogle(this, @Model.columns.Count)" style="margin-top:8px !important" /> <p style="font-size: 12px; color: #b5aeae; margin-bottom: 0; line-height: 25px;    margin-left: 8px;">Select All</p> <span style="margin-left:22px">Email Address</span></th>
+
+                <th>Organization</th>
+            </tr>
+
+
+            @if (Model != null)
             {
-                <tr>
+                for (int i = 0; i < Model.columns.Count; i++)
+                {
+                    <tr>
 
-                  
-                    <td>
-                        @Html.CheckBoxFor(m => Model.columns[i].IsChecked, new { id = "checkbox-"+i })
-                        @Model.columns[i].ColumnName
-                        @Html.HiddenFor(m => Model.columns[i].ColumnName)
-                    </td>
-                    <td>Pending</td>
-                    <td>Admin</td>
-                    <td>Hubble Studios</td>
-                </tr>
+
+                        <td>
+                            @Html.CheckBoxFor(m => Model.columns[i].IsChecked, new { id = "checkbox-" + i })
+                            @Model.columns[i].ColumnName
+                            @Html.HiddenFor(m => Model.columns[i].ColumnName)
+                        </td>
+
+                        <td>@Html.DisplayTextFor(m => Model.columns[i].ReportName)</td>
+                    </tr>
+                }
             }
-        }
-                
-    </table>
+
+        </table>
+    </div>
         <br>
         <input type="submit" value="Continue" class="btn btn-default">
 }
@@ -88,42 +87,42 @@ All() | Administrators() | Approved() | Pending()
 
 
 <script>
- 
-
-function myFunction() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-
-}
 
 
-function toogle(source,num) {
-    var i;
-    if (source.checked == true) {
-        for (i = 0; i < num; i++) {
-            document.getElementById("checkbox-" + i).checked = true;
-        }
-    }
-    else {
-        for (i = 0; i < num; i++) {
-            document.getElementById("checkbox-" + i).checked = false;
-        }
-    }
+            function myFunction() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
 
-}
+            }
+
+
+            function toogle(source, num) {
+                var i;
+                if (source.checked == true) {
+                    for (i = 0; i < num; i++) {
+                        document.getElementById("checkbox-" + i).checked = true;
+                    }
+                }
+                else {
+                    for (i = 0; i < num; i++) {
+                        document.getElementById("checkbox-" + i).checked = false;
+                    }
+                }
+
+            }
 
 
 
