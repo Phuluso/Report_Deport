@@ -31,24 +31,7 @@ namespace ReportDeport.Controllers
                 timemodified = x.timemodified,
                 enablecompletion = x.enablecompletion
             }).ToList();
-            allList.courses = courseList;
-
-          //  List<columnTranslation> ctl = new List<columnTranslation>();
-
-          //foreach(var item in db.columnTranslations)
-          //  {
-          //      columnTranslation ct = new columnTranslation();
-          //      ct.columnDirectory = item.columnDirectory;
-          //      ct.columnTranslationId = item.columnTranslationId;
-          //      ct.templateColumns = item.templateColumns;
-          //      ct.userColumnName = item.userColumnName;
-          //      ctl.Add(ct);
-
-          //  }
-
-          //  allList.columnTrans = clt;
-
-           
+            allList.courses = courseList;           
 
             List<CategoryViewModel> categoryList = db.course_categories.Select(x => new CategoryViewModel
             {
