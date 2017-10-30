@@ -32,7 +32,8 @@
                 reportId: @(Request.QueryString["reportId"] != null ? Request.QueryString["reportId"] : "0"),
                 accountApiToken: "@ConfigurationManager.AppSettings["dotNetReport.accountApiToken"]", // Your Account Api Token from your http://dotnetreport.com Account
                 dataconnectApiToken: "@ConfigurationManager.AppSettings["dotNetReport.dataconnectApiToken"]", // Your Data Connect Api Token from your http://dotnetreport.com Account
-                clientId: "@ViewBag.uid" // You can pass your multi-tenant client id here to keep track of their reports and folders
+                @*clientId: "@ViewBag.uid"*@ // You can pass your multi-tenant client id here to keep track of their reports and folders
+                clientId: ""
 
             });
                 vm.init(@(Request.QueryString["folderId"] != null ? Request.QueryString["folderId"] : "0"));
@@ -225,7 +226,7 @@
                         <div class="col-md-12" style="display: flex;padding-left:0;">
                             <select class="form-control" data-bind="options: Tables, optionsCaption: 'Choose Section...', optionsText: 'tableName', value: SelectedTable"></select><div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
                                                                                                                                                                                        <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
-    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each table you would like to include in your report.</span>
 </div>
                         </div>
 
@@ -343,7 +344,7 @@
                                 <input type="text" class="form-control" required placeholder="Report Name" data-bind="value: ReportName" style="width: 96.5%;">
                                 <div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
                                     <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
-                                    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
+                                    <span class="tooltiptext">Enter the name of the report e.g. Learning Progress Report.  This will be the title </span>
                                 </div>
                             </div>
                         </div>

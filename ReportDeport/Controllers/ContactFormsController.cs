@@ -34,13 +34,13 @@ namespace ReportDeport.Controllers
 
         // POST: ContactForms/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "name,emailAddress,date,position,department,message,subject,AspUserId")] contactForm contact)
+        public ActionResult Create([Bind(Include = "name,emailAddress,date,position,department,message,subject,AspUserId,Company")] contactForm contact)
 
         {
             try
             {
                 // TODO: Add insert logic here
-                contact.date = DateTime.Now;
+                contact.date = DateTime.Now; // date and time email sent
                 contact.aspUserId = User.Identity.GetUserId();
                 db.contactForms.Add(contact);
                 db.SaveChanges();
@@ -58,6 +58,7 @@ namespace ReportDeport.Controllers
                 string body = "From: " + contact.name.ToString() + "\n";
                 body += "Email: " + contact.emailAddress.ToString() + "\n";
                 body += "Subject: " + contact.subject.ToString() + "\n";
+                body += "Company: \n" + contact.company.ToString() + "\n";
                 body += "Department: \n" + contact.department.ToString() + "\n";
                 body += "Message: \n" + contact.message.ToString() + "\n";
                 // smtp settings

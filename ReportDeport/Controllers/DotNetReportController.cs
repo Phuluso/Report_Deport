@@ -22,39 +22,39 @@ namespace ReportDeport.Controllers
 {
     public class DotNetReportController : Controller
     {
-        ReportDepotEntities9 db = new ReportDepotEntities9();
+        ReportDepotEntities8 db = new ReportDepotEntities8();
         public ActionResult Index()
         {
-            //bool found = false;
+            bool found = false;
 
-            //foreach(var item in db.UserId_Int)
-            //{
-            //    if(item.AspNetUserId == User.Identity.GetUserId())
-            //    {
-            //        found = true;
-            //        ViewBag.uId = item.IdInt;
-            //        break;
-            //    }
-            //}
+            foreach(var item in db.UserId_Int)
+            {
+                if(item.AspNetUserId == User.Identity.GetUserId())
+                {
+                    found = true;
+                    ViewBag.uId = item.IdInt;
+                    break;
+                }
+            }
 
-            //if (!found && !User.Identity.Name.Equals(""))
-            //{
-            //    Random rand = new Random();
-            //    UserId_Int uInt = new UserId_Int();
-            //    int r = rand.Next(100000000, 1000000000);
-            //    uInt.IdInt = r;
-            //    ViewBag.uId = r;
-            //    uInt.UserId = 1;
-            //    uInt.AspNetUserId = User.Identity.GetUserId();
-            //    db.UserId_Int.Add(uInt);
-            //    db.SaveChanges();
+            if (!found && !User.Identity.Name.Equals(""))
+            {
+                Random rand = new Random();
+                UserId_Int uInt = new UserId_Int();
+                int r = rand.Next(100000000, 1000000000);
+                uInt.IdInt = r;
+                ViewBag.uId = r;
+                uInt.UserId = 1;
+                uInt.AspNetUserId = User.Identity.GetUserId();
+                db.UserId_Int.Add(uInt);
+                db.SaveChanges();
 
-            //}
-            //else if (User.Identity.Name.Equals("") && !found)
-            //{
-            //    AccountController.PrevView = "DotNetReportIndex";
-            //    return RedirectToAction("Login", "Account");
-            //}
+            }
+            else if (User.Identity.Name.Equals("") && !found)
+            {
+                AccountController.PrevView = "DotNetReportIndex";
+                return RedirectToAction("Login", "Account");
+            }
 
             return View();
         }
@@ -79,7 +79,7 @@ namespace ReportDeport.Controllers
                 return View("Index");
             }
 
-                var model = new DotNetReportModel
+            var model = new DotNetReportModel
             {
                 ReportId = reportId,
                 ReportType = reportType,
@@ -102,7 +102,7 @@ namespace ReportDeport.Controllers
 
             // Uncomment if you want to restrict max records returned
             sql = sql.Replace("SELECT ", "SELECT TOP 500 ");
-            
+
             var json = new StringBuilder();
             var dt = new DataTable();
             using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[connectKey].ConnectionString))
@@ -114,17 +114,17 @@ namespace ReportDeport.Controllers
                 adapter.Fill(dt);
             }
 
-            int i=0;
+            int i = 0;
             foreach (DataRow dr in dt.Rows)
             {
-                json.AppendFormat("{{\"id\": \"{0}\", \"text\": \"{1}\"}}{2}", dr[0], dr[1], i!=dt.Rows.Count-1 ? "," : "");
-                i+=1;            
+                json.AppendFormat("{{\"id\": \"{0}\", \"text\": \"{1}\"}}{2}", dr[0], dr[1], i != dt.Rows.Count - 1 ? "," : "");
+                i += 1;
             }
 
-            return Json((new JavaScriptSerializer()).DeserializeObject("["+json.ToString()+"]"), JsonRequestBehavior.AllowGet);
+            return Json((new JavaScriptSerializer()).DeserializeObject("[" + json.ToString() + "]"), JsonRequestBehavior.AllowGet);
         }
 
-        
+
         //public string removeIdWheres(string unprocessed)
         //{
 
@@ -159,12 +159,16 @@ namespace ReportDeport.Controllers
         //    }
         //}
 
-       
-       public string adaptSQL(string sql)
+
+        public string adaptSQL(string sql)
         {
 
             int posF = sql.IndexOf("FROM");
-            int posBackslash = sql.IndexOf("\n\nORDER BY");
+            int posBackslash = sql.Length;
+            if (sql.Contains("\nORDER BY"))
+            {
+                posBackslash = sql.IndexOf("\nORDER BY");
+            }
 
             string part1 = sql.Substring(0, posF);
             string part2 = sql.Substring(posBackslash, sql.Length - posBackslash);
@@ -186,6 +190,7 @@ namespace ReportDeport.Controllers
             {
                 return part1 + relationships + part2;
             }
+
         }
 
 
@@ -195,7 +200,7 @@ namespace ReportDeport.Controllers
 
 
             sql = adaptSQL(sql);
-            
+
 
             try
             {
@@ -223,9 +228,9 @@ namespace ReportDeport.Controllers
                     adapter.Fill(dt);
                 }
 
-                
 
-                dtPaged = (dt.Rows.Count > 0) ? dtPaged = dt.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize).CopyToDataTable(): dt;                
+
+                dtPaged = (dt.Rows.Count > 0) ? dtPaged = dt.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize).CopyToDataTable() : dt;
 
                 var model = new DotNetReportResultModel
                 {
@@ -235,10 +240,10 @@ namespace ReportDeport.Controllers
                     ReportDebug = Request.Url.Host.Contains("localhost"),
                     Pager = new DotNetReportPagerModel
                     {
-                        CurrentPage = pageNumber, 
+                        CurrentPage = pageNumber,
                         PageSize = pageSize,
                         TotalRecords = dt.Rows.Count,
-                        TotalPages =(int) ((dt.Rows.Count/pageSize)+1)
+                        TotalPages = (int)((dt.Rows.Count / pageSize) + 1)
                     }
                 };
 
@@ -256,7 +261,7 @@ namespace ReportDeport.Controllers
                 var model = new DotNetReportResultModel
                 {
                     ReportSql = sql,
-                    HasError=true,
+                    HasError = true,
                     Exception = ex.Message
                 };
 
@@ -269,7 +274,9 @@ namespace ReportDeport.Controllers
         public ActionResult DownloadExcel(string reportSql, string connectKey, string reportName)
         {
             var sql = Decrypt(reportSql);
+
             sql = adaptSQL(sql);
+
             // Execute sql
             var dt = new DataTable();
             using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[connectKey].ConnectionString))
@@ -281,7 +288,7 @@ namespace ReportDeport.Controllers
                 adapter.Fill(dt);
             }
 
-            
+
             Response.ClearContent();
 
             using (ExcelPackage xp = new ExcelPackage())
@@ -325,9 +332,9 @@ namespace ReportDeport.Controllers
 
             }
 
-            
+
             Response.End();
-            
+
             return View();
         }
 
@@ -341,7 +348,7 @@ namespace ReportDeport.Controllers
             byte[] initVectorBytes = Encoding.ASCII.GetBytes("yk0z8f39lgpu70gi"); // PLESE DO NOT CHANGE THIS KEY
             int keysize = 256;
 
-            byte[] cipherTextBytes = Convert.FromBase64String(encryptedText.Replace("%3D","="));
+            byte[] cipherTextBytes = Convert.FromBase64String(encryptedText.Replace("%3D", "="));
             var passPhrase = ConfigurationManager.AppSettings["dotNetReport.privateApiToken"].ToLower();
             using (PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, null))
             {
@@ -451,16 +458,16 @@ namespace ReportDeport.Controllers
                     case TypeCode.UInt64:
                     case TypeCode.Single:
                         return row[col].ToString();
-                                        
+
 
                     case TypeCode.Double:
                     case TypeCode.Decimal:
-                    return Convert.ToDouble(row[col].ToString()).ToString("C");
-                                        
+                        return Convert.ToDouble(row[col].ToString()).ToString("C");
+
 
                     case TypeCode.Boolean:
-                    return (Convert.ToBoolean(row[col]) ? "Yes" : "No");
-                                        
+                        return (Convert.ToBoolean(row[col]) ? "Yes" : "No");
+
 
                     case TypeCode.DateTime:
                         try
@@ -471,19 +478,19 @@ namespace ReportDeport.Controllers
                         {
                             return row[col] != null ? row[col].ToString() : null;
                         }
-                                        
+
                     case TypeCode.String:
                     default:
                         if (row[col].ToString() == "System.Byte[]")
                         {
-                                            
-                            return "<img src=\"data:image/png;base64," + Convert.ToBase64String((byte[])row[col],0, ((byte[])row[col]).Length)+ "\" style=\"max-width: 200px;\" />";
+
+                            return "<img src=\"data:image/png;base64," + Convert.ToBase64String((byte[])row[col], 0, ((byte[])row[col]).Length) + "\" style=\"max-width: 200px;\" />";
                         }
                         else
                         {
                             return row[col].ToString();
                         }
-                                        
+
                 }
             }
             return "";
@@ -541,7 +548,7 @@ namespace ReportDeport.Controllers
         }
 
     }
-    
+
 }
 
 namespace ReportDeport
