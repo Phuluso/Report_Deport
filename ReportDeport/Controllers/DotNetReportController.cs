@@ -192,9 +192,9 @@ namespace ReportDeport.Controllers
         public JsonResult RunReport(string reportSql, string connectKey, string reportType, int pageNumber = 1, int pageSize = 50, string sortBy = null, bool desc = false)
         {
             var sql = Decrypt(reportSql);
-            
 
-            sql =
+
+            sql = adaptSQL(sql);
             
 
             try
