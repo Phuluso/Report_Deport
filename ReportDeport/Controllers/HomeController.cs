@@ -115,6 +115,11 @@ namespace ReportDeport.Controllers
                 }
             }
 
+            if(!User.IsInRole("Admin"))
+            {
+                unapprovedUsers.columns = new List<columnItem>();
+            }
+
             return View(unapprovedUsers);
         }
 
@@ -184,22 +189,16 @@ namespace ReportDeport.Controllers
             }
             db.SaveChanges();
 
-
-
-            //foreach (var i in db.AspNetUsers)
-            //{
-            //    if (!String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0"))
-            //    {
-            //        columnItem temp = new columnItem();
-            //        temp.ColumnName = i.UserName;
-            //        temp.IsChecked = false;
-            //        unapprovedUsers.columns.Add(temp);
-            //    }
-            //}
+            
 
             foreach(var UnapprovedUser in unapprovedUsers.columns)
             {
                 UnapprovedUser.IsChecked = false;
+            }
+
+            if (!User.IsInRole("Admin"))
+            {
+                unapprovedUsers.columns = new List<columnItem>();
             }
 
             return View(unapprovedUsers);
