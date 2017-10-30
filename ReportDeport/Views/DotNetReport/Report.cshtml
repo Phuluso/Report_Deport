@@ -15,6 +15,11 @@
     Note: To allow bigger file downloads in Excel, Please increase maxRequestLength in web.config. For example, <httpRuntime maxRequestLength="1048576"/>
 
 *@
+<style>
+    th {
+        border-bottom: 1px solid !important; border-top: 1px solid !important;
+    }
+</style>
 
 @section scripts{
     <script type="text/javascript">
@@ -106,14 +111,14 @@
         <div style="clear: both;"></div>
         <br />
         <div class="panel panel-default" data-bind="visible: FlyFilters().length>0">
-            <div class="panel-heading" style=" box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px; background: whitesmoke; ">
+            <div class="panel-heading" style="background: linear-gradient(to right, #b6c3d4, #d9cdcd, #c4ccd7, #a6c2df);">
                 <h3 class="panel-title">
                     <a data-toggle="collapse" data-target="#filter-panel" href="#">
                         <i class="fa fa-filter"></i> Choose filter options
                     </a>
                 </h3>
             </div>
-            <div id="filter-panel" class="panel-collapse" style="box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: rgba(0, 0, 0, 0.09);">
+            <div id="filter-panel" class="panel-collapse" style="background: rgba(0, 0, 0, 0.09);">
                 <div class="panel-body" >
                     <!-- ko foreach: FlyFilters -->
                     <div class="row">
@@ -143,7 +148,7 @@
                 </div>
             </div>
         </div>
-        <div class="report-menubar" style="box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: whitesmoke;">
+        <div class="report-menubar" style="background: linear-gradient(to right, #b6c3d4, #d9cdcd, #c4ccd7, #a6c2df);">
             <div class="col-xs-12 col-centered" data-bind="with: pager">
                 <div class="form-inline" data-bind="visible: pages()">
                     <div class="form-group pull-left total-records">
@@ -160,12 +165,12 @@
                 </div>
             </div>
         </div>
-        <div class="report-canvas" style="box-shadow: rgba(62, 100, 141, 0.96) 0px 0px 9px 0px;background: rgba(0, 0, 0, 0.09);">
+        <div class="report-canvas" style="background: white; border: 1px solid #ecf0f1;">
             <div class="report-container">
                 <div class="report-inner"  style="border-radius:1em">
-                    <h2 data-bind="text: ReportName"></h2>
-                    <p data-bind="html: ReportDescription">
-                    </p>
+                    <div style="display:-webkit-box;"><h2>Report Name:&nbsp</h2><h2 data-bind="text: ReportName"></h2></div>
+                    <div style="display:-webkit-box;">Report Description:&nbsp<p data-bind="html: ReportDescription">
+                    </p></div>
                     <div data-bind="with: ReportResult">
                         
                         <div id="chart_div" class="report-chart" data-bind="visible: $root.isChart"></div>
@@ -178,7 +183,7 @@
             </div>
             <!-- ########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT PURCHASING LICENSE ########################### -->
 
-            <p style="text-align: center;">Powered by <a href="http://www.dotNetReport.com" target="_blank">dotNetReport.com</a></p>
+            <p style="text-align: center; background: linear-gradient(to right, #b6c3d4, #d9cdcd, #c4ccd7, #a6c2df); height: 41px; margin-bottom: 1px; line-height: 37px;">Powered by <a href="http://www.dotNetReport.com" target="_blank">dotNetReport.com</a></p>
 
             <!--########################## IMPORTANT - PLEASE DO NOT REMOVE WITHOUT PURCHASING LICENSE ########################### -->
         </div>

@@ -24,7 +24,7 @@ namespace ReportDeport.Models
         public string subject { get; set; }
         public string aspUserId { get; set; }
         public string company { get; set; }
-
+    
         public virtual contactForm contactForm1 { get; set; }
         public virtual contactForm contactForm2 { get; set; }
     }

@@ -14,12 +14,6 @@ namespace ReportDeport.Models
     
     public partial class question_attempts
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public question_attempts()
-        {
-            this.question_attempt_steps = new HashSet<question_attempt_steps>();
-        }
-    
         public int question_attemptsId { get; set; }
         public int questionId { get; set; }
         public Nullable<decimal> maxmark { get; set; }
@@ -29,7 +23,5 @@ namespace ReportDeport.Models
         public string rightanswer { get; set; }
     
         public virtual question question { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<question_attempt_steps> question_attempt_steps { get; set; }
     }
 }

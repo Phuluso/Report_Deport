@@ -12,23 +12,19 @@ namespace ReportDeport.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class course_categories
+    public partial class TestPerson
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public course_categories()
+        public TestPerson()
         {
-            this.courses = new HashSet<course>();
+            this.TestSalePersons = new HashSet<TestSalePerson>();
         }
     
-        public int categoryId { get; set; }
-        public string name { get; set; }
-        public string idnumber { get; set; }
-        public string description { get; set; }
-        public int coursecount { get; set; }
-        public bool visible { get; set; }
-        public System.DateTime timemodified { get; set; }
+        public int TestPersonId { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<course> courses { get; set; }
+        public virtual ICollection<TestSalePerson> TestSalePersons { get; set; }
     }
 }

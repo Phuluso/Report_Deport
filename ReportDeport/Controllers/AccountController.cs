@@ -18,12 +18,13 @@ namespace ReportDeport.Controllers
     public class AccountController : Controller
     {
         public static string PrevView = "";
-        ReportDepotEntities8 db = new ReportDepotEntities8();
-
+        ReportDepotEntities9 db = new ReportDepotEntities9();
+        
         [HttpGet]
         [AllowAnonymous]
 
         public ActionResult SendEmail() {
+   
             return View();
         }
              
@@ -183,10 +184,11 @@ namespace ReportDeport.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = "0", Company = model.Company };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = "0"};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
