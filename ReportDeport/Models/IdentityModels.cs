@@ -16,6 +16,8 @@ namespace ReportDeport.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Company { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -75,6 +75,12 @@ namespace ReportDeport.Models
 
     public class RegisterViewModel
     {
+
+
+        [Required]
+        [Display(Name = "Company")]
+        public string Company { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

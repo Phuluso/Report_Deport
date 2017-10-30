@@ -183,7 +183,7 @@ namespace ReportDeport.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = "0" };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = "0", Company = model.Company };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
