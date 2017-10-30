@@ -22,7 +22,7 @@ namespace ReportDeport.Controllers
 {
     public class DotNetReportController : Controller
     {
-        ReportDepotEntities8 db = new ReportDepotEntities8();
+        ReportDepotEntities9 db = new ReportDepotEntities9();
         public ActionResult Index()
         {
             bool found = false;

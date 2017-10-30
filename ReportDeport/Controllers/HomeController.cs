@@ -16,9 +16,9 @@ namespace ReportDeport.Controllers
         public ActionResult Index()
         {
             allModels allList = new allModels();
-            
 
-           List <CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel
+
+            List<CourseViewModel> courseList = db.courses.Select(x => new CourseViewModel
             {
                 courseId = x.courseId,
                 //categoryId = x.categoryId,
@@ -31,11 +31,11 @@ namespace ReportDeport.Controllers
                 timemodified = x.timemodified,
                 enablecompletion = x.enablecompletion
             }).ToList();
-            allList.courses = courseList;           
+            allList.courses = courseList;
 
             List<CategoryViewModel> categoryList = db.course_categories.Select(x => new CategoryViewModel
             {
-              
+
                 categoryId = x.categoryId,
                 name = x.name,
                 idnumber = x.idnumber,
@@ -43,7 +43,7 @@ namespace ReportDeport.Controllers
                 coursecount = x.coursecount,
                 visible = x.visible,
                 timemodified = x.timemodified,
-               
+
             }).ToList();
             allList.categories = categoryList;
 
@@ -55,7 +55,7 @@ namespace ReportDeport.Controllers
                 courseId = x.courseId,
                 enrolstartdate = x.enrolstartdate,
                 enrolenddate = x.enrolenddate,
-               
+
 
             }).ToList();
             allList.enrol = enrolList;
@@ -106,17 +106,17 @@ namespace ReportDeport.Controllers
 
             foreach (var i in db.AspNetUsers)
             {
-                if (  !String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0"))
+                if (!String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0"))
                 {
                     columnItem temp = new columnItem();
                     temp.ColumnName = i.UserName;
-                   
+                    temp.ReportName = i.company;
                     temp.IsChecked = false;
                     unapprovedUsers.columns.Add(temp);
                 }
             }
 
-            if(!User.IsInRole("Admin"))
+            if (!User.IsInRole("Admin"))
             {
                 unapprovedUsers.columns = new List<columnItem>();
             }
@@ -127,7 +127,7 @@ namespace ReportDeport.Controllers
         [HttpPost]
         public ActionResult ManageUsers([Bind(Include = "columns")] columnItemList colList)
         {
-            if(colList == null)
+            if (colList == null)
             {
                 colList = new columnItemList();
             }
@@ -142,44 +142,44 @@ namespace ReportDeport.Controllers
 
             foreach (var item in colList.columns)
             {
-                if(item.IsChecked)
+                if (item.IsChecked)
                 {
-                    foreach(var user in db.AspNetUsers)
+                    foreach (var user in db.AspNetUsers)
                     {
-                        if(user.Email.Equals(item.ColumnName))
+                        if (user.Email.Equals(item.ColumnName))
                         {
-                                user.PhoneNumber = null;
+                            user.PhoneNumber = null;
 
-                                // Gmail Address from where you send the mail
-                                var fromAddress = user.Email.ToString();
-                                // any address where the email will be sending
-                                var toAddress = "phulusol7@gmail.com";
-                                //Password of your gmail address
-                                const string fromPassword = "0846742822";
-                                // Passing the values and make a email formate to display
-                               
-                                string body = "Dear " + user.UserName.ToString() + "\n";
-                                body += "Thank you for signing up with Report Depot." +"\n";
-                                body += "Your account is ready and you may start building your custom reports. " +"\n\n";
-                                body += "best regards," + "\n";
-                                body += "Report Deport Team \n" + "\n";
-                                // smtp settings
-                                var smtp = new System.Net.Mail.SmtpClient();
-                                {
-                                    smtp.Host = "smtp.gmail.com";
-                                    smtp.Port = 587;
-                                    smtp.EnableSsl = true;
-                                    smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-                                    smtp.Credentials = new NetworkCredential(toAddress, fromPassword);
-                                    smtp.Timeout = 20000;
-                                }
-                                // Passing values to smtp object
-                                smtp.Send("reportdepot@hubbleStudios.co.za", user.Email.ToString(), "Report deport - Account status", body);
-                                //return RedirectToAction("Create");
-                                
+                            // Gmail Address from where you send the mail
+                            var fromAddress = user.Email.ToString();
+                            // any address where the email will be sending
+                            var toAddress = "phulusol7@gmail.com";
+                            //Password of your gmail address
+                            const string fromPassword = "0846742822";
+                            // Passing the values and make a email formate to display
+
+                            string body = "Dear " + user.UserName.ToString() + "\n";
+                            body += "Thank you for signing up with Report Depot." + "\n";
+                            body += "Your account is ready and you may start building your custom reports. " + "\n\n";
+                            body += "best regards," + "\n";
+                            body += "Report Deport Team \n" + "\n";
+                            // smtp settings
+                            var smtp = new System.Net.Mail.SmtpClient();
+                            {
+                                smtp.Host = "smtp.gmail.com";
+                                smtp.Port = 587;
+                                smtp.EnableSsl = true;
+                                smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                                smtp.Credentials = new NetworkCredential(toAddress, fromPassword);
+                                smtp.Timeout = 20000;
+                            }
+                            // Passing values to smtp object
+                            smtp.Send("reportdepot@hubbleStudios.co.za", user.Email.ToString(), "Report deport - Account status", body);
+                            //return RedirectToAction("Create");
+
                             break;
                         }
-                       
+
                     }
                 }
                 else
@@ -190,9 +190,9 @@ namespace ReportDeport.Controllers
             }
             db.SaveChanges();
 
-            
 
-            foreach(var UnapprovedUser in unapprovedUsers.columns)
+
+            foreach (var UnapprovedUser in unapprovedUsers.columns)
             {
                 UnapprovedUser.IsChecked = false;
             }
@@ -226,7 +226,7 @@ namespace ReportDeport.Controllers
 
             ws.Cells["A3"].Value = "Date";
             ws.Cells["B3"].Value = string.Format("{0: dd MMMM yyyy} at {0:H: mm tt}", DateTimeOffset.Now);
-           
+
 
             ws.Cells["A6"].Value = "Course ID";
             ws.Cells["B6"].Value = "Category ID";
@@ -243,7 +243,7 @@ namespace ReportDeport.Controllers
             {
                 ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                 ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("lightblue")));
-                
+
 
                 ws.Cells[string.Format("A{0}", rowStart)].Value = item.courseId;
                 ws.Cells[string.Format("B{0}", rowStart)].Value = item.categoryId;
@@ -252,7 +252,7 @@ namespace ReportDeport.Controllers
                 ws.Cells[string.Format("E{0}", rowStart)].Value = item.idnumber;
                 ws.Cells[string.Format("F{0}", rowStart)].Value = item.startdate;
                 ws.Cells[string.Format("G{0}", rowStart)].Value = item.visible;
-               
+
                 ws.Cells[string.Format("H{0}", rowStart)].Value = item.timecreated;
                 ws.Cells[string.Format("I{0}", rowStart)].Value = item.timemodified;
                 ws.Cells[string.Format("J{0}", rowStart)].Value = item.enablecompletion;
