@@ -148,6 +148,9 @@ namespace ReportDeport.Controllers
                 colList.columns = new List<columnItem>();
             }
 
+            columnItemList unapprovedUsers = new columnItemList();
+            unapprovedUsers.columns = new List<columnItem>();
+
             foreach (var item in colList.columns)
             {
                 if(item.IsChecked)
@@ -156,8 +159,7 @@ namespace ReportDeport.Controllers
                     {
                         if(user.Email.Equals(item.ColumnName))
                         {
-                            user.PhoneNumber = null;
-                           
+                                user.PhoneNumber = null;
 
                                 // Gmail Address from where you send the mail
                                 var fromAddress = user.Email.ToString();
@@ -188,16 +190,36 @@ namespace ReportDeport.Controllers
                                 
                             break;
                         }
-                        
+                       
                     }
+                }
+                else
+                {
+                    item.IsChecked = false;
+                    unapprovedUsers.columns.Add(item);
                 }
             }
             db.SaveChanges();
-            
-            
-        
 
-            return View("ManageUsers");
+
+
+            //foreach (var i in db.AspNetUsers)
+            //{
+            //    if (!String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0"))
+            //    {
+            //        columnItem temp = new columnItem();
+            //        temp.ColumnName = i.UserName;
+            //        temp.IsChecked = false;
+            //        unapprovedUsers.columns.Add(temp);
+            //    }
+            //}
+
+            foreach(var UnapprovedUser in unapprovedUsers.columns)
+            {
+                UnapprovedUser.IsChecked = false;
+            }
+
+            return View(unapprovedUsers);
         }
 
         public void ExportToExcel()

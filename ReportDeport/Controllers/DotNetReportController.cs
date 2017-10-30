@@ -170,9 +170,17 @@ namespace ReportDeport.Controllers
 
             string part1 = sql.Substring(0,posF);
             string part2 = sql.Substring(posBackslash,sql.Length-posBackslash);
+            string addedFilters = "";
+
+            if(sql.Contains("WHERE"))
+            {
+                int start = sql.IndexOf("WHERE")+5;
+                int extraCharacters = sql.Substring(start,sql.Length-start).IndexOf("\n\n");
+                addedFilters = sql.Substring(start,extraCharacters);
+            }
 
             string relationships = "FROM [course], [course_categories], [question_answers], [quiz],[quiz_grades], [user],[quiz_slots], [question], [user_enrolments], [enrol], [question_attempt_steps], [question_categories], [role], [role_assignments], [user_info_data], [user_info_field], [course_completions], [quiz_attempts] WHERE ([course].[categoryId] = [course_categories].[categoryId]) AND ([question].[questionId] = [question_answers].[questionId]) AND ([course].[courseId] = [quiz].[courseId]) AND ([quiz].[quizId] = [quiz_grades].[quizId]) AND ([quiz_grades].[userId] = [user].[userId]) AND ([quiz].[quizId] = [quiz_slots].[quizId]) AND ([quiz_slots].[questionId] = [question].[questionId]) AND ([user].[userId] = [user_enrolments].[userId]) AND ([enrol].[courseId]=[course].[courseId]) AND ([question_attempt_steps].[userId]=[user].[userId]) AND ([question_categories].[question_categoriesId]=[question].[categoryId]) AND ([quiz].[quizId]=[quiz_attempts].[quizId]) AND ([user].[userId]=[quiz_attempts].[userId]) AND ([role].[roleId]=[role_assignments].[roleId]) AND ([user].[userId]= [role_assignments].[userId]) AND ([user_info_field].[user_info_fieldId] = [user_info_data].[user_info_fieldId]) AND ([user].[userId] = [user_info_data].[userId]) AND ([course].[courseId]=[course_completions].[courseId])";
-            sql = part1 + relationships + part2;
+            sql = part1 + relationships + " AND (" + addedFilters + ")" + part2;
 
             try
             {

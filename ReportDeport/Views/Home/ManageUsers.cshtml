@@ -45,7 +45,7 @@
 
 
 
-All() | Administrators() | Approved() | Pending(@Model.columns.Count)
+All() | Administrators() | Approved() | Pending(@if (Model != null) {@Model.columns.Count})
 @using (Html.BeginForm("ManageUsers", "Home"))
 {
     <br>
