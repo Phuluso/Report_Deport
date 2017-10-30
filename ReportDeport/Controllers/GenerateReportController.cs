@@ -13,7 +13,7 @@ namespace ReportDeport.Controllers
 {
     public class GenerateReportController : Controller
     {
-        ReportDepotEntities8 db = new ReportDepotEntities8();
+        ReportDepotEntities9 db = new ReportDepotEntities9();
 
         // GET: GenerateReport
         public ActionResult Index(int? id)

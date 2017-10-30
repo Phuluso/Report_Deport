@@ -12,13 +12,13 @@ namespace ReportDeport.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class question_attempt_steps
+    public partial class TestSalePerson
     {
-        public int question_attempt_stepsId { get; set; }
-        public int question_attemptsId { get; set; }
-        public string state { get; set; }
-        public Nullable<decimal> fraction { get; set; }
-        public Nullable<System.DateTime> timecreated { get; set; }
-        public int userId { get; set; }
+        public int TestSalePersonId { get; set; }
+        public string branch { get; set; }
+        public string region { get; set; }
+        public int TestPersonId { get; set; }
+    
+        public virtual TestPerson TestPerson { get; set; }
     }
 }

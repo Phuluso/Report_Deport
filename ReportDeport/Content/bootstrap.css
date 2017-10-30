@@ -1111,7 +1111,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: blue;
+  color: #394676;
   text-decoration: none;
 }
 a:hover,
@@ -3083,8 +3083,8 @@ fieldset[disabled] a.btn {
 }
 .btn-default:hover {
   color: #ffffff;
-  background-color: #798d8f;
-  border-color: #74898a;
+    background-color: #1a242f;
+    border-color: #161f29;
 }
 .btn-default:active,
 .btn-default.active,

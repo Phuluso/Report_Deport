@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ReportDepotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ReportDepotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -66,6 +66,7 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="idInt" Type="int" />
+          <Property Name="company" Type="nchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="columnTranslations">
           <Key>
@@ -88,6 +89,7 @@
           <Property Name="message" Type="nvarchar(max)" />
           <Property Name="subject" Type="nvarchar(max)" />
           <Property Name="aspUserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="company" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -183,9 +185,9 @@
         </EntityType>
         <EntityType Name="question_categories">
           <Key>
-            <PropertyRef Name="[question_categoriesId]" />
+            <PropertyRef Name="question_categoriesId" />
           </Key>
-          <Property Name="[question_categoriesId]" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question_categoriesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" />
           <Property Name="info" Type="varchar(max)" />
         </EntityType>
@@ -221,7 +223,7 @@
           <Property Name="quiz_gradesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="quizId" Type="int" Nullable="false" />
           <Property Name="userId" Type="int" Nullable="false" />
-          <Property Name="grade" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="grade" Type="int" />
         </EntityType>
         <EntityType Name="quiz_slots">
           <Key>
@@ -274,6 +276,23 @@
           <Property Name="templateColumnId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="columnTranslationId" Type="int" />
           <Property Name="templateId" Type="int" />
+        </EntityType>
+        <EntityType Name="TestPerson">
+          <Key>
+            <PropertyRef Name="TestPersonId" />
+          </Key>
+          <Property Name="TestPersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TestSalePerson">
+          <Key>
+            <PropertyRef Name="TestSalePersonId" />
+          </Key>
+          <Property Name="TestSalePersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="branch" Type="nvarchar" MaxLength="50" />
+          <Property Name="region" Type="nvarchar" MaxLength="50" />
+          <Property Name="TestPersonId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -482,30 +501,6 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_question_attempt_steps_question_attempts">
-          <End Role="question_attempts" Type="Self.question_attempts" Multiplicity="1" />
-          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="question_attempts">
-              <PropertyRef Name="question_attemptsId" />
-            </Principal>
-            <Dependent Role="question_attempt_steps">
-              <PropertyRef Name="question_attemptsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_question_attempt_steps_user">
-          <End Role="user" Type="Self.user" Multiplicity="1" />
-          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="user">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="question_attempt_steps">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_question_attempts_question">
           <End Role="question" Type="Self.question" Multiplicity="1" />
           <End Role="question_attempts" Type="Self.question_attempts" Multiplicity="*" />
@@ -518,12 +513,12 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_question_course_categoryId">
-          <End Role="course_categories" Type="Self.course_categories" Multiplicity="1" />
+        <Association Name="FK_question_question_categoryId">
+          <End Role="question_categories" Type="Self.question_categories" Multiplicity="1" />
           <End Role="question" Type="Self.question" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="course_categories">
-              <PropertyRef Name="categoryId" />
+            <Principal Role="question_categories">
+              <PropertyRef Name="question_categoriesId" />
             </Principal>
             <Dependent Role="question">
               <PropertyRef Name="categoryId" />
@@ -686,6 +681,18 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TestSalePerson_TestPerson">
+          <End Role="TestPerson" Type="Self.TestPerson" Multiplicity="1" />
+          <End Role="TestSalePerson" Type="Self.TestSalePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestPerson">
+              <PropertyRef Name="TestPersonId" />
+            </Principal>
+            <Dependent Role="TestSalePerson">
+              <PropertyRef Name="TestPersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_user_enrolments_userId">
           <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="user_enrolments" Type="Self.user_enrolments" Multiplicity="*" />
@@ -804,6 +811,8 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="template" EntityType="Self.template" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="templateColumn" EntityType="Self.templateColumn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestPerson" EntityType="Self.TestPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestSalePerson" EntityType="Self.TestSalePerson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_enrolments" EntityType="Self.user_enrolments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_info_data" EntityType="Self.user_info_data" Schema="dbo" store:Type="Tables" />
@@ -859,20 +868,12 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             <End Role="question" EntitySet="question" />
             <End Role="question_answers" EntitySet="question_answers" />
           </AssociationSet>
-          <AssociationSet Name="FK_question_attempt_steps_question_attempts" Association="Self.FK_question_attempt_steps_question_attempts">
-            <End Role="question_attempts" EntitySet="question_attempts" />
-            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_question_attempt_steps_user" Association="Self.FK_question_attempt_steps_user">
-            <End Role="user" EntitySet="user" />
-            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
-          </AssociationSet>
           <AssociationSet Name="FK_question_attempts_question" Association="Self.FK_question_attempts_question">
             <End Role="question" EntitySet="question" />
             <End Role="question_attempts" EntitySet="question_attempts" />
           </AssociationSet>
-          <AssociationSet Name="FK_question_course_categoryId" Association="Self.FK_question_course_categoryId">
-            <End Role="course_categories" EntitySet="course_categories" />
+          <AssociationSet Name="FK_question_question_categoryId" Association="Self.FK_question_question_categoryId">
+            <End Role="question_categories" EntitySet="question_categories" />
             <End Role="question" EntitySet="question" />
           </AssociationSet>
           <AssociationSet Name="FK_quiz_attempts_quiz" Association="Self.FK_quiz_attempts_quiz">
@@ -927,6 +928,10 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             <End Role="template" EntitySet="template" />
             <End Role="templateColumn" EntitySet="templateColumn" />
           </AssociationSet>
+          <AssociationSet Name="FK_TestSalePerson_TestPerson" Association="Self.FK_TestSalePerson_TestPerson">
+            <End Role="TestPerson" EntitySet="TestPerson" />
+            <End Role="TestSalePerson" EntitySet="TestSalePerson" />
+          </AssociationSet>
           <AssociationSet Name="FK_user_enrolments_userId" Association="Self.FK_user_enrolments_userId">
             <End Role="user" EntitySet="user" />
             <End Role="user_enrolments" EntitySet="user_enrolments" />
@@ -948,8 +953,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             <End Role="UserId_Int" EntitySet="UserId_Int" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReportDepotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1009,6 +1013,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idInt" Type="Int32" />
+          <Property Name="company" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="UserId_Int" Relationship="Self.FK_UserId_Int_AspNetUsers" FromRole="AspNetUsers" ToRole="UserId_Int" />
@@ -1038,6 +1043,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="aspUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="contactForm1" Relationship="Self.FK_contactForm_contactForm" FromRole="contactForm" ToRole="contactForm1" />
           <NavigationProperty Name="contactForm2" Relationship="Self.FK_contactForm_contactForm" FromRole="contactForm1" ToRole="contactForm" />
+          <Property Name="company" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -1070,7 +1076,6 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="visible" Type="Boolean" Nullable="false" />
           <Property Name="timemodified" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="courses" Relationship="Self.FK_course_course_categories" FromRole="course_categories" ToRole="course" />
-          <NavigationProperty Name="questions" Relationship="Self.FK_question_course_categoryId" FromRole="course_categories" ToRole="question" />
         </EntityType>
         <EntityType Name="course_completions">
           <Key>
@@ -1106,9 +1111,9 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="questiontext" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="defaultmark" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="timecreated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="course_categories" Relationship="Self.FK_question_course_categoryId" FromRole="question" ToRole="course_categories" />
           <NavigationProperty Name="question_answers" Relationship="Self.FK_question_answers_question" FromRole="question" ToRole="question_answers" />
           <NavigationProperty Name="question_attempts" Relationship="Self.FK_question_attempts_question" FromRole="question" ToRole="question_attempts" />
+          <NavigationProperty Name="question_categories" Relationship="Self.FK_question_question_categoryId" FromRole="question" ToRole="question_categories" />
           <NavigationProperty Name="quiz_slots" Relationship="Self.FK_quiz_slots_question" FromRole="question" ToRole="quiz_slots" />
         </EntityType>
         <EntityType Name="question_answers">
@@ -1132,8 +1137,6 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="fraction" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="timecreated" Type="DateTime" Precision="3" />
           <Property Name="userId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="question_attempts" Relationship="Self.FK_question_attempt_steps_question_attempts" FromRole="question_attempt_steps" ToRole="question_attempts" />
-          <NavigationProperty Name="user" Relationship="Self.FK_question_attempt_steps_user" FromRole="question_attempt_steps" ToRole="user" />
         </EntityType>
         <EntityType Name="question_attempts">
           <Key>
@@ -1147,15 +1150,15 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="questionssummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="rightanswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="question" Relationship="Self.FK_question_attempts_question" FromRole="question_attempts" ToRole="question" />
-          <NavigationProperty Name="question_attempt_steps" Relationship="Self.FK_question_attempt_steps_question_attempts" FromRole="question_attempts" ToRole="question_attempt_steps" />
         </EntityType>
         <EntityType Name="question_categories">
           <Key>
-            <PropertyRef Name="C_question_categoriesId_" />
+            <PropertyRef Name="question_categoriesId" />
           </Key>
-          <Property Name="C_question_categoriesId_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question_categoriesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="questions" Relationship="Self.FK_question_question_categoryId" FromRole="question_categories" ToRole="question" />
         </EntityType>
         <EntityType Name="quiz">
           <Key>
@@ -1195,7 +1198,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="quiz_gradesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="quizId" Type="Int32" Nullable="false" />
           <Property Name="userId" Type="Int32" Nullable="false" />
-          <Property Name="grade" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="grade" Type="Int32" />
           <NavigationProperty Name="quiz" Relationship="Self.FK_quiz_grades_quiz" FromRole="quiz_grades" ToRole="quiz" />
           <NavigationProperty Name="user" Relationship="Self.FK_quiz_grades_userId" FromRole="quiz_grades" ToRole="user" />
         </EntityType>
@@ -1263,6 +1266,25 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <NavigationProperty Name="columnTranslation" Relationship="Self.FK_templateColumn_columnTranslations" FromRole="templateColumn" ToRole="columnTranslations" />
           <NavigationProperty Name="template" Relationship="Self.FK_templateColumn_template" FromRole="templateColumn" ToRole="template" />
         </EntityType>
+        <EntityType Name="TestPerson">
+          <Key>
+            <PropertyRef Name="TestPersonId" />
+          </Key>
+          <Property Name="TestPersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TestSalePersons" Relationship="Self.FK_TestSalePerson_TestPerson" FromRole="TestPerson" ToRole="TestSalePerson" />
+        </EntityType>
+        <EntityType Name="TestSalePerson">
+          <Key>
+            <PropertyRef Name="TestSalePersonId" />
+          </Key>
+          <Property Name="TestSalePersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="branch" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TestPersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TestPerson" Relationship="Self.FK_TestSalePerson_TestPerson" FromRole="TestSalePerson" ToRole="TestPerson" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="userId" />
@@ -1281,7 +1303,6 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <Property Name="timecreated" Type="DateTime" Precision="3" />
           <Property Name="timemodified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="course_completions" Relationship="Self.FK_course_completions_userId" FromRole="user" ToRole="course_completions" />
-          <NavigationProperty Name="question_attempt_steps" Relationship="Self.FK_question_attempt_steps_user" FromRole="user" ToRole="question_attempt_steps" />
           <NavigationProperty Name="quiz_attempts" Relationship="Self.FK_quiz_attempts_user" FromRole="user" ToRole="quiz_attempts" />
           <NavigationProperty Name="quiz_grades" Relationship="Self.FK_quiz_grades_userId" FromRole="user" ToRole="quiz_grades" />
           <NavigationProperty Name="role_assignments" Relationship="Self.FK_role_assignments_user" FromRole="user" ToRole="role_assignments" />
@@ -1466,18 +1487,6 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_question_course_categoryId">
-          <End Role="course_categories" Type="Self.course_categories" Multiplicity="1" />
-          <End Role="question" Type="Self.question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="course_categories">
-              <PropertyRef Name="categoryId" />
-            </Principal>
-            <Dependent Role="question">
-              <PropertyRef Name="categoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_course_completions_userId">
           <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="course_completions" Type="Self.course_completions" Multiplicity="*" />
@@ -1514,6 +1523,18 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_question_question_categoryId">
+          <End Role="question_categories" Type="Self.question_categories" Multiplicity="1" />
+          <End Role="question" Type="Self.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="question_categories">
+              <PropertyRef Name="question_categoriesId" />
+            </Principal>
+            <Dependent Role="question">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_quiz_slots_question">
           <End Role="question" Type="Self.question" Multiplicity="1" />
           <End Role="quiz_slots" Type="Self.quiz_slots" Multiplicity="*" />
@@ -1523,30 +1544,6 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             </Principal>
             <Dependent Role="quiz_slots">
               <PropertyRef Name="questionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_question_attempt_steps_question_attempts">
-          <End Role="question_attempts" Type="Self.question_attempts" Multiplicity="1" />
-          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="question_attempts">
-              <PropertyRef Name="question_attemptsId" />
-            </Principal>
-            <Dependent Role="question_attempt_steps">
-              <PropertyRef Name="question_attemptsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_question_attempt_steps_user">
-          <End Role="user" Type="Self.user" Multiplicity="1" />
-          <End Role="question_attempt_steps" Type="Self.question_attempt_steps" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="user">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="question_attempt_steps">
-              <PropertyRef Name="userId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1670,6 +1667,18 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TestSalePerson_TestPerson">
+          <End Role="TestPerson" Type="Self.TestPerson" Multiplicity="1" />
+          <End Role="TestSalePerson" Type="Self.TestSalePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestPerson">
+              <PropertyRef Name="TestPersonId" />
+            </Principal>
+            <Dependent Role="TestSalePerson">
+              <PropertyRef Name="TestPersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_user_enrolments_userId">
           <End Role="user" Type="Self.user" Multiplicity="1" />
           <End Role="user_enrolments" Type="Self.user_enrolments" Multiplicity="*" />
@@ -1722,7 +1731,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="ReportDepotEntities8" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ReportDepotEntities9" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -1748,6 +1757,8 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="templates" EntityType="Self.template" />
           <EntitySet Name="templateColumns" EntityType="Self.templateColumn" />
+          <EntitySet Name="TestPersons" EntityType="Self.TestPerson" />
+          <EntitySet Name="TestSalePersons" EntityType="Self.TestSalePerson" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="user_enrolments" EntityType="Self.user_enrolments" />
           <EntitySet Name="user_info_data" EntityType="Self.user_info_data" />
@@ -1790,10 +1801,6 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             <End Role="course" EntitySet="courses" />
             <End Role="quiz" EntitySet="quizs" />
           </AssociationSet>
-          <AssociationSet Name="FK_question_course_categoryId" Association="Self.FK_question_course_categoryId">
-            <End Role="course_categories" EntitySet="course_categories" />
-            <End Role="question" EntitySet="questions" />
-          </AssociationSet>
           <AssociationSet Name="FK_course_completions_userId" Association="Self.FK_course_completions_userId">
             <End Role="user" EntitySet="users" />
             <End Role="course_completions" EntitySet="course_completions" />
@@ -1806,17 +1813,13 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
             <End Role="question" EntitySet="questions" />
             <End Role="question_attempts" EntitySet="question_attempts" />
           </AssociationSet>
+          <AssociationSet Name="FK_question_question_categoryId" Association="Self.FK_question_question_categoryId">
+            <End Role="question_categories" EntitySet="question_categories" />
+            <End Role="question" EntitySet="questions" />
+          </AssociationSet>
           <AssociationSet Name="FK_quiz_slots_question" Association="Self.FK_quiz_slots_question">
             <End Role="question" EntitySet="questions" />
             <End Role="quiz_slots" EntitySet="quiz_slots" />
-          </AssociationSet>
-          <AssociationSet Name="FK_question_attempt_steps_question_attempts" Association="Self.FK_question_attempt_steps_question_attempts">
-            <End Role="question_attempts" EntitySet="question_attempts" />
-            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_question_attempt_steps_user" Association="Self.FK_question_attempt_steps_user">
-            <End Role="user" EntitySet="users" />
-            <End Role="question_attempt_steps" EntitySet="question_attempt_steps" />
           </AssociationSet>
           <AssociationSet Name="FK_quiz_attempts_quiz" Association="Self.FK_quiz_attempts_quiz">
             <End Role="quiz" EntitySet="quizs" />
@@ -1857,6 +1860,10 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <AssociationSet Name="FK_templateColumn_template" Association="Self.FK_templateColumn_template">
             <End Role="template" EntitySet="templates" />
             <End Role="templateColumn" EntitySet="templateColumns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestSalePerson_TestPerson" Association="Self.FK_TestSalePerson_TestPerson">
+            <End Role="TestPerson" EntitySet="TestPersons" />
+            <End Role="TestSalePerson" EntitySet="TestSalePersons" />
           </AssociationSet>
           <AssociationSet Name="FK_user_enrolments_userId" Association="Self.FK_user_enrolments_userId">
             <End Role="user" EntitySet="users" />
@@ -1925,7 +1932,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ReportDepotModelStoreContainer" CdmEntityContainer="ReportDepotEntities8">
+        <EntityContainerMapping StorageEntityContainer="ReportDepotModelStoreContainer" CdmEntityContainer="ReportDepotEntities9">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="ReportDepotModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -1979,6 +1986,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="idInt" ColumnName="idInt" />
+                <ScalarProperty Name="company" ColumnName="company" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1994,6 +2002,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <EntitySetMapping Name="contactForms">
             <EntityTypeMapping TypeName="ReportDepotModel.contactForm">
               <MappingFragment StoreEntitySet="contactForm">
+                <ScalarProperty Name="company" ColumnName="company" />
                 <ScalarProperty Name="contactFormId" ColumnName="contactFormId" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
@@ -2109,7 +2118,7 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
           <EntitySetMapping Name="question_categories">
             <EntityTypeMapping TypeName="ReportDepotModel.question_categories">
               <MappingFragment StoreEntitySet="question_categories">
-                <ScalarProperty Name="C_question_categoriesId_" ColumnName="[question_categoriesId]" />
+                <ScalarProperty Name="question_categoriesId" ColumnName="question_categoriesId" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="info" ColumnName="info" />
               </MappingFragment>
@@ -2207,6 +2216,25 @@ warning 6002: The table/view 'ReportDepot.sys.database_firewall_rules' does not 
                 <ScalarProperty Name="templateColumnId" ColumnName="templateColumnId" />
                 <ScalarProperty Name="columnTranslationId" ColumnName="columnTranslationId" />
                 <ScalarProperty Name="templateId" ColumnName="templateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestPersons">
+            <EntityTypeMapping TypeName="ReportDepotModel.TestPerson">
+              <MappingFragment StoreEntitySet="TestPerson">
+                <ScalarProperty Name="TestPersonId" ColumnName="TestPersonId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestSalePersons">
+            <EntityTypeMapping TypeName="ReportDepotModel.TestSalePerson">
+              <MappingFragment StoreEntitySet="TestSalePerson">
+                <ScalarProperty Name="TestSalePersonId" ColumnName="TestSalePersonId" />
+                <ScalarProperty Name="branch" ColumnName="branch" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="TestPersonId" ColumnName="TestPersonId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

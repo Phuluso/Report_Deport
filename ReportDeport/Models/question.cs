@@ -29,11 +29,11 @@ namespace ReportDeport.Models
         public Nullable<decimal> defaultmark { get; set; }
         public Nullable<System.DateTime> timecreated { get; set; }
     
-        public virtual course_categories course_categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<question_answers> question_answers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<question_attempts> question_attempts { get; set; }
+        public virtual question_categories question_categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<quiz_slots> quiz_slots { get; set; }
     }

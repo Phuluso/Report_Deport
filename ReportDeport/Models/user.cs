@@ -18,7 +18,6 @@ namespace ReportDeport.Models
         public user()
         {
             this.course_completions = new HashSet<course_completions>();
-            this.question_attempt_steps = new HashSet<question_attempt_steps>();
             this.quiz_attempts = new HashSet<quiz_attempts>();
             this.quiz_grades = new HashSet<quiz_grades>();
             this.role_assignments = new HashSet<role_assignments>();
@@ -43,8 +42,6 @@ namespace ReportDeport.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<course_completions> course_completions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<question_attempt_steps> question_attempt_steps { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<quiz_attempts> quiz_attempts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

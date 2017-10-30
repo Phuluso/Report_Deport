@@ -72,7 +72,7 @@
                     @if (!User.Identity.Name.Equals(""))
                     {
                         <li>@Html.ActionLink("Home", "UserLogin", "Home")</li>
-                        <li>@Html.ActionLink("Build Report", "Index", "DotNetReport")</li>
+                        <li>@Html.ActionLink("Manage Reports", "Index", "DotNetReport")</li>
                         if (User.IsInRole("Admin"))
                         {
                             <li>@Html.ActionLink("Manage Users", "ManageUsers", "Home")</li>
@@ -90,7 +90,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year Report Depot Application</p>
+            <p style="text-align:center !important;">&copy; @DateTime.Now.Year Report Depot Application</p>
         </footer>
     </div>
 

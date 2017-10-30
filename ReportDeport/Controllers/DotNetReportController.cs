@@ -22,7 +22,7 @@ namespace ReportDeport.Controllers
 {
     public class DotNetReportController : Controller
     {
-        ReportDepotEntities8 db = new ReportDepotEntities8();
+        ReportDepotEntities9 db = new ReportDepotEntities9();
         public ActionResult Index()
         {
             //bool found = false;
@@ -269,7 +269,7 @@ namespace ReportDeport.Controllers
         public ActionResult DownloadExcel(string reportSql, string connectKey, string reportName)
         {
             var sql = Decrypt(reportSql);
-
+            sql = adaptSQL(sql);
             // Execute sql
             var dt = new DataTable();
             using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[connectKey].ConnectionString))

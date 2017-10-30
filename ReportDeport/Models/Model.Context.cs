@@ -15,10 +15,10 @@ namespace ReportDeport.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ReportDepotEntities8 : DbContext
+    public partial class ReportDepotEntities9 : DbContext
     {
-        public ReportDepotEntities8()
-            : base("name=ReportDepotEntities8")
+        public ReportDepotEntities9()
+            : base("name=ReportDepotEntities9")
         {
         }
     
@@ -52,6 +52,8 @@ namespace ReportDeport.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<template> templates { get; set; }
         public virtual DbSet<templateColumn> templateColumns { get; set; }
+        public virtual DbSet<TestPerson> TestPersons { get; set; }
+        public virtual DbSet<TestSalePerson> TestSalePersons { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<user_enrolments> user_enrolments { get; set; }
         public virtual DbSet<user_info_data> user_info_data { get; set; }

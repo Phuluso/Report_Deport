@@ -14,8 +14,17 @@ namespace ReportDeport.Models
     
     public partial class question_categories
     {
-        public int C_question_categoriesId_ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public question_categories()
+        {
+            this.questions = new HashSet<question>();
+        }
+    
+        public int question_categoriesId { get; set; }
         public string name { get; set; }
         public string info { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<question> questions { get; set; }
     }
 }
