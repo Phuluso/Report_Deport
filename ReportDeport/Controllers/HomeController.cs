@@ -110,6 +110,7 @@ namespace ReportDeport.Controllers
                 {
                     columnItem temp = new columnItem();
                     temp.ColumnName = i.UserName;
+                   
                     temp.IsChecked = false;
                     unapprovedUsers.columns.Add(temp);
                 }
