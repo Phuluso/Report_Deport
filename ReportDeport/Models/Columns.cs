@@ -13,6 +13,8 @@ namespace ReportDeport.Models
         public string ReportName { get; set; }
         public bool IsChecked { get; set; }
 
+        
+
     }
     public class loggedInItem {
         public string email { get; set; }

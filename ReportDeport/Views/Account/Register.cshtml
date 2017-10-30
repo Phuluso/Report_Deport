@@ -1,4 +1,4 @@
-﻿@model ReportDeport.Models.RegisterViewModel
+@model ReportDeport.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -36,6 +36,12 @@
                                     <hr />
                                     @Html.ValidationSummary("", new { @class = "text-danger" })
                                     <div class="form-group">
+                                        @Html.LabelFor(m => m.Company, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
                                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
@@ -50,7 +56,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" }) <p style="margin-left:4px;font-style: italic;">Suggestion: Copy down your password to remember it after accounts gets approved.<p/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -71,10 +77,7 @@
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password"><div class="tooltip" style="opacity: 1;margin-top: 0%; margin-left: 9px; ">
-    <span class="glyphicon glyphicon-question-sign" style="font-size: 22px; line-height: 44px;"></span>
-    <span class="tooltiptext">Select table then check fields you want to include in the report. Do the same for each  table you would like to include in your report.</span>
-</div>
+                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -82,7 +85,7 @@
                                             <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
                                             
                                         </div>
-                                        <div><p style="color:black;">Suggestion: Copy down your password to remember it after accounts gets approved.</p> </div>
+                                      
                                     </div>
                                 </div>
                             </form>
