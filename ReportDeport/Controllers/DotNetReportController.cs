@@ -237,9 +237,13 @@ namespace ReportDeport.Controllers
 
                 string selectTable = select.Substring(startIndex, (endIndex + 1) - startIndex);
                 select = select.Substring(endIndex + 2);
-                temp.Add(selectTable);
 
-                if(startIndex>select.Length)
+                if (!temp.Contains(selectTable))
+                {
+                    temp.Add(selectTable);
+                }
+
+                if (startIndex>select.Length)
                 {
                     break;
                 }
@@ -252,7 +256,11 @@ namespace ReportDeport.Controllers
 
                 string selectTable = select.Substring(startIndex, (endIndex + 1) - startIndex);
                 select = select.Substring(endIndex + 2);
-                temp.Add(selectTable);
+
+                if(!temp.Contains(selectTable))
+                {
+                    temp.Add(selectTable);
+                }
             }
 
             string[] returnArray = new string[temp.Count];
