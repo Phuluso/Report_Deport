@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ReportDeport.Models;
 using Microsoft.AspNet.Identity;
+using System.IO;
 
 namespace ReportDeport.Controllers
 {
@@ -234,6 +235,44 @@ namespace ReportDeport.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "templateId,date,name,userId")] template template)
         {
+            if (ModelState.IsValid)
+            {
+                //db.Entry(template).State = EntityState.Modified;
+                //db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        // GET: GenerateReport/Edit/5
+        public ActionResult Relationships(int? id)
+        {
+            template t = new template();
+            String line = "";
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader("Relationships.txt"))
+                {
+                     line = sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+            }
+
+            t.name = line;
+
+            return View(line);
+        }
+
+        // POST: GenerateReport/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Relationships([Bind(Include = "name")] template template)
+        {
+            System.IO.File.WriteAllText("~/Relationships.txt", template.name);
             if (ModelState.IsValid)
             {
                 //db.Entry(template).State = EntityState.Modified;

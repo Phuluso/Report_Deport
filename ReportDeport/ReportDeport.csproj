@@ -515,7 +515,7 @@
     <Content Include="Views\templates\Edit.cshtml" />
     <Content Include="Views\templates\Index.cshtml" />
     <Content Include="Views\templates\TemplatesIndex.cshtml" />
-    <Content Include="Views\GenerateReport\Create.cshtml" />
+    <Content Include="Views\GenerateReport\Relationships.cshtml" />
     <Content Include="Views\GenerateReport\Delete.cshtml" />
     <Content Include="Views\GenerateReport\Details.cshtml" />
     <Content Include="Views\GenerateReport\Edit.cshtml" />

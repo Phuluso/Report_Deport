@@ -293,10 +293,12 @@ namespace ReportDeport.Controllers
                 addedFilters = sql.Substring(start, extraCharacters);
             }
 
-            //string from = " FROM [course], [course_categories], [question_answers], [quiz],[quiz_grades], [user],[quiz_slots], [question], [user_enrolments], [enrol], [question_attempt_steps], [question_categories], [role], [role_assignments], [user_info_data], [user_info_field], [course_completions], [quiz_attempts] ";
+
             string from = " FROM ";
 
+            ////Replace line below with applicable relationships
             string where = " WHERE ([course].[categoryId] = [course_categories].[categoryId]) AND ([question].[questionId] = [question_answers].[questionId]) AND ([course].[courseId] = [quiz].[courseId]) AND ([quiz].[quizId] = [quiz_grades].[quizId]) AND ([quiz_grades].[userId] = [user].[userId]) AND ([quiz].[quizId] = [quiz_slots].[quizId]) AND ([quiz_slots].[questionId] = [question].[questionId]) AND ([user].[userId] = [user_enrolments].[userId]) AND ([enrol].[courseId]=[course].[courseId]) AND ([question_attempt_steps].[userId]=[user].[userId]) AND ([question_categories].[question_categoriesId]=[question].[categoryId]) AND ([quiz].[quizId]=[quiz_attempts].[quizId]) AND ([user].[userId]=[quiz_attempts].[userId]) AND ([role].[roleId]=[role_assignments].[roleId]) AND ([user].[userId]= [role_assignments].[userId]) AND ([user_info_field].[user_info_fieldId] = [user_info_data].[user_info_fieldId]) AND ([user].[userId] = [user_info_data].[userId]) AND ([course].[courseId]=[course_completions].[courseId])";
+            ////////////////////////////////////////////////////
 
             var pattern = @"\((.*?)\)";
             var conditions = Regex.Matches(where, pattern);
@@ -336,72 +338,6 @@ namespace ReportDeport.Controllers
             }
 
             return part1 + from + where + part2;
-
-            //string tempPart1 = part1;
-            //string tempPart2 = part1;
-            //where = "";
-            //int startIndex = 0;
-            //bool first = true;
-
-            //foreach (var condition in conditions)
-            //{
-            //    tempPart1 = part1;
-            //    while (tempPart1.Substring(startIndex).Contains("].["))
-            //    {
-            //        int endIndex = tempPart1.IndexOf("].[");
-            //        startIndex = tempPart1.IndexOf("[");
-
-            //        string selectTable = tempPart1.Substring(startIndex, (endIndex + 1) - startIndex);
-            //        tempPart1 = tempPart1.Substring(endIndex + 2);
-            //        tempPart2 = tempPart1;
-            //        if (condition.ToString().Contains(selectTable))
-            //        {
-            //            while (tempPart2.Substring(startIndex).Contains("].["))
-            //            {
-            //                endIndex = tempPart2.IndexOf("].[");
-            //                startIndex = tempPart2.IndexOf("[");
-
-            //                selectTable = tempPart2.Substring(startIndex, (endIndex + 1) - startIndex);
-            //                tempPart2 = tempPart2.Substring(endIndex + 2);
-            //                if (condition.ToString().Contains(selectTable))
-            //                {
-            //                    if (first)
-            //                    {
-            //                        where = " WHERE " + condition;
-            //                        first = false;
-            //                    }
-            //                    else
-            //                    {
-            //                        where += " AND " + condition;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-            //if (!where.Equals(""))
-            //{
-            //    if (!addedFilters.Equals(""))
-            //    {
-            //        return part1 + from + where + " AND (" + addedFilters + ")" + part2;
-            //    }
-            //    else
-            //    {
-            //        return part1 + from + where + part2;
-            //    }
-            //}
-            //else
-            //{
-            //    if (!addedFilters.Equals(""))
-            //    {
-            //        return part1 + from + " WHERE (" + addedFilters + ")" + part2;
-            //    }
-            //    else
-            //    {
-            //        return part1 + from + part2;
-            //    }
-            //}
 
         }
 
