@@ -39,6 +39,7 @@ namespace ReportDeport.Models
         public Nullable<System.DateTime> lastaccess { get; set; }
         public Nullable<System.DateTime> timecreated { get; set; }
         public Nullable<System.DateTime> timemodified { get; set; }
+        public string company { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<course_completions> course_completions { get; set; }

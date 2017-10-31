@@ -17,8 +17,8 @@ namespace ReportDeport.Models
         public int question_answersId { get; set; }
         public int questionId { get; set; }
         public string answer { get; set; }
-        public Nullable<decimal> fraction { get; set; }
         public string feedback { get; set; }
+        public Nullable<int> fraction { get; set; }
     
         public virtual question question { get; set; }
     }

@@ -26,8 +26,8 @@ namespace ReportDeport.Models
         public int categoryId { get; set; }
         public string name { get; set; }
         public string questiontext { get; set; }
-        public Nullable<decimal> defaultmark { get; set; }
         public Nullable<System.DateTime> timecreated { get; set; }
+        public Nullable<int> defaultmark { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<question_answers> question_answers { get; set; }

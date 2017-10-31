@@ -21,7 +21,7 @@ namespace ReportDeport.Models
         public string state { get; set; }
         public Nullable<System.DateTime> timestart { get; set; }
         public Nullable<System.DateTime> timefinish { get; set; }
-        public Nullable<decimal> sumgrades { get; set; }
+        public Nullable<int> sumgrades { get; set; }
     
         public virtual quiz quiz { get; set; }
         public virtual user user { get; set; }

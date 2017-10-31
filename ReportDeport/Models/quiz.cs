@@ -26,9 +26,9 @@ namespace ReportDeport.Models
         public int courseId { get; set; }
         public string name { get; set; }
         public Nullable<int> attempts { get; set; }
-        public Nullable<decimal> sumgrades { get; set; }
-        public Nullable<decimal> grade { get; set; }
         public Nullable<System.DateTime> timecreated { get; set; }
+        public Nullable<int> sumgrades { get; set; }
+        public Nullable<int> grade { get; set; }
     
         public virtual course course { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

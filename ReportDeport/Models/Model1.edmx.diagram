@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dcb92ec209de4ebabdb090b94ce2da27" Name="Diagram1">
+      <Diagram DiagramId="d4325f1c76ff41c890f3e34a397ec5b4" Name="Diagram1">
         <EntityTypeShape EntityType="ReportDepotModel.C__MigrationHistory" Width="1.5" PointX="8.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.AspNetRole" Width="1.5" PointX="1.5" PointY="29.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.AspNetUserClaim" Width="1.5" PointX="6" PointY="28.375" IsExpanded="true" />
@@ -16,28 +16,27 @@
         <EntityTypeShape EntityType="ReportDepotModel.course_categories" Width="1.5" PointX="1.5" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.course_completions" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.enrol" Width="1.5" PointX="3.75" PointY="34.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.question" Width="1.5" PointX="11" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel.question" Width="1.5" PointX="11" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.question_answers" Width="1.5" PointX="13.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.question_attempt_steps" Width="1.5" PointX="10.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel.question_attempt_steps" Width="1.5" PointX="15.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.question_attempts" Width="1.5" PointX="13.25" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.question_categories" Width="1.5" PointX="8.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel.question_categories" Width="1.5" PointX="8.75" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.quiz" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.quiz_attempts" Width="1.5" PointX="6" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.quiz_grades" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.quiz_slots" Width="1.5" PointX="13.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.role" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel.role" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.role_assignments" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.sysdiagram" Width="1.5" PointX="12.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel.sysdiagram" Width="1.5" PointX="10.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.template" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.templateColumn" Width="1.5" PointX="8" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.TestPerson" Width="1.5" PointX="10.75" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.TestSalePerson" Width="1.5" PointX="13" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel.TestPerson" Width="1.5" PointX="10.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReportDepotModel.TestSalePerson" Width="1.5" PointX="13" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.user" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.user_enrolments" Width="1.5" PointX="3" PointY="25.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.user_info_data" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.user_info_field" Width="1.5" PointX="3.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ReportDepotModel.UserId_Int" Width="1.5" PointX="6" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReportDepotModel.database_firewall_rules" Width="1.5" PointX="14.75" PointY="2" IsExpanded="true" />
         <AssociationConnector Association="ReportDepotModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ReportDepotModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ReportDepotModel.FK_UserId_Int_AspNetUsers" ManuallyRouted="false" />
