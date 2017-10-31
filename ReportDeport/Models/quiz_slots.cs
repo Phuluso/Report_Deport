@@ -17,7 +17,7 @@ namespace ReportDeport.Models
         public int quiz_gradesId { get; set; }
         public int quizId { get; set; }
         public int questionId { get; set; }
-        public Nullable<decimal> maxmark { get; set; }
+        public Nullable<int> maxmark { get; set; }
     
         public virtual question question { get; set; }
         public virtual quiz quiz { get; set; }

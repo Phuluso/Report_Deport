@@ -16,11 +16,9 @@ namespace ReportDeport.Models
     {
         public int question_attemptsId { get; set; }
         public int questionId { get; set; }
-        public Nullable<decimal> maxmark { get; set; }
-        public Nullable<decimal> minfraction { get; set; }
-        public Nullable<decimal> maxfraction { get; set; }
         public string questionssummary { get; set; }
         public string rightanswer { get; set; }
+        public Nullable<int> maxmark { get; set; }
     
         public virtual question question { get; set; }
     }

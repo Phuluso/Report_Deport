@@ -17,8 +17,8 @@ namespace ReportDeport.Models
         public int question_attempt_stepsId { get; set; }
         public int question_attemptsId { get; set; }
         public string state { get; set; }
-        public Nullable<decimal> fraction { get; set; }
         public Nullable<System.DateTime> timecreated { get; set; }
         public int userId { get; set; }
+        public Nullable<int> fraction { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace ReportDeport.Controllers
     public class AccountController : Controller
     {
         public static string PrevView = "";
-        ReportDepotEntities9 db = new ReportDepotEntities9();
+        ReportDepotEntities10 db = new ReportDepotEntities10();
 
         [HttpGet]
         [AllowAnonymous]
