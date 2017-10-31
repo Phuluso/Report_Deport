@@ -17,6 +17,7 @@ using OfficeOpenXml;
 using System.Text.RegularExpressions;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using System.Collections;
 
 namespace ReportDeport.Controllers
 {
@@ -160,6 +161,109 @@ namespace ReportDeport.Controllers
         //}
 
 
+        //public string adaptSQL(string sql)
+        //{
+
+        //    int posF = sql.IndexOf("FROM");
+        //    int posBackslash = sql.Length;
+        //    if (sql.Contains("\nORDER BY"))
+        //    {
+        //        posBackslash = sql.IndexOf("\nORDER BY");
+        //    }
+
+        //    string part1 = sql.Substring(0, posF);
+        //    string part2 = sql.Substring(posBackslash, sql.Length - posBackslash);
+        //    string addedFilters = "";
+
+        //    if (sql.Contains("WHERE"))
+        //    {
+        //        int start = sql.IndexOf("WHERE") + 5;
+        //        int extraCharacters = sql.Substring(start, sql.Length - start).IndexOf("\n\n");
+        //        addedFilters = sql.Substring(start, extraCharacters);
+        //    }
+
+        //    string relationships = "FROM [course], [course_categories], [question_answers], [quiz],[quiz_grades], [user],[quiz_slots], [question], [user_enrolments], [enrol], [question_attempt_steps], [question_categories], [role], [role_assignments], [user_info_data], [user_info_field], [course_completions], [quiz_attempts] WHERE ([course].[categoryId] = [course_categories].[categoryId]) AND ([question].[questionId] = [question_answers].[questionId]) AND ([course].[courseId] = [quiz].[courseId]) AND ([quiz].[quizId] = [quiz_grades].[quizId]) AND ([quiz_grades].[userId] = [user].[userId]) AND ([quiz].[quizId] = [quiz_slots].[quizId]) AND ([quiz_slots].[questionId] = [question].[questionId]) AND ([user].[userId] = [user_enrolments].[userId]) AND ([enrol].[courseId]=[course].[courseId]) AND ([question_attempt_steps].[userId]=[user].[userId]) AND ([question_categories].[question_categoriesId]=[question].[categoryId]) AND ([quiz].[quizId]=[quiz_attempts].[quizId]) AND ([user].[userId]=[quiz_attempts].[userId]) AND ([role].[roleId]=[role_assignments].[roleId]) AND ([user].[userId]= [role_assignments].[userId]) AND ([user_info_field].[user_info_fieldId] = [user_info_data].[user_info_fieldId]) AND ([user].[userId] = [user_info_data].[userId]) AND ([course].[courseId]=[course_completions].[courseId])";
+        //    if (!addedFilters.Equals(""))
+        //    {
+        //        return part1 + relationships + " AND (" + addedFilters + ")" + part2;
+        //    }
+        //    else
+        //    {
+        //        return part1 + relationships + part2;
+        //    }
+
+        //}
+
+        public int lastIndexOf(string select, int cutoff)
+        {
+            string firstPart = "";
+            int index = 0;
+
+            //while(select.Substring(index).IndexOf("[")+firstPart.Length < cutoff)
+            //{
+            //    index = select.Substring(index).IndexOf("[");
+            //    firstPart += select.Substring(0, index);
+            //    select = select.Substring(index);
+            //}
+
+            ArrayList foundIndexes = new ArrayList();
+
+            for (int i = select.IndexOf('['); i > -1; i = select.IndexOf('[', i + 1))
+            {
+                // for loop end when i=-1 ('a' not found)
+                foundIndexes.Add(i);
+                if((i>cutoff)||(i==-1))
+                {
+                    index = (int)foundIndexes[(foundIndexes.Count - 2)];
+                    break;
+                }
+            }
+            
+
+            return index;
+        }
+
+        //breaks up select statement into parts and returns all selected tables
+        public string[] breakUpSelect(string select)
+        {
+            ArrayList temp = new ArrayList();
+
+            int startIndex = select.IndexOf("[");
+
+            while (select.Substring(startIndex).Contains("].["))
+            {
+                int endIndex = select.IndexOf("].[");
+                startIndex = lastIndexOf(select, endIndex);
+
+                string selectTable = select.Substring(startIndex, (endIndex + 1) - startIndex);
+                select = select.Substring(endIndex + 2);
+                temp.Add(selectTable);
+
+                if(startIndex>select.Length)
+                {
+                    break;
+                }
+            }
+
+            if(select.Contains("].["))
+            {
+                int endIndex = select.IndexOf("].[");
+                startIndex = lastIndexOf(select, endIndex);
+
+                string selectTable = select.Substring(startIndex, (endIndex + 1) - startIndex);
+                select = select.Substring(endIndex + 2);
+                temp.Add(selectTable);
+            }
+
+            string[] returnArray = new string[temp.Count];
+            for(int i = 0; i < temp.Count; i++)
+            {
+                returnArray[i] = temp[i].ToString();
+            }
+
+            return returnArray;
+        }
+
         public string adaptSQL(string sql)
         {
 
@@ -181,15 +285,115 @@ namespace ReportDeport.Controllers
                 addedFilters = sql.Substring(start, extraCharacters);
             }
 
-            string relationships = "FROM [course], [course_categories], [question_answers], [quiz],[quiz_grades], [user],[quiz_slots], [question], [user_enrolments], [enrol], [question_attempt_steps], [question_categories], [role], [role_assignments], [user_info_data], [user_info_field], [course_completions], [quiz_attempts] WHERE ([course].[categoryId] = [course_categories].[categoryId]) AND ([question].[questionId] = [question_answers].[questionId]) AND ([course].[courseId] = [quiz].[courseId]) AND ([quiz].[quizId] = [quiz_grades].[quizId]) AND ([quiz_grades].[userId] = [user].[userId]) AND ([quiz].[quizId] = [quiz_slots].[quizId]) AND ([quiz_slots].[questionId] = [question].[questionId]) AND ([user].[userId] = [user_enrolments].[userId]) AND ([enrol].[courseId]=[course].[courseId]) AND ([question_attempt_steps].[userId]=[user].[userId]) AND ([question_categories].[question_categoriesId]=[question].[categoryId]) AND ([quiz].[quizId]=[quiz_attempts].[quizId]) AND ([user].[userId]=[quiz_attempts].[userId]) AND ([role].[roleId]=[role_assignments].[roleId]) AND ([user].[userId]= [role_assignments].[userId]) AND ([user_info_field].[user_info_fieldId] = [user_info_data].[user_info_fieldId]) AND ([user].[userId] = [user_info_data].[userId]) AND ([course].[courseId]=[course_completions].[courseId])";
-            if (!addedFilters.Equals(""))
+            //string from = " FROM [course], [course_categories], [question_answers], [quiz],[quiz_grades], [user],[quiz_slots], [question], [user_enrolments], [enrol], [question_attempt_steps], [question_categories], [role], [role_assignments], [user_info_data], [user_info_field], [course_completions], [quiz_attempts] ";
+            string from = " FROM ";
+
+            string where = " WHERE ([course].[categoryId] = [course_categories].[categoryId]) AND ([question].[questionId] = [question_answers].[questionId]) AND ([course].[courseId] = [quiz].[courseId]) AND ([quiz].[quizId] = [quiz_grades].[quizId]) AND ([quiz_grades].[userId] = [user].[userId]) AND ([quiz].[quizId] = [quiz_slots].[quizId]) AND ([quiz_slots].[questionId] = [question].[questionId]) AND ([user].[userId] = [user_enrolments].[userId]) AND ([enrol].[courseId]=[course].[courseId]) AND ([question_attempt_steps].[userId]=[user].[userId]) AND ([question_categories].[question_categoriesId]=[question].[categoryId]) AND ([quiz].[quizId]=[quiz_attempts].[quizId]) AND ([user].[userId]=[quiz_attempts].[userId]) AND ([role].[roleId]=[role_assignments].[roleId]) AND ([user].[userId]= [role_assignments].[userId]) AND ([user_info_field].[user_info_fieldId] = [user_info_data].[user_info_fieldId]) AND ([user].[userId] = [user_info_data].[userId]) AND ([course].[courseId]=[course_completions].[courseId])";
+
+            var pattern = @"\((.*?)\)";
+            var conditions = Regex.Matches(where, pattern);
+            string[] tables = breakUpSelect(part1);
+
+            foreach(var table in tables)
             {
-                return part1 + relationships + " AND (" + addedFilters + ")" + part2;
+                from += table + ", ";
             }
-            else
+
+            from = from.Substring(0,from.Length-2) + " ";
+
+            bool first = true;
+            where = "";
+            foreach(var condition in conditions)
             {
-                return part1 + relationships + part2;
+                int numTablesInCondition = 0;
+                foreach(var table in tables)
+                {
+                    if(condition.ToString().Contains(table))
+                    {
+                        numTablesInCondition++;
+                    }
+                }
+                if(numTablesInCondition>1)
+                {
+                    if (first)
+                    {
+                        where = " WHERE " + condition;
+                        first = false;
+                    }
+                    else
+                    {
+                        where += " AND " + condition;
+                    }
+                }
             }
+
+            return part1 + from + where + part2;
+
+            //string tempPart1 = part1;
+            //string tempPart2 = part1;
+            //where = "";
+            //int startIndex = 0;
+            //bool first = true;
+
+            //foreach (var condition in conditions)
+            //{
+            //    tempPart1 = part1;
+            //    while (tempPart1.Substring(startIndex).Contains("].["))
+            //    {
+            //        int endIndex = tempPart1.IndexOf("].[");
+            //        startIndex = tempPart1.IndexOf("[");
+
+            //        string selectTable = tempPart1.Substring(startIndex, (endIndex + 1) - startIndex);
+            //        tempPart1 = tempPart1.Substring(endIndex + 2);
+            //        tempPart2 = tempPart1;
+            //        if (condition.ToString().Contains(selectTable))
+            //        {
+            //            while (tempPart2.Substring(startIndex).Contains("].["))
+            //            {
+            //                endIndex = tempPart2.IndexOf("].[");
+            //                startIndex = tempPart2.IndexOf("[");
+
+            //                selectTable = tempPart2.Substring(startIndex, (endIndex + 1) - startIndex);
+            //                tempPart2 = tempPart2.Substring(endIndex + 2);
+            //                if (condition.ToString().Contains(selectTable))
+            //                {
+            //                    if (first)
+            //                    {
+            //                        where = " WHERE " + condition;
+            //                        first = false;
+            //                    }
+            //                    else
+            //                    {
+            //                        where += " AND " + condition;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+            //if (!where.Equals(""))
+            //{
+            //    if (!addedFilters.Equals(""))
+            //    {
+            //        return part1 + from + where + " AND (" + addedFilters + ")" + part2;
+            //    }
+            //    else
+            //    {
+            //        return part1 + from + where + part2;
+            //    }
+            //}
+            //else
+            //{
+            //    if (!addedFilters.Equals(""))
+            //    {
+            //        return part1 + from + " WHERE (" + addedFilters + ")" + part2;
+            //    }
+            //    else
+            //    {
+            //        return part1 + from + part2;
+            //    }
+            //}
 
         }
 
