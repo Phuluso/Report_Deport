@@ -44,8 +44,8 @@
 <h2 style="margin-top: 4%;"><span class="glyphicon glyphicon-user"></span> Users</h2>
 
 
+@if (Model.columns != null) { <p>Pending(@Model.columns.Count) </p>} else { <p>Pending(0)</p> }
 
-Pending(@Model.columns.Count)
 @using (Html.BeginForm("ManageUsers", "Home"))
 {
     <br>
@@ -81,7 +81,7 @@ Pending(@Model.columns.Count)
         </table>
     </div>
         <br>
-        <input type="submit" value="Continue" class="btn btn-default">
+        <input type="submit" value="Approve" class="btn btn-default">
 }
 
 
