@@ -67,6 +67,7 @@ namespace ReportDeport.Controllers
         {
             ViewBag.Message = "Browse help topics";
 
+            
             return View();
         }
 
@@ -119,7 +120,7 @@ namespace ReportDeport.Controllers
             if (!User.IsInRole("Admin"))
             {
                 unapprovedUsers.columns = new List<columnItem>();
-                return View("UserLogin");
+                return RedirectToAction("Login", "Account");
             }
 
             return View(unapprovedUsers);

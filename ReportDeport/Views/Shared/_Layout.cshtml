@@ -26,17 +26,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "UserLogin", "Home")</li>
                     @if (!User.Identity.Name.Equals(""))
                     {
-                        <li>@Html.ActionLink("Home", "UserLogin", "Home")</li>
                         <li>@Html.ActionLink("Manage Reports", "Index", "DotNetReport")</li>
                         if (User.IsInRole("Admin"))
                         {
                             <li>@Html.ActionLink("Manage Users", "ManageUsers", "Home")</li>
                         }
                         <li>@Html.ActionLink("Contact Us", "Create", "ContactForms")</li>
-                        <li>@Html.ActionLink("Help", "About", "Home")</li>
                     }
+                    <li>@Html.ActionLink("Help", "About", "Home")</li>
+
 
                 </ul>
                 @Html.Partial("_LoginPartial")

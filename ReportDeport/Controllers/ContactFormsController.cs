@@ -37,6 +37,13 @@ namespace ReportDeport.Controllers
         public ActionResult Create([Bind(Include = "name,emailAddress,date,position,department,message,subject,AspUserId,Company")] contactForm contact)
 
         {
+
+            if (User.Identity.Name.Equals(""))
+            {
+                AccountController.PrevView = "DotNetReportIndex";
+                return RedirectToAction("Login", "Account");
+            }
+
             try
             {
                 // TODO: Add insert logic here

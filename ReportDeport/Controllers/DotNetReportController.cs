@@ -347,7 +347,7 @@ namespace ReportDeport.Controllers
                 }
             }
 
-            if (tables.Contains("[user]"))
+            if (tables.Contains("[user]") && !User.IsInRole("Admin"))
             {
                 if (!company.Equals(""))
                 {
