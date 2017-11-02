@@ -337,6 +337,45 @@ namespace ReportDeport.Controllers
                 }
             }
 
+            string company = "";
+
+            foreach (var item in db.AspNetUsers)
+            {
+                if (item.Email == User.Identity.Name)
+                {
+                    company = item.company;
+                }
+            }
+
+            if (tables.Contains("[user]"))
+            {
+                if (!company.Equals(""))
+                {
+                    if (first)
+                    {
+                        where = " WHERE ([user].[company] LIKE '" + company.Trim() + "%')";
+                        first = false;
+                    }
+                    else
+                    {
+                        where += " AND ([user].[company] LIKE '" + company.Trim() + "%')";
+                    }
+                }
+            }
+
+            if (!addedFilters.Equals(""))
+            {
+                if (first)
+                {
+                    where = " WHERE (" + addedFilters + ")";
+                    first = false;
+                }
+                else
+                {
+                    where += " AND (" + addedFilters + ")";
+                }
+            }
+
             return part1 + from + where + part2;
 
         }

@@ -119,6 +119,7 @@ namespace ReportDeport.Controllers
             if (!User.IsInRole("Admin"))
             {
                 unapprovedUsers.columns = new List<columnItem>();
+                return View("UserLogin");
             }
 
             return View(unapprovedUsers);

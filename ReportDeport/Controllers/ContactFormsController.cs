@@ -72,7 +72,7 @@ namespace ReportDeport.Controllers
                     smtp.Timeout = 20000;
                 }
                 // Passing values to smtp object
-                smtp.Send(toAddress, "ngwphu001@myuct.ac.za", "Report deport - Website contact", body);
+                smtp.Send(toAddress, "rickysconn@hotmail.com", "Report deport - Website contact", body);
                 //return RedirectToAction("Create");
                 return View();
             }
