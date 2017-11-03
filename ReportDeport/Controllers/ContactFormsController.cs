@@ -38,7 +38,7 @@ namespace ReportDeport.Controllers
 
         {
 
-            if (User.Identity.Name.Equals("")) //if no user is logged in
+            if (User.Identity.Name.Equals("")) //to avoid spam contact hidden if no user logged in
             {
                 AccountController.PrevView = "DotNetReportIndex";
                 return RedirectToAction("Login", "Account");//redirect to login screen
@@ -47,6 +47,7 @@ namespace ReportDeport.Controllers
             try
             {
                 // TODO: Add insert logic here
+                // to add redundancy in client contact messages, email sent and message info added to database
                 contact.date = DateTime.Now; // date and time email sent
                 contact.aspUserId = User.Identity.GetUserId();
                 db.contactForms.Add(contact); //add the contact message to the database
