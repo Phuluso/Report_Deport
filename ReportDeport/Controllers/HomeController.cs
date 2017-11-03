@@ -102,12 +102,12 @@ namespace ReportDeport.Controllers
 
         public ActionResult ManageUsers()
         {
-            columnItemList unapprovedUsers = new columnItemList();
+            columnItemList unapprovedUsers = new columnItemList(); //create item list for all unapproved users to be added to
             unapprovedUsers.columns = new List<columnItem>();
 
             foreach (var i in db.AspNetUsers)
             {
-                if (!String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0"))
+                if (!String.IsNullOrEmpty(i.PhoneNumber) && i.PhoneNumber.Equals("0")) //if the phone number equals 0 add the aspnet user to the unapproved users list
                 {
                     columnItem temp = new columnItem();
                     temp.ColumnName = i.UserName;
@@ -117,13 +117,13 @@ namespace ReportDeport.Controllers
                 }
             }
 
-            if (!User.IsInRole("Admin"))
+            if (!User.IsInRole("Admin")) // if someone tries to access the manage users view and they do not belong to the Admin role, they will be redirected to the login page
             {
                 unapprovedUsers.columns = new List<columnItem>();
                 return RedirectToAction("Login", "Account");
             }
 
-            return View(unapprovedUsers);
+            return View(unapprovedUsers); //otherwise, if they are an Admin then they will see all pending users
         }
 
         [HttpPost]
@@ -142,15 +142,15 @@ namespace ReportDeport.Controllers
             columnItemList unapprovedUsers = new columnItemList();
             unapprovedUsers.columns = new List<columnItem>();
 
-            foreach (var item in colList.columns)
+            foreach (var item in colList.columns)//iterate through all users
             {
-                if (item.IsChecked)
+                if (item.IsChecked)//if the pending user's checkbox is ticked
                 {
                     foreach (var user in db.AspNetUsers)
                     {
-                        if (user.Email.Equals(item.ColumnName))
+                        if (user.Email.Equals(item.ColumnName)) //find the aspnet user with the same email address as the checked box
                         {
-                            user.PhoneNumber = null;
+                            user.PhoneNumber = null;//approve the user
 
                             // Gmail Address from where you send the mail
                             var fromAddress = user.Email.ToString();
@@ -177,7 +177,7 @@ namespace ReportDeport.Controllers
                             }
                             // Passing values to smtp object
                             smtp.Send("reportdepot@hubbleStudios.co.za", user.Email.ToString(), "Report deport - Account status", body);
-                            //return RedirectToAction("Create");
+                            
 
                             break;
                         }
@@ -187,7 +187,7 @@ namespace ReportDeport.Controllers
                 else
                 {
                     item.IsChecked = false;
-                    unapprovedUsers.columns.Add(item);
+                    unapprovedUsers.columns.Add(item); //unchecked pending users must remain on display so they are added to the unapproved users list for the page reload
                 }
             }
             db.SaveChanges();
@@ -201,7 +201,7 @@ namespace ReportDeport.Controllers
 
             if (!User.IsInRole("Admin"))
             {
-                unapprovedUsers.columns = new List<columnItem>();
+                unapprovedUsers.columns = new List<columnItem>(); //
             }
 
             return View(unapprovedUsers);

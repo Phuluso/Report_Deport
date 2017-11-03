@@ -28,30 +28,30 @@ namespace ReportDeport.Controllers
         {
             bool found = false;
 
-            foreach(var item in db.UserId_Int)
+            foreach(var item in db.UserId_Int)//when the user requests the Index page look through all the user IDs
             {
-                if(item.AspNetUserId == User.Identity.GetUserId())
+                if(item.AspNetUserId == User.Identity.GetUserId()) //find the user id in the databade that matches the logged in user id
                 {
                     found = true;
-                    ViewBag.uId = item.IdInt;
+                    ViewBag.uId = item.IdInt; // add the user id to the viewbag so that access to reports and folders can be restricted to the current user
                     break;
                 }
             }
 
-            if (!found && !User.Identity.Name.Equals(""))
+            if (!found && !User.Identity.Name.Equals("")) // if there is no user id found for the user
             {
                 Random rand = new Random();
                 UserId_Int uInt = new UserId_Int();
-                int r = rand.Next(100000000, 1000000000);
+                int r = rand.Next(100000000, 1000000000); // program will generate a 9 digit random id
                 uInt.IdInt = r;
                 ViewBag.uId = r;
                 uInt.UserId = 1;
-                uInt.AspNetUserId = User.Identity.GetUserId();
+                uInt.AspNetUserId = User.Identity.GetUserId(); //and connect it to a user so that reports and folders are hiden from other users
                 db.UserId_Int.Add(uInt);
                 db.SaveChanges();
 
             }
-            else if (User.Identity.Name.Equals("") && !found)
+            else if (User.Identity.Name.Equals("") && !found)//if no user is logged in redirect user to the login view
             {
                 AccountController.PrevView = "DotNetReportIndex";
                 return RedirectToAction("Login", "Account");
@@ -64,7 +64,7 @@ namespace ReportDeport.Controllers
             bool aggregateReport, bool showDataWithGraph, string reportSql, string connectKey, string reportFilter, string reportType, int selectedFolder)
         {
             bool found = false;
-            foreach (var item in db.UserId_Int)
+            foreach (var item in db.UserId_Int)//populate the user id viewbag
             {
                 if (item.AspNetUserId == User.Identity.GetUserId())
                 {
@@ -126,95 +126,21 @@ namespace ReportDeport.Controllers
         }
 
 
-        //public string removeIdWheres(string unprocessed)
-        //{
-
-        //    string processed = "";
-        //    string temp = unprocessed;
-
-        //    if(unprocessed.Contains("AND ("))
-        //    {
-        //        int startPos = unprocessed.IndexOf("AND (");
-        //        int endPos = 0;
-        //        while (endPos < startPos)
-        //        {
-        //            endPos += temp.IndexOf(")\n\nORDER") + 1;
-        //            temp = temp.Substring(unprocessed.IndexOf(")") + 1);
-        //        }
-        //        processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos);
-        //    }else
-        //    {
-        //        int startPos = unprocessed.IndexOf("WHERE");
-        //        int endPos = unprocessed.IndexOf("ORDER");
-        //        processed = unprocessed.Substring(0, startPos) + unprocessed.Substring(endPos);
-        //    }
 
 
-        //    if (String.IsNullOrEmpty(processed))
-        //    {
-        //        return unprocessed;
-        //    }
-        //    else
-        //    {
-        //        return processed;
-        //    }
-        //}
-
-
-        //public string adaptSQL(string sql)
-        //{
-
-        //    int posF = sql.IndexOf("FROM");
-        //    int posBackslash = sql.Length;
-        //    if (sql.Contains("\nORDER BY"))
-        //    {
-        //        posBackslash = sql.IndexOf("\nORDER BY");
-        //    }
-
-        //    string part1 = sql.Substring(0, posF);
-        //    string part2 = sql.Substring(posBackslash, sql.Length - posBackslash);
-        //    string addedFilters = "";
-
-        //    if (sql.Contains("WHERE"))
-        //    {
-        //        int start = sql.IndexOf("WHERE") + 5;
-        //        int extraCharacters = sql.Substring(start, sql.Length - start).IndexOf("\n\n");
-        //        addedFilters = sql.Substring(start, extraCharacters);
-        //    }
-
-        //    string relationships = "FROM [course], [course_categories], [question_answers], [quiz],[quiz_grades], [user],[quiz_slots], [question], [user_enrolments], [enrol], [question_attempt_steps], [question_categories], [role], [role_assignments], [user_info_data], [user_info_field], [course_completions], [quiz_attempts] WHERE ([course].[categoryId] = [course_categories].[categoryId]) AND ([question].[questionId] = [question_answers].[questionId]) AND ([course].[courseId] = [quiz].[courseId]) AND ([quiz].[quizId] = [quiz_grades].[quizId]) AND ([quiz_grades].[userId] = [user].[userId]) AND ([quiz].[quizId] = [quiz_slots].[quizId]) AND ([quiz_slots].[questionId] = [question].[questionId]) AND ([user].[userId] = [user_enrolments].[userId]) AND ([enrol].[courseId]=[course].[courseId]) AND ([question_attempt_steps].[userId]=[user].[userId]) AND ([question_categories].[question_categoriesId]=[question].[categoryId]) AND ([quiz].[quizId]=[quiz_attempts].[quizId]) AND ([user].[userId]=[quiz_attempts].[userId]) AND ([role].[roleId]=[role_assignments].[roleId]) AND ([user].[userId]= [role_assignments].[userId]) AND ([user_info_field].[user_info_fieldId] = [user_info_data].[user_info_fieldId]) AND ([user].[userId] = [user_info_data].[userId]) AND ([course].[courseId]=[course_completions].[courseId])";
-        //    if (!addedFilters.Equals(""))
-        //    {
-        //        return part1 + relationships + " AND (" + addedFilters + ")" + part2;
-        //    }
-        //    else
-        //    {
-        //        return part1 + relationships + part2;
-        //    }
-
-        //}
-
-        public int lastIndexOf(string select, int cutoff)
+        public int lastIndexOf(string select, int cutoff)//finds the last index of the [ before the cutoff index
         {
-            string firstPart = "";
             int index = 0;
-
-            //while(select.Substring(index).IndexOf("[")+firstPart.Length < cutoff)
-            //{
-            //    index = select.Substring(index).IndexOf("[");
-            //    firstPart += select.Substring(0, index);
-            //    select = select.Substring(index);
-            //}
 
             ArrayList foundIndexes = new ArrayList();
 
-            for (int i = select.IndexOf('['); i > -1; i = select.IndexOf('[', i + 1))
+            for (int i = select.IndexOf('['); i > -1; i = select.IndexOf('[', i + 1)) // iterate through the the select string and find the positions of all [
             {
                 // for loop end when i=-1 ('a' not found)
                 foundIndexes.Add(i);
-                if((i>cutoff)||(i==-1))
+                if((i>cutoff)||(i==-1)) //
                 {
-                    index = (int)foundIndexes[(foundIndexes.Count - 2)];
+                    index = (int)foundIndexes[(foundIndexes.Count - 2)]; // last index to return
                     break;
                 }
             }
@@ -230,17 +156,17 @@ namespace ReportDeport.Controllers
 
             int startIndex = select.IndexOf("[");
 
-            while (select.Substring(startIndex).Contains("].["))
+            while (select.Substring(startIndex).Contains("].[")) //while theres still a ].[ in the select statement
             {
-                int endIndex = select.IndexOf("].[");
-                startIndex = lastIndexOf(select, endIndex);
+                int endIndex = select.IndexOf("].["); //make the end index the next ].[
+                startIndex = lastIndexOf(select, endIndex); //find the [ before the ].[ in the select statement
 
-                string selectTable = select.Substring(startIndex, (endIndex + 1) - startIndex);
+                string selectTable = select.Substring(startIndex, (endIndex + 1) - startIndex); //get the selected table
                 select = select.Substring(endIndex + 2);
 
                 if (!temp.Contains(selectTable))
                 {
-                    temp.Add(selectTable);
+                    temp.Add(selectTable); // add the table to a list of selected tables
                 }
 
                 if (startIndex>select.Length)

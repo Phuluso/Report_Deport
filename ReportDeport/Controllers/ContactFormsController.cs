@@ -38,10 +38,10 @@ namespace ReportDeport.Controllers
 
         {
 
-            if (User.Identity.Name.Equals(""))
+            if (User.Identity.Name.Equals("")) //if no user is logged in
             {
                 AccountController.PrevView = "DotNetReportIndex";
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account");//redirect to login screen
             }
 
             try
@@ -49,7 +49,7 @@ namespace ReportDeport.Controllers
                 // TODO: Add insert logic here
                 contact.date = DateTime.Now; // date and time email sent
                 contact.aspUserId = User.Identity.GetUserId();
-                db.contactForms.Add(contact);
+                db.contactForms.Add(contact); //add the contact message to the database
                 db.SaveChanges();
                 
 
